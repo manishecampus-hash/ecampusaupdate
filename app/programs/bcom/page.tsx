@@ -6,6 +6,8 @@ import BComEligibilityFees from "@/components/programs/bcom/bcom-eligibility-fee
 import BComFAQ from "@/components/programs/bcom/bcom-faq";
 import BComHero from "@/components/programs/bcom/bcom-hero";
 import BComOverview from "@/components/programs/bcom/bcom-overview";
+import ReadMore from "@/components/programs/bcom/read-more";
+import TestimonialsSection from "@/components/programs/bcom/testimonials-section";
 import UniversitySection from "@/components/programs/bcom/university-section";
 import { Header } from "@/components/ui/header-3";
 
@@ -17,9 +19,11 @@ export default function BComPage() {
         <BComHero />
         <BComOverview />
         <UniversitySection />
+        <ReadMore />
         <BComCurriculum />
         <BComEligibilityFees />
         <BComCareers />
+        <TestimonialsSection />
         <BComFAQ />
         <BComCTA />
       </main>

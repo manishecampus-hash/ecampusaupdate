@@ -594,7 +594,7 @@ export function Header() {
             : "-translate-y-3 opacity-0 pointer-events-none"
         }`}
       >
-        <header className="relative mx-auto max-w-6xl rounded-full border border-gray-200 bg-white/90 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-md">
+        <header className="relative mx-auto max-w-7xl rounded-full border border-gray-200 bg-white/90 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-md">
           <nav className="h-16 px-6 flex items-center justify-between">
             <NavContent {...navProps} floating />
           </nav>

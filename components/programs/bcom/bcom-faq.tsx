@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
@@ -9,36 +12,129 @@ const faqs = [
   {
     question: "Who can apply for this program?",
     answer:
-      "Students who have completed 10+2 or equivalent qualification from a recognized board can apply.",
+      "Students who have completed 10+2 or equivalent qualification from a recognized board can apply for an online B.Com program.",
   },
   {
     question: "Can working professionals pursue this course?",
     answer:
-      "Yes, the online format is flexible and suitable for students, freshers, and working professionals.",
+      "Yes, the online format is flexible and suitable for students, freshers, entrepreneurs, and working professionals who want to study without leaving their current routine.",
+  },
+  {
+    question: "What is the duration of an online B.Com program?",
+    answer:
+      "Most online B.Com programs are completed in 3 years, divided into 6 semesters. Some universities may provide extended duration as per their academic policy.",
+  },
+  {
+    question: "What subjects are covered in online B.Com?",
+    answer:
+      "The program usually covers financial accounting, business law, economics, taxation, auditing, corporate accounting, cost accounting, management, and banking-related subjects.",
+  },
+  {
+    question: "What career options are available after online B.Com?",
+    answer:
+      "Graduates can explore roles in accounting, finance, banking, taxation, auditing, business operations, insurance, and corporate administration.",
+  },
+  {
+    question: "Can I pursue CA, CS, CMA, or MBA after online B.Com?",
+    answer:
+      "Yes, after completing a valid online B.Com degree, learners can pursue higher education and professional programs such as MBA, CA, CS, CMA, M.Com, or other eligible postgraduate courses.",
+  },
+  {
+    question: "Are online exams conducted for this program?",
+    answer:
+      "Many universities conduct online proctored examinations, while some may follow hybrid or center-based exam models. The exact exam format depends on the university.",
   },
 ];
 
-export default function BComFAQ() {
-  return (
-    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-      <div className="mb-8 text-center">
-        <h2 className="text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
-          Frequently Asked <span className="text-red-500">Questions</span>
-        </h2>
-      </div>
+function TypeAnswer({ text, active }: { text: string; active: boolean }) {
+  const [displayedText, setDisplayedText] = useState("");
 
-      <div className="mx-auto max-w-3xl space-y-4">
-        {faqs.map((faq) => (
-          <div
-            key={faq.question}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-          >
-            <h3 className="font-black text-gray-900">{faq.question}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              {faq.answer}
-            </p>
-          </div>
-        ))}
+  useEffect(() => {
+    if (!active) {
+      setDisplayedText("");
+      return;
+    }
+
+    setDisplayedText("");
+    let index = 0;
+
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        setDisplayedText((prev) => prev + text.charAt(index));
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 12);
+
+    return () => clearInterval(interval);
+  }, [text, active]);
+
+  if (!active) return null;
+
+  return (
+    <p className="mt-3 text-[13px] leading-6 text-slate-600">
+      {displayedText}
+      {displayedText.length < text.length && (
+        <span className="ml-0.5 inline-block h-4 w-1 animate-pulse rounded-full bg-red-500 align-middle" />
+      )}
+    </p>
+  );
+}
+
+export default function BComFAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <section className="w-full bg-white px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-5 text-center">
+          <h2 className="text-lg font-extrabold text-slate-950 sm:text-xl">
+            Genuine B.Com <span className="text-red-500">FAQs</span>
+          </h2>
+
+          <p className="mx-auto mt-2 max-w-2xl text-[13px] leading-6 text-slate-600">
+            Clear answers about online B.Com validity, eligibility, subjects,
+            exams, duration, and career options.
+          </p>
+        </div>
+
+        <div className="mx-auto max-w-4xl space-y-4">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+
+            return (
+              <div
+                key={faq.question}
+                className={`rounded-2xl border bg-white p-5 shadow-[0_6px_18px_rgba(15,23,42,0.14)] transition-all duration-200 ${
+                  isOpen
+                    ? "border-red-200"
+                    : "border-slate-200 hover:border-red-200"
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  className="flex w-full items-center justify-between gap-4 text-left"
+                >
+                  <h3 className="text-sm font-extrabold leading-5 text-slate-950">
+                    {faq.question}
+                  </h3>
+
+                  <span
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-500 transition-transform duration-200 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  >
+                    <ChevronDown className="h-4 w-4" strokeWidth={2.2} />
+                  </span>
+                </button>
+
+                <TypeAnswer text={faq.answer} active={isOpen} />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

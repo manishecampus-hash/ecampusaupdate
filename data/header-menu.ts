@@ -58,13 +58,39 @@ export const categories = [
     courses: [
       {
         tag: "Doctorate",
-        name: "Doctor of Business Administration – General",
+        name: "Birchwood University",
         duration: "3 Years",
+        image: "/doctorate/birchwood-logo.webp",
       },
       {
         tag: "Doctorate",
-        name: "DBA – Leadership & Strategy",
+        name: "EIMT",
         duration: "3 Years",
+        image: "/doctorate/eimt_logo.webp",
+      },
+      {
+        tag: "Doctorate",
+        name: "Swiss School of Business and Management",
+        duration: "3 Years",
+        image: "/doctorate/Logo 56x56_SSBM.svg",
+      },
+      {
+        tag: "Doctorate",
+        name: "Ecole de Commerce International (ESGCI)",
+        duration: "3 Years",
+        image: "/doctorate/ESGCI.svg",
+      },
+      {
+        tag: "Doctorate",
+        name: "Rushford Business School",
+        duration: "3 Years",
+        image: "/doctorate/Rushford.svg",
+      },
+      {
+        tag: "Doctorate",
+        name: "Edgewood",
+        duration: "3 Years",
+        image: "/doctorate/EdgewoodUnisvgFINAL.svg",
       },
     ],
   },
