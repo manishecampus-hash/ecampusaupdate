@@ -207,7 +207,9 @@ function CompanyDropdown({ open, onClose }) {
               >
                 <item.Icon
                   size={14}
-                  className={`${item.iconColor || "text-red-500"} flex-shrink-0`}
+                  className={`${
+                    item.iconColor || "text-red-500"
+                  } flex-shrink-0`}
                   fill="currentColor"
                   strokeWidth={1.8}
                 />
@@ -351,7 +353,9 @@ function MobileMenu({ open, onClose, floating }) {
               >
                 <item.Icon
                   size={14}
-                  className={`${item.iconColor || "text-red-500"} flex-shrink-0`}
+                  className={`${
+                    item.iconColor || "text-red-500"
+                  } flex-shrink-0`}
                   fill="currentColor"
                   strokeWidth={1.8}
                 />
@@ -497,7 +501,8 @@ export function Header() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [floating, setFloating] = useState(false);
-  const headerRef = useRef(null);
+  const normalHeaderRef = useRef(null);
+  const floatingHeaderRef = useRef(null);
 
   const pathname = usePathname();
 
@@ -509,14 +514,16 @@ export function Header() {
 
   useEffect(() => {
     function handleClick(e) {
-      if (headerRef.current && !headerRef.current.contains(e.target)) {
+      const activeRef = floating ? floatingHeaderRef : normalHeaderRef;
+
+      if (activeRef.current && !activeRef.current.contains(e.target)) {
         setActiveMenu(null);
       }
     }
 
     document.addEventListener("click", handleClick);
     return () => document.removeEventListener("click", handleClick);
-  }, []);
+  }, [floating]);
 
   useEffect(() => {
     function onScroll() {
@@ -578,16 +585,30 @@ export function Header() {
 
       {/* Normal header: scrolls away with page */}
       <div className="absolute left-0 right-0 top-0 z-40 px-4">
-        <header className="relative mx-auto max-w-7xl bg-transparent shadow-none">
+        <header
+          ref={normalHeaderRef}
+          className="relative mx-auto max-w-7xl bg-transparent shadow-none"
+        >
           <nav className="h-24 px-0 flex items-center justify-between">
             <NavContent {...navProps} floating={false} />
           </nav>
+
+          <div className="hidden md:block">
+            <ProgramDropdown
+              open={!floating && activeMenu === "program"}
+              onClose={closeAll}
+            />
+            <CompanyDropdown
+              open={!floating && activeMenu === "company"}
+              onClose={closeAll}
+            />
+          </div>
         </header>
       </div>
 
       {/* Floating header: separate clone, appears after scroll */}
       <div
-        ref={headerRef}
+        ref={floatingHeaderRef}
         className={`fixed left-0 right-0 top-4 z-50 px-4 transition-all duration-300 ease-out ${
           floating
             ? "translate-y-0 opacity-100 pointer-events-auto"
@@ -601,11 +622,11 @@ export function Header() {
 
           <div className="hidden md:block">
             <ProgramDropdown
-              open={activeMenu === "program"}
+              open={floating && activeMenu === "program"}
               onClose={closeAll}
             />
             <CompanyDropdown
-              open={activeMenu === "company"}
+              open={floating && activeMenu === "company"}
               onClose={closeAll}
             />
           </div>
@@ -613,24 +634,6 @@ export function Header() {
 
         <MobileMenu open={mobileOpen} onClose={closeAll} floating={floating} />
       </div>
-
-      {/* Dropdowns for normal top header */}
-      {!floating && (
-        <div className="absolute left-0 right-0 top-0 z-40 px-4">
-          <div className="relative mx-auto max-w-7xl">
-            <div className="hidden md:block">
-              <ProgramDropdown
-                open={activeMenu === "program"}
-                onClose={closeAll}
-              />
-              <CompanyDropdown
-                open={activeMenu === "company"}
-                onClose={closeAll}
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }
