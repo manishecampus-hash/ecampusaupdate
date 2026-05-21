@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  BadgeCheck,
+  FileBadge,
   BookOpenCheck,
   BriefcaseBusiness,
   Building2,
@@ -21,7 +21,7 @@ export const categories = [
   {
     id: "iim",
     label: "IIM Certification Courses",
-    Icon: BadgeCheck,
+    Icon: FileBadge,
     iconBg: "bg-red-50",
     iconBorder: "border-red-100",
     iconColor: "text-red-500",

@@ -79,7 +79,7 @@ function CourseCard({ tag, name, duration, href = "#", image, onNavigate }) {
 
 function ProgramDropdown({ open, onClose }) {
   const [activeCat, setActiveCat] = useState(categories[0].id);
-  const active = categories.find((c) => c.id === activeCat);
+  const active = categories.find((c) => c.id === activeCat) || categories[0];
 
   if (!open) return null;
 
@@ -174,10 +174,14 @@ function CompanyDropdown({ open, onClose }) {
                 onClick={onClose}
                 className="flex items-center gap-3 p-2 rounded-2xl hover:bg-white transition-colors"
               >
-                <div className="w-10 h-10 bg-red-100 border border-red-200 shadow-sm rounded-full flex items-center justify-center flex-shrink-0">
+                <div
+                  className={`w-10 h-10 ${
+                    item.iconBg || "bg-red-100"
+                  } ${item.iconBorder || "border-red-200"} border shadow-sm rounded-full flex items-center justify-center flex-shrink-0`}
+                >
                   <item.Icon
                     size={17}
-                    className="text-red-500"
+                    className={item.iconColor || "text-red-500"}
                     fill="currentColor"
                     strokeWidth={1.8}
                   />
@@ -203,7 +207,7 @@ function CompanyDropdown({ open, onClose }) {
               >
                 <item.Icon
                   size={14}
-                  className="text-red-500 flex-shrink-0"
+                  className={`${item.iconColor || "text-red-500"} flex-shrink-0`}
                   fill="currentColor"
                   strokeWidth={1.8}
                 />
@@ -219,82 +223,90 @@ function CompanyDropdown({ open, onClose }) {
   );
 }
 
-function MobileMenu({ open, onClose }) {
+function MobileMenu({ open, onClose, floating }) {
   const [expanded, setExpanded] = useState(null);
   const [companyExpanded, setCompanyExpanded] = useState(false);
 
   if (!open) return null;
 
   return (
-    <div className="fixed left-4 right-4 top-[84px] bg-white/95 backdrop-blur-lg z-40 overflow-y-auto max-h-[80vh] rounded-3xl shadow-2xl border border-gray-200 pb-4 md:hidden">
+    <div
+      className={`fixed left-4 right-4 bg-white/95 backdrop-blur-lg z-40 overflow-y-auto max-h-[80vh] rounded-3xl shadow-2xl border border-gray-200 pb-4 md:hidden ${
+        floating ? "top-[84px]" : "top-[96px]"
+      }`}
+    >
       <div className="px-4 pt-4 space-y-1">
         <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 px-2 mb-3">
           Programs
         </p>
 
-        {categories.map(({ id, label, Icon, courses }) => {
-          const isOpen = expanded === id;
+        {categories.map(
+          ({ id, label, Icon, iconBg, iconBorder, iconColor, courses }) => {
+            const isOpen = expanded === id;
 
-          return (
-            <div key={id}>
-              <button
-                onClick={() => setExpanded(isOpen ? null : id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-full text-sm transition-colors ${
-                  isOpen ? "bg-red-50" : "hover:bg-gray-50"
-                }`}
-              >
-                <GrayIcon
-                  Icon={Icon}
-                  size={15}
-                  boxClass={`w-9 h-9 rounded-full ${
-                    isOpen ? "bg-red-200" : "bg-red-100"
-                  }`}
-                />
-
-                <span
-                  className={`font-medium flex-1 text-left ${
-                    isOpen ? "text-red-600" : "text-gray-800"
+            return (
+              <div key={id}>
+                <button
+                  onClick={() => setExpanded(isOpen ? null : id)}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-full text-sm transition-colors ${
+                    isOpen ? "bg-red-50" : "hover:bg-gray-50"
                   }`}
                 >
-                  {label}
-                </span>
+                  <GrayIcon
+                    Icon={Icon}
+                    size={15}
+                    active={isOpen}
+                    boxClass="w-9 h-9 rounded-full"
+                    iconBg={iconBg}
+                    iconBorder={iconBorder}
+                    iconColor={iconColor}
+                  />
 
-                <ChevronDown
-                  size={15}
-                  className={`flex-shrink-0 transition-transform duration-200 ${
-                    isOpen ? "rotate-180 text-red-400" : "text-red-300"
-                  }`}
-                />
-              </button>
+                  <span
+                    className={`font-medium flex-1 text-left ${
+                      isOpen ? "text-red-600" : "text-gray-800"
+                    }`}
+                  >
+                    {label}
+                  </span>
 
-              {isOpen && (
-                <div className="ml-12 mt-1.5 space-y-2 pb-2">
-                  {courses.map((c, i) => (
-                    <Link
-                      key={i}
-                      href={c.href || "#"}
-                      onClick={onClose}
-                      className="block px-3 py-2.5 rounded-2xl border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-all"
-                    >
-                      <p className="text-[10px] font-semibold uppercase tracking-widest mb-0.5 text-red-500">
-                        {c.tag}
-                      </p>
+                  <ChevronDown
+                    size={15}
+                    className={`flex-shrink-0 transition-transform duration-200 ${
+                      isOpen ? "rotate-180 text-red-400" : "text-red-300"
+                    }`}
+                  />
+                </button>
 
-                      <p className="text-sm font-medium text-gray-800 leading-snug">
-                        {c.name}
-                      </p>
+                {isOpen && (
+                  <div className="ml-12 mt-1.5 space-y-2 pb-2">
+                    {courses.map((c, i) => (
+                      <Link
+                        key={i}
+                        href={c.href || "#"}
+                        onClick={onClose}
+                        className="block px-3 py-2.5 rounded-2xl border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-all"
+                      >
+                        <p className="text-[10px] font-semibold uppercase tracking-widest mb-0.5 text-red-500">
+                          {c.tag}
+                        </p>
 
-                      <span className="flex items-center gap-1 text-[11px] text-gray-500 mt-1">
-                        <Clock size={10} fill="currentColor" />
-                        {c.duration}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        })}
+                        <p className="text-sm font-medium text-gray-800 leading-snug">
+                          {c.name}
+                        </p>
+
+                        <span className="flex items-center gap-1 text-[11px] text-gray-500 mt-1">
+                          <Clock size={10} fill="currentColor" />
+                          {c.duration}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          },
+        )}
 
         <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 px-2 pt-4 mb-2">
           Company
@@ -309,9 +321,11 @@ function MobileMenu({ open, onClose }) {
           <GrayIcon
             Icon={Users}
             size={15}
-            boxClass={`w-9 h-9 rounded-full ${
-              companyExpanded ? "bg-red-200" : "bg-red-100"
-            }`}
+            active={companyExpanded}
+            boxClass="w-9 h-9 rounded-full"
+            iconBg="bg-sky-50"
+            iconBorder="border-sky-100"
+            iconColor="text-sky-500"
           />
 
           <span className="font-medium flex-1 text-left text-gray-800">
@@ -337,7 +351,7 @@ function MobileMenu({ open, onClose }) {
               >
                 <item.Icon
                   size={14}
-                  className="text-red-500 flex-shrink-0"
+                  className={`${item.iconColor || "text-red-500"} flex-shrink-0`}
                   fill="currentColor"
                   strokeWidth={1.8}
                 />
@@ -375,10 +389,114 @@ function MobileMenu({ open, onClose }) {
   );
 }
 
+function NavContent({
+  activeMenu,
+  toggle,
+  closeAll,
+  mobileOpen,
+  setMobileOpen,
+  setActiveMenu,
+  floating,
+}) {
+  return (
+    <>
+      <Link
+        href="/"
+        onClick={closeAll}
+        className="flex items-center gap-2 hover:opacity-80 select-none flex-shrink-0"
+      >
+        <img src="/logo.png" alt="eCampus" className="h-8 w-auto" />
+      </Link>
+
+      <div className="hidden md:flex items-center gap-1">
+        <button
+          onClick={(e) => toggle("program", e)}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            activeMenu === "program"
+              ? "bg-red-50 text-red-600"
+              : floating
+                ? "text-gray-700 hover:bg-gray-100"
+                : "text-gray-700 hover:bg-white/70"
+          }`}
+        >
+          Programs
+          <ChevronDown
+            size={14}
+            className={`transition-transform duration-200 ${
+              activeMenu === "program" ? "rotate-180" : ""
+            }`}
+          />
+        </button>
+
+        <button
+          onClick={(e) => toggle("company", e)}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            activeMenu === "company"
+              ? "bg-red-50 text-red-600"
+              : floating
+                ? "text-gray-700 hover:bg-gray-100"
+                : "text-gray-700 hover:bg-white/70"
+          }`}
+        >
+          Company
+          <ChevronDown
+            size={14}
+            className={`transition-transform duration-200 ${
+              activeMenu === "company" ? "rotate-180" : ""
+            }`}
+          />
+        </button>
+
+        <Link
+          href="/blog"
+          onClick={closeAll}
+          className={`px-4 py-2 rounded-full text-sm transition-colors font-medium ${
+            floating
+              ? "text-gray-700 hover:bg-gray-100"
+              : "text-gray-700 hover:bg-white/70"
+          }`}
+        >
+          Blog
+        </Link>
+      </div>
+
+      <div className="hidden md:flex items-center gap-2">
+        <a
+          href="tel:18001216201"
+          className="flex items-center gap-2 px-4 py-2 rounded-full border border-red-300 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
+        >
+          <Phone size={14} fill="currentColor" />
+          1800-121-6201
+        </a>
+
+        <button className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-full transition-colors shadow-sm shadow-red-200">
+          Enroll Now
+        </button>
+      </div>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setMobileOpen((m) => !m);
+          setActiveMenu(null);
+        }}
+        className={`md:hidden w-10 h-10 flex items-center justify-center rounded-full border text-gray-700 transition-colors ${
+          floating
+            ? "border-gray-200 hover:bg-gray-100"
+            : "border-transparent hover:bg-white/70"
+        }`}
+        aria-label="Toggle menu"
+      >
+        {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+      </button>
+    </>
+  );
+}
+
 export function Header() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [floating, setFloating] = useState(false);
   const headerRef = useRef(null);
 
   const pathname = usePathname();
@@ -402,7 +520,7 @@ export function Header() {
 
   useEffect(() => {
     function onScroll() {
-      setScrolled(window.scrollY > 10);
+      setFloating(window.scrollY > 160);
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -430,6 +548,15 @@ export function Header() {
     setMobileOpen(false);
   };
 
+  const navProps = {
+    activeMenu,
+    toggle,
+    closeAll,
+    mobileOpen,
+    setMobileOpen,
+    setActiveMenu,
+  };
+
   return (
     <>
       <style>{`
@@ -449,99 +576,27 @@ export function Header() {
         }
       `}</style>
 
-      <div className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
-        <header
-          ref={headerRef}
-          className={`
-            relative mx-auto max-w-6xl
-            bg-white/90 backdrop-blur-md
-            rounded-full border border-gray-200
-            transition-all duration-300
-            ${
-              scrolled
-                ? "shadow-[0_8px_32px_rgba(0,0,0,0.12)] border-gray-300"
-                : "shadow-[0_2px_16px_rgba(0,0,0,0.08)]"
-            }
-          `}
-        >
+      {/* Normal header: scrolls away with page */}
+      <div className="absolute left-0 right-0 top-0 z-40 px-4">
+        <header className="relative mx-auto max-w-7xl bg-transparent shadow-none">
+          <nav className="h-24 px-0 flex items-center justify-between">
+            <NavContent {...navProps} floating={false} />
+          </nav>
+        </header>
+      </div>
+
+      {/* Floating header: separate clone, appears after scroll */}
+      <div
+        ref={headerRef}
+        className={`fixed left-0 right-0 top-4 z-50 px-4 transition-all duration-300 ease-out ${
+          floating
+            ? "translate-y-0 opacity-100 pointer-events-auto"
+            : "-translate-y-3 opacity-0 pointer-events-none"
+        }`}
+      >
+        <header className="relative mx-auto max-w-6xl rounded-full border border-gray-200 bg-white/90 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-md">
           <nav className="h-16 px-6 flex items-center justify-between">
-            <Link
-              href="/"
-              onClick={closeAll}
-              className="flex items-center gap-2 hover:opacity-80 select-none flex-shrink-0"
-            >
-              <img src="/logo.png" alt="eCampus" className="h-8 w-auto" />
-            </Link>
-
-            <div className="hidden md:flex items-center gap-1">
-              <button
-                onClick={(e) => toggle("program", e)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeMenu === "program"
-                    ? "bg-red-50 text-red-600"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                Programs
-                <ChevronDown
-                  size={14}
-                  className={`transition-transform duration-200 ${
-                    activeMenu === "program" ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              <button
-                onClick={(e) => toggle("company", e)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeMenu === "company"
-                    ? "bg-red-50 text-red-600"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                Company
-                <ChevronDown
-                  size={14}
-                  className={`transition-transform duration-200 ${
-                    activeMenu === "company" ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              <Link
-                href="/blog"
-                onClick={closeAll}
-                className="px-4 py-2 rounded-full text-sm text-gray-700 hover:bg-gray-100 transition-colors font-medium"
-              >
-                Blog
-              </Link>
-            </div>
-
-            <div className="hidden md:flex items-center gap-2">
-              <a
-                href="tel:18001216201"
-                className="flex items-center gap-2 px-4 py-2 rounded-full border border-red-300 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
-              >
-                <Phone size={14} fill="currentColor" />
-                1800-121-6201
-              </a>
-
-              <button className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-full transition-colors shadow-sm shadow-red-200">
-                Enroll Now
-              </button>
-            </div>
-
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setMobileOpen((m) => !m);
-                setActiveMenu(null);
-              }}
-              className="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors"
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
+            <NavContent {...navProps} floating />
           </nav>
 
           <div className="hidden md:block">
@@ -556,8 +611,26 @@ export function Header() {
           </div>
         </header>
 
-        <MobileMenu open={mobileOpen} onClose={closeAll} />
+        <MobileMenu open={mobileOpen} onClose={closeAll} floating={floating} />
       </div>
+
+      {/* Dropdowns for normal top header */}
+      {!floating && (
+        <div className="absolute left-0 right-0 top-0 z-40 px-4">
+          <div className="relative mx-auto max-w-7xl">
+            <div className="hidden md:block">
+              <ProgramDropdown
+                open={activeMenu === "program"}
+                onClose={closeAll}
+              />
+              <CompanyDropdown
+                open={activeMenu === "company"}
+                onClose={closeAll}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
