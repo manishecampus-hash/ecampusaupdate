@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -12,46 +13,12 @@ import {
   X,
 } from "lucide-react";
 import { categories, companyLinks, companyLinks2 } from "@/data/header-menu";
-import Image from "next/image";
 
-function CustomCursor() {
-  const cursorRef = useRef(null);
-
-  useEffect(() => {
-    const el = cursorRef.current;
-    const onMove = (e) => {
-      el.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-    };
-    document.addEventListener("mousemove", onMove);
-    return () => document.removeEventListener("mousemove", onMove);
-  }, []);
-
-  return (
-    <div
-      ref={cursorRef}
-      style={{
-        position: "fixed",
-        top: "-6px",
-        left: "-6px",
-        width: "12px",
-        height: "12px",
-        borderRadius: "50%",
-        backgroundColor: "#ef4444",
-        pointerEvents: "none",
-        zIndex: 99999,
-        willChange: "transform",
-      }}
-    />
-  );
-}
-
-// ─── Shared helpers ───────────────────────────────────────────────────────────
-// ✅ CHANGED: Icon box always red bg, icon always red-filled
 function GrayIcon({
   Icon,
   size = 16,
   active = false,
-  boxClass = "w-9 h-9 rounded-xl",
+  boxClass = "w-9 h-9 rounded-full",
   iconBg = "bg-red-50",
   iconBorder = "border-red-100",
   iconColor = "text-red-500",
@@ -62,7 +29,12 @@ function GrayIcon({
         active ? "shadow-sm ring-1 ring-current/10" : ""
       }`}
     >
-      <Icon size={size} className={iconColor} strokeWidth={2.2} />
+      <Icon
+        size={size}
+        className={iconColor}
+        fill="currentColor"
+        strokeWidth={1.8}
+      />
     </span>
   );
 }
@@ -72,7 +44,7 @@ function CourseCard({ tag, name, duration, href = "#", image, onNavigate }) {
     <Link
       href={href}
       onClick={onNavigate}
-      className="flex items-center justify-between gap-4 border border-gray-200 rounded-xl p-4 transition-all duration-150 hover:border-red-400 hover:bg-red-50"
+      className="flex items-center justify-between gap-4 border border-gray-200 rounded-2xl p-4 transition-all duration-150 hover:border-red-400 hover:bg-red-50"
     >
       <div className="min-w-0">
         <p className="text-[10px] font-semibold uppercase tracking-widest mb-1 text-red-500">
@@ -84,7 +56,7 @@ function CourseCard({ tag, name, duration, href = "#", image, onNavigate }) {
         </p>
 
         <span className="flex items-center gap-1 text-[11px] text-gray-500">
-          <Clock size={11} />
+          <Clock size={11} fill="currentColor" />
           {duration}
         </span>
       </div>
@@ -92,8 +64,7 @@ function CourseCard({ tag, name, duration, href = "#", image, onNavigate }) {
       {image && (
         <div className="relative w-24 h-16 flex items-center justify-center flex-shrink-0">
           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-red-100 via-yellow-100 to-blue-100 blur-sm opacity-90" />
-
-          <div className="relative w-20 h-14 rounded-xl bg-white/70 border border-white shadow-sm flex items-center justify-center">
+          <div className="relative w-20 h-14 rounded-2xl bg-white/70 border border-white shadow-sm flex items-center justify-center">
             <img
               src={image}
               alt={name}
@@ -106,7 +77,6 @@ function CourseCard({ tag, name, duration, href = "#", image, onNavigate }) {
   );
 }
 
-// ─── Desktop dropdowns ────────────────────────────────────────────────────────
 function ProgramDropdown({ open, onClose }) {
   const [activeCat, setActiveCat] = useState(categories[0].id);
   const active = categories.find((c) => c.id === activeCat);
@@ -114,11 +84,12 @@ function ProgramDropdown({ open, onClose }) {
   if (!open) return null;
 
   return (
-    <div className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[900px] max-w-[calc(100vw-32px)] bg-white rounded-2xl border border-gray-200 shadow-2xl z-50 overflow-hidden">
+    <div className="absolute top-[calc(100%+10px)] left-1/2 -translate-x-1/2 w-[900px] max-w-[calc(100vw-32px)] bg-white rounded-3xl border border-gray-200 shadow-2xl z-50 overflow-hidden">
       <div className="flex min-h-[360px]">
         <aside className="w-60 border-r border-gray-100 py-2 flex-shrink-0 bg-gray-50/80">
           {categories.map((cat) => {
             const isActive = cat.id === activeCat;
+
             return (
               <button
                 key={cat.id}
@@ -130,22 +101,23 @@ function ProgramDropdown({ open, onClose }) {
                     : "border-transparent text-gray-600 hover:bg-white hover:text-gray-900"
                 }`}
               >
-                {/* ✅ CHANGED: always red-100 bg + red icon; active gets red-200 bg */}
                 <GrayIcon
                   Icon={cat.Icon}
                   size={15}
                   active={isActive}
-                  boxClass="w-8 h-8 rounded-lg"
+                  boxClass="w-8 h-8 rounded-full"
                   iconBg={cat.iconBg}
                   iconBorder={cat.iconBorder}
                   iconColor={cat.iconColor}
                 />
+
                 <span className="leading-tight flex-1 text-[13px]">
                   {cat.label}
                 </span>
+
                 <ChevronRight
                   size={13}
-                  className={`flex-shrink-0 ${isActive ? "text-red-500" : "text-red-300"}`}
+                  className={isActive ? "text-red-500" : "text-red-300"}
                 />
               </button>
             );
@@ -154,16 +126,16 @@ function ProgramDropdown({ open, onClose }) {
 
         <div className="flex-1 flex flex-col">
           <div className="flex items-center gap-3 px-5 pt-4 pb-3 border-b border-gray-100">
-            {/* ✅ CHANGED: header icon also red */}
             <GrayIcon
               Icon={active.Icon}
               size={18}
               active
-              boxClass="w-11 h-11 rounded-xl"
+              boxClass="w-11 h-11 rounded-full"
               iconBg={active.iconBg}
               iconBorder={active.iconBorder}
               iconColor={active.iconColor}
             />
+
             <div>
               <p className="text-sm font-semibold text-gray-800">
                 {active.label}
@@ -173,6 +145,7 @@ function ProgramDropdown({ open, onClose }) {
               </p>
             </div>
           </div>
+
           <div className="flex-1 p-5">
             <div className="grid grid-cols-2 gap-3">
               {active.courses.map((c, i) => (
@@ -190,21 +163,26 @@ function CompanyDropdown({ open, onClose }) {
   if (!open) return null;
 
   return (
-    <div className="absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-[640px] max-w-[calc(100vw-32px)] bg-white rounded-2xl border border-gray-200 shadow-2xl z-50 overflow-hidden">
+    <div className="absolute top-[calc(100%+10px)] left-1/2 -translate-x-1/2 w-[640px] max-w-[calc(100vw-32px)] bg-white rounded-3xl border border-gray-200 shadow-2xl z-50 overflow-hidden">
       <div className="p-3">
         <div className="grid grid-cols-2 gap-3">
-          <div className="space-y-1 border border-gray-100 rounded-xl p-2 bg-gray-50/60">
+          <div className="space-y-1 border border-gray-100 rounded-2xl p-2 bg-gray-50/60">
             {companyLinks.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
                 onClick={onClose}
-                className="flex items-center gap-3 p-2 rounded-lg hover:bg-white transition-colors"
+                className="flex items-center gap-3 p-2 rounded-2xl hover:bg-white transition-colors"
               >
-                {/* ✅ CHANGED: icon box red-100 bg, icon red */}
-                <div className="w-10 h-10 bg-red-100 border border-red-200 shadow-sm rounded-lg flex items-center justify-center flex-shrink-0">
-                  <item.Icon size={17} className="text-red-500" />
+                <div className="w-10 h-10 bg-red-100 border border-red-200 shadow-sm rounded-full flex items-center justify-center flex-shrink-0">
+                  <item.Icon
+                    size={17}
+                    className="text-red-500"
+                    fill="currentColor"
+                    strokeWidth={1.8}
+                  />
                 </div>
+
                 <div>
                   <p className="text-sm font-medium text-gray-900">
                     {item.title}
@@ -221,10 +199,14 @@ function CompanyDropdown({ open, onClose }) {
                 key={item.title}
                 href={item.href}
                 onClick={onClose}
-                className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex items-center gap-2 px-2 py-2 rounded-2xl hover:bg-gray-100 transition-colors"
               >
-                {/* ✅ CHANGED: inline icon also red */}
-                <item.Icon size={14} className="text-red-500 flex-shrink-0" />
+                <item.Icon
+                  size={14}
+                  className="text-red-500 flex-shrink-0"
+                  fill="currentColor"
+                  strokeWidth={1.8}
+                />
                 <span className="text-sm font-medium text-gray-700">
                   {item.title}
                 </span>
@@ -237,7 +219,6 @@ function CompanyDropdown({ open, onClose }) {
   );
 }
 
-// ─── Mobile menu ──────────────────────────────────────────────────────────────
 function MobileMenu({ open, onClose }) {
   const [expanded, setExpanded] = useState(null);
   const [companyExpanded, setCompanyExpanded] = useState(false);
@@ -245,7 +226,7 @@ function MobileMenu({ open, onClose }) {
   if (!open) return null;
 
   return (
-    <div className="fixed left-4 right-4 top-[72px] bg-white/95 backdrop-blur-lg z-40 overflow-y-auto max-h-[80vh] rounded-2xl shadow-2xl border border-gray-200 pb-4 md:hidden">
+    <div className="fixed left-4 right-4 top-[84px] bg-white/95 backdrop-blur-lg z-40 overflow-y-auto max-h-[80vh] rounded-3xl shadow-2xl border border-gray-200 pb-4 md:hidden">
       <div className="px-4 pt-4 space-y-1">
         <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 px-2 mb-3">
           Programs
@@ -253,20 +234,23 @@ function MobileMenu({ open, onClose }) {
 
         {categories.map(({ id, label, Icon, courses }) => {
           const isOpen = expanded === id;
+
           return (
             <div key={id}>
               <button
                 onClick={() => setExpanded(isOpen ? null : id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-full text-sm transition-colors ${
                   isOpen ? "bg-red-50" : "hover:bg-gray-50"
                 }`}
               >
-                {/* ✅ CHANGED: always red icon; active gets red-200 bg */}
                 <GrayIcon
                   Icon={Icon}
                   size={15}
-                  boxClass={`w-9 h-9 rounded-xl ${isOpen ? "bg-red-200" : "bg-red-100"}`}
+                  boxClass={`w-9 h-9 rounded-full ${
+                    isOpen ? "bg-red-200" : "bg-red-100"
+                  }`}
                 />
+
                 <span
                   className={`font-medium flex-1 text-left ${
                     isOpen ? "text-red-600" : "text-gray-800"
@@ -274,6 +258,7 @@ function MobileMenu({ open, onClose }) {
                 >
                   {label}
                 </span>
+
                 <ChevronDown
                   size={15}
                   className={`flex-shrink-0 transition-transform duration-200 ${
@@ -289,16 +274,18 @@ function MobileMenu({ open, onClose }) {
                       key={i}
                       href={c.href || "#"}
                       onClick={onClose}
-                      className="block px-3 py-2.5 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-all"
+                      className="block px-3 py-2.5 rounded-2xl border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-all"
                     >
                       <p className="text-[10px] font-semibold uppercase tracking-widest mb-0.5 text-red-500">
                         {c.tag}
                       </p>
+
                       <p className="text-sm font-medium text-gray-800 leading-snug">
                         {c.name}
                       </p>
+
                       <span className="flex items-center gap-1 text-[11px] text-gray-500 mt-1">
-                        <Clock size={10} />
+                        <Clock size={10} fill="currentColor" />
                         {c.duration}
                       </span>
                     </Link>
@@ -315,19 +302,22 @@ function MobileMenu({ open, onClose }) {
 
         <button
           onClick={() => setCompanyExpanded((v) => !v)}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-full text-sm transition-colors ${
             companyExpanded ? "bg-red-50" : "hover:bg-gray-50"
           }`}
         >
-          {/* ✅ CHANGED: Users icon also red */}
           <GrayIcon
             Icon={Users}
             size={15}
-            boxClass={`w-9 h-9 rounded-xl ${companyExpanded ? "bg-red-200" : "bg-red-100"}`}
+            boxClass={`w-9 h-9 rounded-full ${
+              companyExpanded ? "bg-red-200" : "bg-red-100"
+            }`}
           />
+
           <span className="font-medium flex-1 text-left text-gray-800">
             Company
           </span>
+
           <ChevronDown
             size={15}
             className={`text-red-300 transition-transform duration-200 ${
@@ -343,10 +333,14 @@ function MobileMenu({ open, onClose }) {
                 key={item.title}
                 href={item.href}
                 onClick={onClose}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-2 px-3 py-2 rounded-2xl hover:bg-gray-50 transition-colors"
               >
-                {/* ✅ CHANGED: company sub-links icon red */}
-                <item.Icon size={14} className="text-red-500 flex-shrink-0" />
+                <item.Icon
+                  size={14}
+                  className="text-red-500 flex-shrink-0"
+                  fill="currentColor"
+                  strokeWidth={1.8}
+                />
                 <span className="text-sm text-gray-700">{item.title}</span>
               </Link>
             ))}
@@ -357,7 +351,7 @@ function MobileMenu({ open, onClose }) {
           <Link
             href="/blog"
             onClick={onClose}
-            className="block px-4 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-100 transition-colors font-medium"
+            className="block px-4 py-2 rounded-full text-sm text-gray-700 hover:bg-gray-100 transition-colors font-medium"
           >
             Blog
           </Link>
@@ -366,11 +360,13 @@ function MobileMenu({ open, onClose }) {
         <div className="pt-3 space-y-2">
           <a
             href="tel:18001216201"
-            className="flex items-center justify-center gap-2 w-full border border-red-400 text-red-500 text-sm font-medium py-2.5 rounded-xl hover:bg-red-50 transition-colors"
+            className="flex items-center justify-center gap-2 w-full border border-red-400 text-red-500 text-sm font-medium py-2.5 rounded-full hover:bg-red-50 transition-colors"
           >
-            <Phone size={14} /> 1800-121-6201
+            <Phone size={14} fill="currentColor" />
+            1800-121-6201
           </a>
-          <button className="w-full bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-3 rounded-xl transition-colors">
+
+          <button className="w-full bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-3 rounded-full transition-colors">
             Enroll Now
           </button>
         </div>
@@ -379,7 +375,6 @@ function MobileMenu({ open, onClose }) {
   );
 }
 
-// ─── Main Header ──────────────────────────────────────────────────────────────
 export function Header() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -387,6 +382,7 @@ export function Header() {
   const headerRef = useRef(null);
 
   const pathname = usePathname();
+
   useEffect(() => {
     setActiveMenu(null);
     setMobileOpen(false);
@@ -395,9 +391,11 @@ export function Header() {
 
   useEffect(() => {
     function handleClick(e) {
-      if (headerRef.current && !headerRef.current.contains(e.target))
+      if (headerRef.current && !headerRef.current.contains(e.target)) {
         setActiveMenu(null);
+      }
     }
+
     document.addEventListener("click", handleClick);
     return () => document.removeEventListener("click", handleClick);
   }, []);
@@ -406,12 +404,16 @@ export function Header() {
     function onScroll() {
       setScrolled(window.scrollY > 10);
     }
+
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -431,29 +433,29 @@ export function Header() {
   return (
     <>
       <style>{`
-       * {
-  cursor: default;
-}
+        * {
+          cursor: default;
+        }
 
-a,
-button,
-[role="button"] {
-  cursor: pointer;
-}
+        a,
+        button,
+        [role="button"] {
+          cursor: pointer;
+        }
 
-input,
-textarea {
-  cursor: text;
-}
+        input,
+        textarea {
+          cursor: text;
+        }
       `}</style>
 
-      <div className="fixed top-0 left-0 right-0 z-50 px-4 pt-3">
+      <div className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
         <header
           ref={headerRef}
           className={`
             relative mx-auto max-w-6xl
             bg-white/90 backdrop-blur-md
-            rounded-2xl border border-gray-200
+            rounded-full border border-gray-200
             transition-all duration-300
             ${
               scrolled
@@ -462,8 +464,7 @@ textarea {
             }
           `}
         >
-          <nav className="h-14 px-5 flex items-center justify-between">
-            {/* Logo */}
+          <nav className="h-16 px-6 flex items-center justify-between">
             <Link
               href="/"
               onClick={closeAll}
@@ -472,11 +473,10 @@ textarea {
               <img src="/logo.png" alt="eCampus" className="h-8 w-auto" />
             </Link>
 
-            {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-1">
               <button
                 onClick={(e) => toggle("program", e)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   activeMenu === "program"
                     ? "bg-red-50 text-red-600"
                     : "text-gray-700 hover:bg-gray-100"
@@ -493,9 +493,9 @@ textarea {
 
               <button
                 onClick={(e) => toggle("company", e)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   activeMenu === "company"
-                    ? "bg-gray-100 text-gray-900"
+                    ? "bg-red-50 text-red-600"
                     : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
@@ -511,41 +511,39 @@ textarea {
               <Link
                 href="/blog"
                 onClick={closeAll}
-                className="px-4 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-100 transition-colors font-medium"
+                className="px-4 py-2 rounded-full text-sm text-gray-700 hover:bg-gray-100 transition-colors font-medium"
               >
                 Blog
               </Link>
             </div>
 
-            {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-2">
               <a
                 href="tel:18001216201"
-                className="flex items-center gap-2 px-4 py-2 rounded-xl border border-red-300 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-red-300 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
               >
-                <Phone size={14} />
+                <Phone size={14} fill="currentColor" />
                 1800-121-6201
               </a>
-              <button className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-xl transition-colors shadow-sm shadow-red-200">
+
+              <button className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-full transition-colors shadow-sm shadow-red-200">
                 Enroll Now
               </button>
             </div>
 
-            {/* Mobile hamburger */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setMobileOpen((m) => !m);
                 setActiveMenu(null);
               }}
-              className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors"
+              className="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </nav>
 
-          {/* Desktop dropdowns */}
           <div className="hidden md:block">
             <ProgramDropdown
               open={activeMenu === "program"}

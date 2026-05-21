@@ -135,7 +135,7 @@ export function Footer() {
                       <li key={item.name} className="flow-root">
                         <Link
                           href={item.href}
-                          className="text-sm text-slate-500 transition-colors duration-200 hover:text-red-500"
+                          className="text-sm text-white/70 transition-colors duration-200 hover:text-red-500"
                         >
                           {item.name}
                         </Link>

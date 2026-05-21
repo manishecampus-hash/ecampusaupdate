@@ -19,11 +19,11 @@ const budgetOptions = [
   "₹1,00,000 – ₹2,00,000",
   "Above ₹2,00,000",
 ];
+
 const studyModeOptions = ["Select", "Online", "Offline", "Hybrid"];
 const careerGoalOptions = ["Select", "Job Switch", "Promotion", "Career Start"];
 
 export default function AIProgramFinder() {
-  // Yahan studyMode ko "Select" kar diya gaya hai
   const [form, setForm] = useState({
     qualification: "Select",
     course: "Select",
@@ -37,11 +37,11 @@ export default function AIProgramFinder() {
   const [displayedText, setDisplayedText] = useState("");
   const [errors, setErrors] = useState<any>({});
 
-  // Typing effect logic
   useEffect(() => {
     if (result) {
       setDisplayedText("");
       let index = 0;
+
       const interval = setInterval(() => {
         if (index < result.length) {
           setDisplayedText((prev) => prev + result.charAt(index));
@@ -50,20 +50,23 @@ export default function AIProgramFinder() {
           clearInterval(interval);
         }
       }, 10);
+
       return () => clearInterval(interval);
     }
   }, [result]);
 
   const validate = () => {
     const newErrors: any = {};
+
     if (form.qualification === "Select") newErrors.qualification = "Required";
     if (
       form.course === "Select" ||
       form.course === "Select Qualification First"
-    )
+    ) {
       newErrors.course = "Required";
+    }
     if (form.budget === "Select") newErrors.budget = "Required";
-    if (form.studyMode === "Select") newErrors.studyMode = "Required"; // Check for Select
+    if (form.studyMode === "Select") newErrors.studyMode = "Required";
     if (form.careerGoal === "Select") newErrors.careerGoal = "Required";
 
     setErrors(newErrors);
@@ -76,11 +79,13 @@ export default function AIProgramFinder() {
       [field]: value,
       ...(field === "qualification" ? { course: "Select" } : {}),
     }));
+
     setErrors((prev: any) => ({ ...prev, [field]: undefined }));
   };
 
   const handleAskAI = async () => {
     if (!validate()) return;
+
     setLoading(true);
     setResult(null);
 
@@ -98,10 +103,14 @@ export default function AIProgramFinder() {
           }),
         },
       );
+
       const data = await response.json();
-      if (data.success) setResult(data.aiRecommendation);
+
+      if (data.success) {
+        setResult(data.aiRecommendation);
+      }
     } catch (err) {
-      setResult("### ❌ Connection Error");
+      setResult("### Connection Error");
     } finally {
       setLoading(false);
     }
@@ -111,31 +120,219 @@ export default function AIProgramFinder() {
     <section className="ai-program-section">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap');
-        .ai-program-section { font-family: 'DM Sans', sans-serif; padding: 60px 20px; text-align: center; }
-        .section-heading { font-family: 'Sora', sans-serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 12px; }
-        .section-heading .highlight { color: #E8192C; }
-        .finder-card { background: #fff; border-radius: 20px; box-shadow: 0 4px 32px rgba(0,0,0,0.1); max-width: 960px; margin: 0 auto; padding: 40px; }
-        .form-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 28px; }
-        @media (max-width: 900px) { .form-row { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 540px) { .form-row { grid-template-columns: 1fr; } }
-        .form-group { display: flex; flex-direction: column; text-align: left; gap: 6px; }
-        .form-label { font-size: 0.82rem; font-weight: 600; color: #444; }
-        .form-select { border: 1.8px solid #ddd; border-radius: 8px; padding: 10px; font-size: 0.92rem; }
-        .form-select.error { border-color: #E8192C; }
-        .error-msg { font-size: 0.72rem; color: #E8192C; }
-        .ask-ai-btn { background: #E8192C; color: #fff; border: none; border-radius: 10px; padding: 14px 40px; font-weight: 600; cursor: pointer; }
-        .ai-response-card { margin-top: 40px; border: 1px solid #e0e0e0; border-radius: 16px; text-align: left; overflow: hidden; position: relative; }
-        .ai-header { background: #1a237e; color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .close-btn { background: none; border: none; color: white; cursor: pointer; font-size: 20px; }
-        .ai-content { padding: 30px; line-height: 1.8; background: #fafafa; }
+
+        .ai-program-section {
+          font-family: 'DM Sans', sans-serif;
+          padding: 72px 20px;
+          text-align: center;
+          background:
+            radial-gradient(circle at top left, rgba(232, 25, 44, 0.18), transparent 34%),
+            radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 36%),
+            #05070d;
+          color: #f8fafc;
+        }
+
+        .finder-card {
+          max-width: 960px;
+          margin: 0 auto;
+          padding: 40px;
+          border-radius: 28px;
+          background: rgba(12, 16, 27, 0.88);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow:
+            0 24px 80px rgba(0, 0, 0, 0.45),
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+          backdrop-filter: blur(18px);
+        }
+
+        .form-row {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 16px;
+          margin-bottom: 28px;
+        }
+
+        @media (max-width: 900px) {
+          .form-row {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 540px) {
+          .ai-program-section {
+            padding: 56px 14px;
+          }
+
+          .finder-card {
+            padding: 24px;
+            border-radius: 24px;
+          }
+
+          .form-row {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          text-align: left;
+          gap: 7px;
+        }
+
+        .form-label {
+          font-size: 0.82rem;
+          font-weight: 700;
+          color: #cbd5e1;
+        }
+
+        .form-select {
+          width: 100%;
+          border: 1px solid rgba(148, 163, 184, 0.28);
+          border-radius: 14px;
+          padding: 12px 13px;
+          font-size: 0.92rem;
+          color: #f8fafc;
+          background: #101522;
+          outline: none;
+          transition:
+            border-color 160ms ease,
+            box-shadow 160ms ease,
+            background 160ms ease;
+        }
+
+        .form-select:hover {
+          border-color: rgba(248, 113, 113, 0.52);
+          background: #121827;
+        }
+
+        .form-select:focus {
+          border-color: #E8192C;
+          box-shadow: 0 0 0 4px rgba(232, 25, 44, 0.16);
+        }
+
+        .form-select.error {
+          border-color: #E8192C;
+          box-shadow: 0 0 0 4px rgba(232, 25, 44, 0.12);
+        }
+
+        .form-select option {
+          color: #0f172a;
+          background: #ffffff;
+        }
+
+        .error-msg {
+          font-size: 0.72rem;
+          color: #fb7185;
+        }
+
+        .ask-ai-btn {
+          min-width: 160px;
+          background: linear-gradient(135deg, #E8192C, #ff4d5f);
+          color: #fff;
+          border: none;
+          border-radius: 999px;
+          padding: 14px 40px;
+          font-weight: 800;
+          cursor: pointer;
+          box-shadow: 0 14px 36px rgba(232, 25, 44, 0.32);
+          transition:
+            transform 160ms ease,
+            box-shadow 160ms ease,
+            opacity 160ms ease;
+        }
+
+        .ask-ai-btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 18px 44px rgba(232, 25, 44, 0.42);
+        }
+
+        .ask-ai-btn:disabled {
+          cursor: not-allowed;
+          opacity: 0.72;
+          transform: none;
+        }
+
+        .ai-response-card {
+          margin-top: 40px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 24px;
+          text-align: left;
+          overflow: hidden;
+          position: relative;
+          background: #0b1020;
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.36);
+        }
+
+        .ai-header {
+          background: linear-gradient(135deg, #111827, #1f2937);
+          color: white;
+          padding: 14px 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          font-weight: 800;
+          letter-spacing: 0.03em;
+          font-size: 0.78rem;
+        }
+
+        .close-btn {
+          width: 32px;
+          height: 32px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: white;
+          cursor: pointer;
+          font-size: 18px;
+          line-height: 1;
+        }
+
+        .close-btn:hover {
+          background: rgba(232, 25, 44, 0.22);
+          border-color: rgba(232, 25, 44, 0.5);
+        }
+
+        .ai-content {
+          padding: 30px;
+          line-height: 1.8;
+          background: #0b1020;
+          color: #dbeafe;
+        }
+
+        .ai-content h1,
+        .ai-content h2,
+        .ai-content h3 {
+          color: #ffffff;
+          margin: 0 0 12px;
+        }
+
+        .ai-content p {
+          margin: 0 0 14px;
+        }
+
+        .ai-content strong {
+          color: #ffffff;
+        }
+
+        .ai-content ul,
+        .ai-content ol {
+          padding-left: 22px;
+          margin: 0 0 16px;
+        }
+
+        .ai-content a {
+          color: #fb7185;
+        }
       `}</style>
 
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 text-balance">
-        Not Sure? <span style={{ color: "red" }}>Ask AI</span>
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-8 text-balance">
+        Not Sure? <span style={{ color: "#ff3b4f" }}>Ask AI</span>
       </h2>
+
       <div className="finder-card">
         <div className="form-row">
-          {/* Qualification */}
           <div className="form-group">
             <label className="form-label">Qualification</label>
             <select
@@ -154,7 +351,6 @@ export default function AIProgramFinder() {
             )}
           </div>
 
-          {/* Course */}
           <div className="form-group">
             <label className="form-label">Course</label>
             <select
@@ -174,7 +370,6 @@ export default function AIProgramFinder() {
             )}
           </div>
 
-          {/* Budget */}
           <div className="form-group">
             <label className="form-label">Budget</label>
             <select
@@ -193,7 +388,6 @@ export default function AIProgramFinder() {
             )}
           </div>
 
-          {/* Study Mode - Ab ye "Select" dikhayega */}
           <div className="form-group">
             <label className="form-label">Study Mode</label>
             <select
@@ -212,7 +406,6 @@ export default function AIProgramFinder() {
             )}
           </div>
 
-          {/* Goal */}
           <div className="form-group">
             <label className="form-label">Career Goal</label>
             <select
@@ -233,23 +426,25 @@ export default function AIProgramFinder() {
         </div>
 
         <button className="ask-ai-btn" onClick={handleAskAI} disabled={loading}>
-          {loading ? "Analyzing..." : "✨ Ask AI"}
+          {loading ? "Analyzing..." : "Ask AI"}
         </button>
 
         {displayedText && (
           <div className="ai-response-card">
             <div className="ai-header">
-              <span>🤖 AI CAREER ADVISOR</span>
+              <span>AI Career Advisor</span>
               <button
                 className="close-btn"
                 onClick={() => {
                   setResult(null);
                   setDisplayedText("");
                 }}
+                aria-label="Close AI response"
               >
-                ✕
+                ×
               </button>
             </div>
+
             <div className="ai-content">
               <ReactMarkdown>{displayedText}</ReactMarkdown>
             </div>
