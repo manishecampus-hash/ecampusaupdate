@@ -327,7 +327,7 @@ export default function AIProgramFinder() {
         }
       `}</style>
 
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-8 text-balance">
+      <h2 className="mb-3 text-3xl font-bold text-white-990 text-balance sm:mb-4 sm:text-4xl lg:text-5xl">
         Not Sure? <span style={{ color: "#ff3b4f" }}>Ask AI</span>
       </h2>
 

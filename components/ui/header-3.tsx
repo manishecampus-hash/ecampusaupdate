@@ -129,34 +129,11 @@ function ProgramDropdown({ open, onClose }) {
           })}
         </aside>
 
-        <div className="flex-1 flex flex-col">
-          <div className="flex items-center gap-3 px-5 pt-4 pb-3 border-b border-gray-100">
-            <GrayIcon
-              Icon={active.Icon}
-              size={18}
-              active
-              boxClass="w-11 h-11 rounded-full"
-              iconBg={active.iconBg}
-              iconBorder={active.iconBorder}
-              iconColor={active.iconColor}
-            />
-
-            <div>
-              <p className="text-sm font-semibold text-gray-800">
-                {active.label}
-              </p>
-              <p className="text-[11px] text-gray-400">
-                {active.courses.length} programs available
-              </p>
-            </div>
-          </div>
-
-          <div className="flex-1 p-5">
-            <div className="grid grid-cols-2 gap-3">
-              {active.courses.map((c, i) => (
-                <CourseCard key={i} {...c} onNavigate={onClose} />
-              ))}
-            </div>
+        <div className="flex-1 p-5">
+          <div className="grid grid-cols-2 gap-3">
+            {active.courses.map((c, i) => (
+              <CourseCard key={i} {...c} onNavigate={onClose} />
+            ))}
           </div>
         </div>
       </div>
@@ -212,9 +189,7 @@ function CompanyDropdown({ open, onClose }) {
               >
                 <item.Icon
                   size={14}
-                  className={`${
-                    item.iconColor || "text-red-500"
-                  } flex-shrink-0`}
+                  className={`${item.iconColor || "text-red-500"} flex-shrink-0`}
                   fill="currentColor"
                   strokeWidth={1.8}
                 />
@@ -238,7 +213,7 @@ function MobileMenu({ open, onClose, floating }) {
 
   return (
     <div
-      className={`fixed left-4 right-4 bg-white/95 backdrop-blur-lg z-40 overflow-y-auto max-h-[80vh] rounded-3xl shadow-2xl border border-gray-200 pb-4 md:hidden ${
+      className={`fixed left-4 right-4 bg-white/95 backdrop-blur-lg z-[60] overflow-y-auto max-h-[80vh] rounded-3xl shadow-2xl border border-gray-200 pb-4 md:hidden ${
         floating ? "top-[84px]" : "top-[96px]"
       }`}
     >
@@ -363,9 +338,7 @@ function MobileMenu({ open, onClose, floating }) {
               >
                 <item.Icon
                   size={14}
-                  className={`${
-                    item.iconColor || "text-red-500"
-                  } flex-shrink-0`}
+                  className={`${item.iconColor || "text-red-500"} flex-shrink-0`}
                   fill="currentColor"
                   strokeWidth={1.8}
                 />
@@ -593,7 +566,6 @@ export function Header() {
         }
       `}</style>
 
-      {/* Normal header: scrolls away with page */}
       <div className="absolute left-0 right-0 top-0 z-40 px-4">
         <header
           ref={normalHeaderRef}
@@ -616,7 +588,6 @@ export function Header() {
         </header>
       </div>
 
-      {/* Floating header: separate clone, appears after scroll */}
       <div
         ref={floatingHeaderRef}
         className={`fixed left-0 right-0 top-4 z-50 px-4 transition-all duration-300 ease-out ${
@@ -641,9 +612,9 @@ export function Header() {
             />
           </div>
         </header>
-
-        <MobileMenu open={mobileOpen} onClose={closeAll} floating={floating} />
       </div>
+
+      <MobileMenu open={mobileOpen} onClose={closeAll} floating={floating} />
     </>
   );
 }

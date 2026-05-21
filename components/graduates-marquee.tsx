@@ -65,7 +65,7 @@ const StarRating = ({ rating }: { rating: number }) => (
       <span
         key={star}
         style={{
-          color: star <= rating ? "#facc15" : "#e5e7eb",
+          color: star <= rating ? "#facc15" : "rgba(148, 163, 184, 0.35)",
           fontSize: 14,
           lineHeight: 1,
         }}
@@ -88,9 +88,11 @@ const GraduateTile = ({
       height: tall ? 250 : 180,
       borderRadius: 10,
       overflow: "hidden",
-      background: "#f1f1f1",
+      background: "#111827",
       position: "relative",
       flexShrink: 0,
+      border: "1px solid rgba(255, 255, 255, 0.1)",
+      boxShadow: "0 18px 50px rgba(0, 0, 0, 0.32)",
     }}
   >
     {graduate.avatarSrc ? (
@@ -128,7 +130,8 @@ const GraduateTile = ({
         position: "absolute",
         inset: "auto 0 0",
         padding: 14,
-        background: "linear-gradient(to top, rgba(0,0,0,.72), transparent)",
+        background:
+          "linear-gradient(to top, rgba(5, 7, 13, 0.9), rgba(5, 7, 13, 0))",
         color: "#fff",
       }}
     >
@@ -189,7 +192,13 @@ export function GraduatesMarquee({
 
   return (
     <section
-      style={{ padding: "80px 16px", background: "#fff", overflow: "hidden" }}
+      style={{
+        padding: "80px 16px",
+        background:
+          "radial-gradient(circle at top left, rgba(232, 25, 44, 0.18), transparent 34%), radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 36%), #05070d",
+        color: "#f8fafc",
+        overflow: "hidden",
+      }}
     >
       <style>
         {`
@@ -243,13 +252,14 @@ export function GraduatesMarquee({
           <span
             style={{
               display: "inline-block",
-              background: "#fef2f2",
-              color: "#dc2626",
+              background: "rgba(239, 68, 68, 0.1)",
+              color: "#f87171",
               padding: "5px 16px",
               borderRadius: 999,
               fontSize: 13,
               fontWeight: 700,
               marginBottom: 18,
+              border: "1px solid rgba(248, 113, 113, 0.18)",
             }}
           >
             Success Stories
@@ -260,7 +270,7 @@ export function GraduatesMarquee({
               fontSize: "clamp(36px, 5vw, 58px)",
               lineHeight: 1.08,
               fontWeight: 900,
-              color: "#0f172a",
+              color: "#ffffff",
               margin: "0 0 18px",
               letterSpacing: 0,
             }}
@@ -270,7 +280,7 @@ export function GraduatesMarquee({
               style={{
                 fontFamily: "Georgia, serif",
                 fontStyle: "italic",
-                color: "#dc2626",
+                color: "#ff3b4f",
               }}
             >
               Say
@@ -280,7 +290,7 @@ export function GraduatesMarquee({
           <p
             style={{
               fontSize: 17,
-              color: "#64748b",
+              color: "#cbd5e1",
               maxWidth: 560,
               margin: 0,
               lineHeight: 1.7,
@@ -293,7 +303,7 @@ export function GraduatesMarquee({
           <div
             style={{
               marginTop: 34,
-              borderTop: "1px solid #e5e7eb",
+              borderTop: "1px solid rgba(255, 255, 255, 0.1)",
               paddingTop: 26,
               display: "grid",
               gap: 18,
@@ -305,7 +315,7 @@ export function GraduatesMarquee({
                   style={{
                     margin: 0,
                     fontSize: 15,
-                    color: "#0f172a",
+                    color: "#ffffff",
                     fontWeight: 800,
                   }}
                 >
@@ -315,7 +325,7 @@ export function GraduatesMarquee({
                   style={{
                     margin: "3px 0 0",
                     fontSize: 13,
-                    color: "#64748b",
+                    color: "#94a3b8",
                   }}
                 >
                   {graduate.role}
@@ -340,7 +350,7 @@ export function GraduatesMarquee({
               height: 90,
               zIndex: 2,
               background:
-                "linear-gradient(to bottom, #fff, rgba(255,255,255,0))",
+                "linear-gradient(to bottom, #05070d, rgba(5, 7, 13, 0))",
               pointerEvents: "none",
             }}
           />
@@ -351,7 +361,7 @@ export function GraduatesMarquee({
               inset: "auto 0 0",
               height: 90,
               zIndex: 2,
-              background: "linear-gradient(to top, #fff, rgba(255,255,255,0))",
+              background: "linear-gradient(to top, #05070d, rgba(5, 7, 13, 0))",
               pointerEvents: "none",
             }}
           />
