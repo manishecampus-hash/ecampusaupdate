@@ -56,7 +56,12 @@ function CourseCard({ tag, name, duration, href = "#", image, onNavigate }) {
         </p>
 
         <span className="flex items-center gap-1 text-[11px] text-gray-500">
-          <Clock size={11} fill="currentColor" />
+          <Clock
+            size={11}
+            className="text-green-500"
+            fill="currentColor"
+            strokeWidth={1.8}
+          />
           {duration}
         </span>
       </div>
@@ -298,7 +303,12 @@ function MobileMenu({ open, onClose, floating }) {
                         </p>
 
                         <span className="flex items-center gap-1 text-[11px] text-gray-500 mt-1">
-                          <Clock size={10} fill="currentColor" />
+                          <Clock
+                            size={10}
+                            className="text-green-500"
+                            fill="currentColor"
+                            strokeWidth={1.8}
+                          />
                           {c.duration}
                         </span>
                       </Link>
