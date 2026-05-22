@@ -1,28 +1,76 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { BarChart3, Users, Award, Globe } from "lucide-react";
+
+function Counter({
+  end,
+  duration = 2000,
+  suffix = "",
+  prefix = "",
+}: {
+  end: number;
+  duration?: number;
+  suffix?: string;
+  prefix?: string;
+}) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const increment = end / (duration / 16);
+
+    const timer = setInterval(() => {
+      start += increment;
+
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [end, duration]);
+
+  return (
+    <span>
+      {prefix}
+      {count}
+      {suffix}
+    </span>
+  );
+}
 
 export function StatsSection() {
   const stats = [
     {
       icon: Users,
-      value: "150K+",
+      value: 150,
+      suffix: "K+",
       label: "Active Students",
       description: "Learning and growing worldwide",
     },
     {
       icon: Globe,
-      value: "180+",
+      value: 180,
+      suffix: "+",
       label: "Countries Reached",
       description: "Global community of learners",
     },
     {
       icon: Award,
-      value: "95%",
+      value: 95,
+      suffix: "%",
       label: "Satisfaction Rate",
       description: "Student-rated quality education",
     },
     {
       icon: BarChart3,
-      value: "$89K",
+      value: 89,
+      prefix: "$",
+      suffix: "K",
       label: "Avg Salary Increase",
       description: "Post-graduation outcomes",
     },
@@ -45,7 +93,11 @@ export function StatsSection() {
                 </div>
 
                 <div className="mb-1 text-4xl font-bold text-gray-900">
-                  {stat.value}
+                  <Counter
+                    end={stat.value}
+                    suffix={stat.suffix}
+                    prefix={stat.prefix}
+                  />
                 </div>
 
                 <div className="mb-1 text-lg font-semibold text-gray-900">

@@ -89,11 +89,11 @@ export default function BComFAQ() {
     <section className="w-full bg-white px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-5 text-center">
-          <h2 className="text-lg font-extrabold text-slate-950 sm:text-xl">
-            Genuine B.Com <span className="text-red-500">FAQs</span>
+          <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
+            Frequently Asked <span className="text-red-500">Questions</span>
           </h2>
 
-          <p className="mx-auto mt-2 max-w-2xl text-[13px] leading-6 text-slate-600">
+          <p className="mt-4 text-base leading-relaxed text-slate-600">
             Clear answers about online B.Com validity, eligibility, subjects,
             exams, duration, and career options.
           </p>
@@ -115,18 +115,18 @@ export default function BComFAQ() {
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="flex w-full items-center justify-between gap-4 text-left"
+                  className="flex w-full items-start justify-between gap-4 text-left"
                 >
-                  <h3 className="text-sm font-extrabold leading-5 text-slate-950">
+                  <h3 className="flex-1 text-[18px] font-black leading-[1.3] tracking-[-0.3px] text-slate-950">
                     {faq.question}
                   </h3>
 
                   <span
-                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-500 transition-transform duration-200 ${
+                    className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-500 transition-transform duration-300 ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   >
-                    <ChevronDown className="h-4 w-4" strokeWidth={2.2} />
+                    <ChevronDown className="h-5 w-5" strokeWidth={2.4} />
                   </span>
                 </button>
 

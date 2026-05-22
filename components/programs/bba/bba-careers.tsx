@@ -2,20 +2,20 @@ import React from "react";
 import { BriefcaseBusiness } from "lucide-react";
 
 const careerRoles = [
-  "Account Executive",
-  "Finance Associate",
-  "Tax Assistant",
-  "Banking Executive",
-  "Audit Assistant",
-  "Business Analyst",
+  "Business Development Executive",
+  "Marketing Associate",
+  "Human Resource Generalist",
+  "Operations Management Trainee",
+  "Financial Analyst Trainee",
+  "Assistant Brand Manager",
 ];
 
-export default function BComCareers() {
+export default function BbaCareers() {
   return (
     <section className="bg-slate-50 px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 text-center">
-          <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
             Career <span className="text-red-500">Opportunities</span>
           </h2>
         </div>

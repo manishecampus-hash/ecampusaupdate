@@ -98,21 +98,27 @@ export function CarouselBanner() {
         }
 
         .cb-arrow {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          z-index: 20;
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          border: none;
-          background: rgba(0, 0, 0, 0.4);
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-        }
+  display: none; /* Hide on mobile */
+}
+
+@media (min-width: 768px) {
+  .cb-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    display: flex; /* Show on desktop */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
         .cb-arrow.left  { left: 10px; }
         .cb-arrow.right { right: 10px; }
 

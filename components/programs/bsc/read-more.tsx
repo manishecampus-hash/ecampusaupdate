@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { ChevronDown, CheckCircle2 } from "lucide-react";
 
 const benefits = [
-  "Future-ready commerce education with flexible online learning",
-  "Build strong knowledge in accounting, finance, and business management",
-  "Designed for students, freshers, and working professionals",
-  "Supports career growth in banking, taxation, finance, and management",
+  "Future-ready scientific education with flexible online learning",
+  "Build strong knowledge in analytical workflows, data evaluation, and theory",
+  "Designed for tech aspirants, freshers, and working professionals",
+  "Supports career growth in data analytics, research, development, and tech roles",
 ];
 
 export default function ReadMore() {
@@ -19,14 +19,15 @@ export default function ReadMore() {
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div>
             <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
-              Benefits of Choosing an Online B.Com{" "}
+              Benefits of Choosing an Online B.Sc{" "}
               <span className="text-red-500">Program?</span>
             </h2>
 
             <p className="mt-4 text-base leading-relaxed text-slate-600">
-              Gain practical commerce and business knowledge through a flexible
-              online B.Com program focused on accounting, finance, taxation,
-              banking, auditing, and industry-relevant skills.
+              Gain practical, scientific, and technical expertise through a
+              flexible online B.Sc program focused on systematic inquiry,
+              empirical evidence, quantitative investigation, and
+              industry-relevant computing skills.
             </p>
           </div>
 
@@ -49,17 +50,19 @@ export default function ReadMore() {
             {open && (
               <div className="mt-5 space-y-4 border-l-2 border-red-200 pl-5 text-sm leading-7 text-gray-700 sm:text-base">
                 <p>
-                  Online B.Com programs offer the flexibility to learn from
-                  anywhere while providing access to digital lectures,
-                  assignments, study materials, and academic support throughout
-                  the course.
+                  Online B.Sc programs offer the flexibility to study from
+                  anywhere while providing seamless access to cloud
+                  laboratories, recorded modules, digital learning materials,
+                  and synchronous academic support throughout your degree
+                  timeline.
                 </p>
 
                 <p>
-                  The program helps learners develop practical knowledge in
-                  accounting, finance, taxation, banking, auditing, and business
-                  operations while preparing for corporate careers and higher
-                  education opportunities.
+                  The curriculum helps learners develop real-world proficiency
+                  in logical structures, mathematical frameworks, modern coding
+                  skills, and structured experimentation setups—effectively
+                  preparing you for technical corporate pathways or advanced
+                  scientific post-graduate programs.
                 </p>
               </div>
             )}

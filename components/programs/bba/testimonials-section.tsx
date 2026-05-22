@@ -15,56 +15,57 @@ const testimonials: TestimonialCard[] = [
   {
     id: "1",
     name: "Priya Mehta",
-    program: "Online B.Com",
+    program: "Online BBA",
     university: "Amity University Online",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=700&auto=format&fit=crop&q=80",
     quote:
-      "The Online B.Com program helped me build a strong foundation in accounting, taxation, and business management. Recorded lectures and flexible classes made it easy to study while preparing for internships.",
+      "The Online BBA program helped me build a strong foundation in business management, leadership strategies, and marketing. Recorded lectures and flexible classes made it easy to study while preparing for management roles.",
   },
   {
     id: "2",
     name: "Rohan Agarwal",
-    program: "Online B.Com",
+    program: "Online BBA",
     university: "Manipal University Online",
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&auto=format&fit=crop&q=80",
     quote:
-      "I wanted a commerce degree that would let me continue working part-time. The online format gave me flexibility, and the curriculum was practical for finance, banking, and accounting career paths.",
+      "I wanted a business administration degree that would let me continue working part-time. The online format gave me flexibility, and the curriculum was incredibly practical for operations, marketing, and strategic growth career paths.",
   },
   {
     id: "3",
     name: "Ananya Sharma",
-    program: "Online B.Com",
+    program: "Online BBA",
     university: "GLA University Online",
     image:
       "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=700&auto=format&fit=crop&q=80",
     quote:
-      "The best part was how simple the learning platform was. I could attend live sessions, revise recorded classes, and submit assignments without disrupting my daily schedule.",
+      "The best part was how simple the learning platform was. I could attend live strategy workshops, revise recorded corporate finance classes, and submit assignments without disrupting my business schedule.",
   },
   {
     id: "4",
     name: "Karan Malhotra",
-    program: "Online B.Com",
+    program: "Online BBA",
     university: "NMIMS Online",
     image:
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=700&auto=format&fit=crop&q=80",
     quote:
-      "The program helped me understand business law, auditing, and finance in a structured way. Faculty support and study material made the online learning experience smooth and useful.",
+      "The program helped me understand human resources, market analytics, and corporate governance in a structured way. Faculty mentorship and case studies made the online learning experience smooth and directly applicable to corporate life.",
   },
 ];
 
-export default function TestimonialsSection() {
+// Changed to a Named Export to eliminate default routing conflicts
+export function TestimonialsSection() {
   return (
     <section className="w-full bg-white px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-5">
           <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
-            B.Com Student <span className="text-red-500">Testimonials</span>
+            BBA Student <span className="text-red-500">Testimonials</span>
           </h2>
 
           <p className="mt-4 text-base leading-relaxed text-slate-600">
-            Hear from learners who completed flexible online commerce programs
+            Hear from learners who completed flexible online management programs
             from top universities.
           </p>
         </div>

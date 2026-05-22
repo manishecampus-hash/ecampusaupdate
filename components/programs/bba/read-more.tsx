@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import { ChevronDown, CheckCircle2 } from "lucide-react";
 
 const benefits = [
-  "Future-ready commerce education with flexible online learning",
-  "Build strong knowledge in accounting, finance, and business management",
-  "Designed for students, freshers, and working professionals",
-  "Supports career growth in banking, taxation, finance, and management",
+  "Industry-focused management degree with flexible online learning",
+  "Learn leadership, marketing, operations, and business management skills",
+  "Designed for students, freshers, entrepreneurs, and professionals",
+  "Strong foundation for MBA, corporate careers, and startup opportunities",
 ];
 
-export default function ReadMore() {
+export default function BbaReadMore() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -19,14 +19,14 @@ export default function ReadMore() {
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div>
             <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
-              Benefits of Choosing an Online B.Com{" "}
+              Benefits of Choosing an Online BBA{" "}
               <span className="text-red-500">Program?</span>
             </h2>
 
             <p className="mt-4 text-base leading-relaxed text-slate-600">
-              Gain practical commerce and business knowledge through a flexible
-              online B.Com program focused on accounting, finance, taxation,
-              banking, auditing, and industry-relevant skills.
+              Gain practical business and management knowledge through a
+              flexible online BBA program focused on leadership, marketing,
+              operations, finance, and industry-relevant corporate skills.
             </p>
           </div>
 
@@ -49,17 +49,17 @@ export default function ReadMore() {
             {open && (
               <div className="mt-5 space-y-4 border-l-2 border-red-200 pl-5 text-sm leading-7 text-gray-700 sm:text-base">
                 <p>
-                  Online B.Com programs offer the flexibility to learn from
-                  anywhere while providing access to digital lectures,
-                  assignments, study materials, and academic support throughout
-                  the course.
+                  Online BBA programs provide the flexibility to study from
+                  anywhere while offering access to digital lectures,
+                  assignments, case studies, and academic support throughout the
+                  program.
                 </p>
 
                 <p>
-                  The program helps learners develop practical knowledge in
-                  accounting, finance, taxation, banking, auditing, and business
-                  operations while preparing for corporate careers and higher
-                  education opportunities.
+                  The program helps learners build practical management skills
+                  in leadership, marketing, business operations, finance, and
+                  strategic decision-making while preparing for corporate
+                  careers and higher education opportunities.
                 </p>
               </div>
             )}

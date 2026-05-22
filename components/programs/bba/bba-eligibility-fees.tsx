@@ -4,26 +4,26 @@ const feeOptions = [
   {
     icon: "🏦",
     title: "Partner Bank EMI",
-    desc: "HDFC, ICICI, Axis Bank - no-cost EMI with instant approval",
+    desc: "HDFC, ICICI, Axis Bank - zero-cost EMI plans with instant online approvals",
   },
   {
     icon: "📱",
-    title: "NBFC & Fintech",
-    desc: "PaySense, KreditBee, EarlySalary - flexible tenures up to 36 months",
+    title: "NBFC & Fintech Options",
+    desc: "PaySense, KreditBee, EarlySalary - flexible undergraduate financing up to 36 months",
   },
   {
     icon: "🏢",
-    title: "Corporate Sponsorship",
-    desc: "Get your company to sponsor with B2B invoicing support",
+    title: "Semester-wise Payments",
+    desc: "Break down your academic fees effortlessly into equal semester milestones",
   },
   {
     icon: "🎓",
-    title: "Scholarship Available",
-    desc: "Merit & need-based scholarships up to ₹40,000 available",
+    title: "BBA Scholarships Available",
+    desc: "Merit-based and category waivers up to ₹30,000 for qualifying applicants",
   },
 ];
 
-export default function FeeSection() {
+export default function BbaFeeSection() {
   return (
     <section className="w-full py-14 sm:py-16 lg:py-20" id="fee">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -38,7 +38,8 @@ export default function FeeSection() {
           </h2>
 
           <p className="mt-4 text-base leading-relaxed text-slate-600">
-            Flexible payment options to make world-class education accessible.
+            Flexible, affordable payment options designed to make top-tier
+            business education accessible.
           </p>
         </div>
 
@@ -54,23 +55,23 @@ export default function FeeSection() {
               </div>
 
               <div className="mb-2 text-4xl font-extrabold text-red-500 sm:text-5xl">
-                ₹2,00,000
+                ₹1,50,000
               </div>
 
               <div className="mb-6 text-sm text-slate-400 sm:text-base">
-                1-Year Online MBA - Batch July 2026
+                3-Year Online BBA Degree - Batch July 2026
               </div>
 
               {/* EMI Box */}
               <div className="mb-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
                 <div className="mb-1 text-sm font-bold text-red-400">
-                  💳 No-Cost EMI
+                  💳 Low-Cost EMI Plans
                 </div>
 
                 <div className="text-sm leading-6 text-slate-300 sm:text-base">
                   Starting from{" "}
-                  <span className="font-bold text-white">₹8,500/month</span> -
-                  24-month tenure
+                  <span className="font-bold text-white">₹4,800/month</span> -
+                  with flexible installment choices
                 </div>
               </div>
 

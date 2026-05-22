@@ -2,54 +2,54 @@ import React from "react";
 
 const curriculum = [
   {
-    title: "Financial Accounting",
+    title: "Calculus & Linear Algebra",
     description:
-      "Learn accounting principles, journal entries, ledgers, trial balance, and financial statements.",
+      "Master differential and integral calculus, vector spaces, matrix transformations, and systems of linear equations essential for advanced scientific modeling.",
   },
   {
-    title: "Business Economics",
+    title: "Probability & Statistics",
     description:
-      "Understand demand, supply, pricing, market structures, and economic decision-making.",
+      "Explore discrete and continuous probability distributions, estimation theory, hypothesis testing, regression analysis, and data-driven inference models.",
   },
   {
-    title: "Corporate Accounting",
+    title: "Programming & Data Structures",
     description:
-      "Study company accounts, shares, debentures, final accounts, and corporate financial reporting.",
+      "Develop problem-solving skills using structured programming paradigms. Implement memory management, linked lists, stacks, queues, and tree architectures.",
   },
   {
-    title: "Income Tax Law",
+    title: "Database Management Systems",
     description:
-      "Explore taxation rules, income heads, deductions, exemptions, and return filing basics.",
+      "Design relational databases using normalization principles. Author structured query language (SQL) commands, index parameters, and transact ACID compliance.",
   },
   {
-    title: "Business Law",
+    title: "Classical & Quantum Mechanics",
     description:
-      "Learn contracts, company law, commercial regulations, and legal aspects of business.",
+      "Analyze Newtonian physics systems, rotational dynamics, wave mechanics, and fundamental structural introductions to state wave functions.",
   },
   {
-    title: "Cost Accounting",
+    title: "Discrete Mathematics",
     description:
-      "Understand cost classification, budgeting, variance analysis, and cost control methods.",
+      "Examine set theory, mathematical logic, combinatorics, graph algorithms, and boolean algebra foundational to computing logic networks.",
   },
   {
-    title: "Auditing",
+    title: "Research Methodology",
     description:
-      "Study audit principles, verification, internal controls, documentation, and reporting.",
+      "Learn systematic scientific inquiry, quantitative research frameworks, experimental control design, and technical data interpretation standards.",
   },
   {
-    title: "Financial Management",
+    title: "Data Analytics & Modelling",
     description:
-      "Learn capital budgeting, working capital, financial planning, and investment decisions.",
+      "Utilize computational packages to visualize complex datasets, build numerical simulations, and evaluate experimental scientific variations.",
   },
 ];
 
-export default function BComCurriculum() {
+export default function BscCurriculum() {
   return (
     <section className="bg-slate-50 px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-10 max-w-2xl text-center">
           <span className="mb-3 inline-flex rounded-full bg-red-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-red-500">
-            B.Com Program
+            B.Sc Program
           </span>
 
           <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
@@ -57,8 +57,9 @@ export default function BComCurriculum() {
           </h2>
 
           <p className="mt-4 text-base leading-relaxed text-slate-600">
-            Explore the core subjects covered throughout the online B.Com
-            journey, designed to build strong commerce and finance foundations.
+            Explore the core analytical, mathematical, and laboratory
+            disciplines covered throughout your three-year online scientific
+            degree track.
           </p>
         </div>
 

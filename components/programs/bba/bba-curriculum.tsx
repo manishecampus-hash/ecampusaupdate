@@ -2,63 +2,63 @@ import React from "react";
 
 const curriculum = [
   {
-    title: "Financial Accounting",
+    title: "Principles of Management",
     description:
-      "Learn accounting principles, journal entries, ledgers, trial balance, and financial statements.",
+      "Understand foundational management theories, planning techniques, decision-making, and organizational design.",
   },
   {
     title: "Business Economics",
     description:
-      "Understand demand, supply, pricing, market structures, and economic decision-making.",
+      "Analyze market structures, demand forecasting, pricing strategies, and macroeconomic factors impacting corporate operations.",
   },
   {
-    title: "Corporate Accounting",
+    title: "Marketing Management",
     description:
-      "Study company accounts, shares, debentures, final accounts, and corporate financial reporting.",
+      "Explore consumer behavior, product positioning, digital marketing channels, and strategic brand management.",
   },
   {
-    title: "Income Tax Law",
+    title: "Human Resource Management",
     description:
-      "Explore taxation rules, income heads, deductions, exemptions, and return filing basics.",
+      "Learn talent acquisition, performance appraisal, employee engagement, compensation design, and labor laws.",
   },
   {
-    title: "Business Law",
+    title: "Organizational Behavior",
     description:
-      "Learn contracts, company law, commercial regulations, and legal aspects of business.",
+      "Study group dynamics, workplace psychology, corporate culture, motivation models, and conflict resolution tactics.",
   },
   {
-    title: "Cost Accounting",
+    title: "Business Analytics",
     description:
-      "Understand cost classification, budgeting, variance analysis, and cost control methods.",
-  },
-  {
-    title: "Auditing",
-    description:
-      "Study audit principles, verification, internal controls, documentation, and reporting.",
+      "Master data-driven decision-making, statistical modeling, operational forecasting, and executive reporting metrics.",
   },
   {
     title: "Financial Management",
     description:
-      "Learn capital budgeting, working capital, financial planning, and investment decisions.",
+      "Learn corporate capital budgeting, working capital optimization, asset funding choices, and financial planning frameworks.",
+  },
+  {
+    title: "Strategic Management",
+    description:
+      "Develop competitive landscapes, SWOT analyses, long-term portfolio strategies, and enterprise execution plans.",
   },
 ];
 
-export default function BComCurriculum() {
+export default function BbaCurriculum() {
   return (
     <section className="bg-slate-50 px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-10 max-w-2xl text-center">
           <span className="mb-3 inline-flex rounded-full bg-red-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-red-500">
-            B.Com Program
+            BBA Program
           </span>
-
           <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
             Program <span className="text-red-500">Curriculum</span>
           </h2>
 
           <p className="mt-4 text-base leading-relaxed text-slate-600">
-            Explore the core subjects covered throughout the online B.Com
-            journey, designed to build strong commerce and finance foundations.
+            Explore the core subjects covered throughout your online BBA
+            journey, meticulously engineered to build robust leadership and
+            business fundamentals.
           </p>
         </div>
 
