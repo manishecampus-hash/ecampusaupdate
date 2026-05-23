@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import HeroStatsSection from "./ui/hero-cta-section";
-
+// new added
 const slides = [
   {
     id: 1,
