@@ -1193,7 +1193,7 @@ export function Header() {
           ref={normalHeaderRef}
           className="relative mx-auto max-w-7xl bg-transparent shadow-none"
         >
-          <nav className="h-28 px-0 flex items-center justify-between">
+          <nav className="h-20 px-0 flex items-center justify-between">
             <NavContent {...navProps} floating={false} />
           </nav>
 
@@ -1219,7 +1219,7 @@ export function Header() {
         }`}
       >
         <header className="relative mx-auto max-w-7xl rounded-full border border-gray-200 bg-white/90 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-md">
-          <nav className="h-20 px-7 flex items-center justify-between">
+          <nav className="h-14 px-7 flex items-center justify-between">
             <NavContent {...navProps} floating />
           </nav>
 

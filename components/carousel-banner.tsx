@@ -1,45 +1,54 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import HeroStatsSection from "./ui/hero-cta-section";
-// newadded
+
 const slides = [
   {
     id: 1,
-    desktop: "/newbnr1.svg",
+    desktop: "banner/banner1.svg",
     mobile: "/mobile11.jpeg",
   },
   {
     id: 2,
-    desktop: "/second.svg",
+    desktop: "banner/banner2.svg",
     mobile: "/mobile1.png",
   },
   {
     id: 3,
-    desktop: "/third.svg",
+    desktop: "banner/banner3.svg",
     mobile: "/mobile2.png",
   },
   {
     id: 4,
-    desktop: "/fourthimg.svg",
-    mobile: "/mobile66.png",
+    desktop: "banner/banner4.svg",
+    mobile: "banner/mobile4.png",
   },
 ];
+
+// Thresholds
+const SWIPE_THRESHOLD = 50; // px horizontal needed to trigger slide change
+const LOCK_AXIS_THRESHOLD = 10; // px to decide which axis we're scrolling
 
 export function CarouselBanner() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
 
+  // Touch tracking refs (no re-render needed)
+  const touchStartX = useRef<number>(0);
+  const touchStartY = useRef<number>(0);
+  const touchDeltaX = useRef<number>(0);
+  const touchDeltaY = useRef<number>(0);
+  const isHorizontalSwipe = useRef<boolean | null>(null); // null = undecided
+
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-    setIsAutoPlay(false);
   }, []);
 
   const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    setIsAutoPlay(false);
   }, []);
 
   const goToSlide = (index: number) => {
@@ -47,15 +56,94 @@ export function CarouselBanner() {
     setIsAutoPlay(false);
   };
 
+  // ─── Autoplay ────────────────────────────────────────────────
   useEffect(() => {
     if (!isAutoPlay) return;
-
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
-
     return () => clearInterval(timer);
   }, [isAutoPlay]);
+
+  // ─── Touch Handlers ──────────────────────────────────────────
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchDeltaX.current = 0;
+    touchDeltaY.current = 0;
+    isHorizontalSwipe.current = null; // reset axis lock
+    setIsAutoPlay(false);
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    const dx = e.touches[0].clientX - touchStartX.current;
+    const dy = e.touches[0].clientY - touchStartY.current;
+    touchDeltaX.current = dx;
+    touchDeltaY.current = dy;
+
+    // Axis lock: decide once per gesture which direction user intends
+    if (isHorizontalSwipe.current === null) {
+      if (
+        Math.abs(dx) > LOCK_AXIS_THRESHOLD ||
+        Math.abs(dy) > LOCK_AXIS_THRESHOLD
+      ) {
+        isHorizontalSwipe.current = Math.abs(dx) > Math.abs(dy);
+      }
+    }
+
+    // Only prevent default (block page scroll) when clearly swiping horizontally
+    if (isHorizontalSwipe.current === true) {
+      e.preventDefault(); // stops the page from scrolling while swiping banner
+    }
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    // Only act if gesture was horizontal
+    if (isHorizontalSwipe.current === true) {
+      if (touchDeltaX.current < -SWIPE_THRESHOLD) {
+        nextSlide();
+      } else if (touchDeltaX.current > SWIPE_THRESHOLD) {
+        prevSlide();
+      }
+    }
+    // Reset
+    isHorizontalSwipe.current = null;
+  }, [nextSlide, prevSlide]);
+
+  // ─── Attach passive:false listener for touchmove (React synthetic won't work) ─
+  // React's onTouchMove is passive by default in newer React versions on some browsers,
+  // so we use a ref + addEventListener to get the non-passive version.
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+
+    const onTouchMove = (e: TouchEvent) => {
+      const dx = e.touches[0].clientX - touchStartX.current;
+      const dy = e.touches[0].clientY - touchStartY.current;
+      touchDeltaX.current = dx;
+      touchDeltaY.current = dy;
+
+      if (isHorizontalSwipe.current === null) {
+        if (
+          Math.abs(dx) > LOCK_AXIS_THRESHOLD ||
+          Math.abs(dy) > LOCK_AXIS_THRESHOLD
+        ) {
+          isHorizontalSwipe.current = Math.abs(dx) > Math.abs(dy);
+        }
+      }
+
+      if (isHorizontalSwipe.current === true) {
+        e.preventDefault(); // this works because listener is non-passive
+      }
+    };
+
+    // { passive: false } is critical — allows preventDefault()
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    return () => el.removeEventListener("touchmove", onTouchMove);
+  }, []);
 
   return (
     <>
@@ -71,6 +159,11 @@ export function CarouselBanner() {
           background: #ffffff;
           aspect-ratio: 16 / 9;
           border-radius: 0;
+          /* Prevent text selection during swipe */
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: pan-y; /* allow vertical scroll by default; overridden via JS for horizontal */
+          
         }
 
         /* TABLET & DESKTOP */
@@ -79,6 +172,7 @@ export function CarouselBanner() {
             aspect-ratio: 16 / 4;
             border-radius: 0;
             border-bottom: 2px solid #e5e7eb;
+            touch-action: auto; /* desktop doesn't need special handling */
           }
         }
 
@@ -123,6 +217,9 @@ export function CarouselBanner() {
         /* IMAGE STYLE */
         .banner-img {
           object-fit: cover;
+          /* Disable iOS long-press image save popup during swipe */
+          -webkit-touch-callout: none;
+          pointer-events: none;
         }
 
         /* ARROWS */
@@ -191,9 +288,13 @@ export function CarouselBanner() {
       {/* FULL WIDTH CONTAINER */}
       <div className="w-full overflow-hidden">
         <div
+          ref={wrapRef}
           className="cb-wrap"
           onMouseEnter={() => setIsAutoPlay(false)}
           onMouseLeave={() => setIsAutoPlay(true)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          /* onTouchMove handled via addEventListener (passive:false) in useEffect */
         >
           {slides.map((s, i) => (
             <div
@@ -208,6 +309,7 @@ export function CarouselBanner() {
                   fill
                   priority={i === 0}
                   className="banner-img"
+                  draggable={false}
                 />
               </div>
 
@@ -219,18 +321,31 @@ export function CarouselBanner() {
                   fill
                   priority={i === 0}
                   className="banner-img"
+                  draggable={false}
                 />
               </div>
             </div>
           ))}
 
           {/* LEFT ARROW */}
-          <button className="cb-arrow left" onClick={prevSlide}>
+          <button
+            className="cb-arrow left"
+            onClick={() => {
+              prevSlide();
+              setIsAutoPlay(false);
+            }}
+          >
             <ChevronLeft size={20} />
           </button>
 
           {/* RIGHT ARROW */}
-          <button className="cb-arrow right" onClick={nextSlide}>
+          <button
+            className="cb-arrow right"
+            onClick={() => {
+              nextSlide();
+              setIsAutoPlay(false);
+            }}
+          >
             <ChevronRight size={20} />
           </button>
         </div>
