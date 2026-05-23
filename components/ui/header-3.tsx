@@ -1025,11 +1025,7 @@ function NavContent({
         onClick={closeAll}
         className="flex items-center gap-2 hover:opacity-80 select-none flex-shrink-0"
       >
-        <img
-          src="/logo.png"
-          alt="eCampus"
-          className="h-10 w-auto brightness-0"
-        />
+        <img src="/logo.png" alt="eCampus" className="h-10 w-auto" />
       </Link>
 
       <div className="hidden md:flex items-center gap-1">
