@@ -153,9 +153,10 @@ export default function AIProgramFinder() {
           overflow: hidden;
           padding: 70px 20px 90px;
           background:
-            radial-gradient(circle at top left, rgba(239, 68, 68, 0.08), transparent 28%),
-            radial-gradient(circle at bottom right, rgba(248, 113, 113, 0.08), transparent 30%),
-            linear-gradient(to bottom, #ffffff, #f8fafc);
+            radial-gradient(circle at top left, rgba(239, 68, 68, 0.12), transparent 35%),
+            radial-gradient(circle at bottom right, rgba(248, 113, 113, 0.1), transparent 35%),
+            linear-gradient(to bottom, #0f172a, #020617);
+          color: #f8fafc;
         }
 
         .section-header {
@@ -166,26 +167,26 @@ export default function AIProgramFinder() {
         }
 
         .section-title {
-          font-size: clamp(34px, 5vw, 56px);
-          line-height: 1.1;
-          font-weight: 900;
-          color: #0f172a;
+          font-size: clamp(28px, 4vw, 42px);
+          line-height: 1.2;
+          font-weight: 700;
+          color: #f8fafc;
           margin-top: 14px;
-          letter-spacing: -0.04em;
+          letter-spacing: -0.02em;
         }
 
         .section-title span {
-          background: linear-gradient(to right, #ef4444, #dc2626);
+          background: linear-gradient(to right, #f87171, #ef4444);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
 
         .section-description {
           max-width: 700px;
-          margin: 16px auto 0;
-          font-size: 16px;
-          line-height: 1.7;
-          color: #64748b;
+          margin: 12px auto 0;
+          font-size: 15px;
+          line-height: 1.6;
+          color: #94a3b8;
         }
 
         .finder-card {
@@ -194,13 +195,13 @@ export default function AIProgramFinder() {
           max-width: 1280px;
           margin: 0 auto;
           padding: 30px;
-          border-radius: 28px;
-          background: rgba(255,255,255,0.82);
+          border-radius: 24px;
+          background: rgba(30, 41, 59, 0.45);
           backdrop-filter: blur(18px);
-          border: 1px solid rgba(255,255,255,0.7);
+          border: 1px solid rgba(255, 255, 255, 0.08);
           box-shadow:
-            0 20px 60px rgba(15, 23, 42, 0.08),
-            0 6px 20px rgba(239, 68, 68, 0.06);
+            0 20px 60px rgba(0, 0, 0, 0.4),
+            0 6px 20px rgba(239, 68, 68, 0.03);
         }
 
         .top-highlight {
@@ -210,7 +211,7 @@ export default function AIProgramFinder() {
           gap: 20px;
           margin-bottom: 28px;
           padding-bottom: 22px;
-          border-bottom: 1px solid #e5e7eb;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .highlight-left {
@@ -223,24 +224,24 @@ export default function AIProgramFinder() {
           width: 52px;
           height: 52px;
           border-radius: 16px;
-          background: linear-gradient(to bottom right, #ef4444, #dc2626);
+          background: linear-gradient(to bottom right, #ef4444, #b91c1c);
           display: flex;
           align-items: center;
           justify-content: center;
           color: white;
-          box-shadow: 0 10px 30px rgba(239, 68, 68, 0.25);
+          box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
         }
 
         .highlight-title {
           font-size: 18px;
-          font-weight: 800;
-          color: #111827;
+          font-weight: 700;
+          color: #f8fafc;
         }
 
         .highlight-subtitle {
           margin-top: 3px;
           font-size: 13px;
-          color: #6b7280;
+          color: #94a3b8;
         }
 
         .live-badge {
@@ -249,18 +250,18 @@ export default function AIProgramFinder() {
           gap: 8px;
           padding: 8px 14px;
           border-radius: 999px;
-          background: #fef2f2;
-          border: 1px solid #fecaca;
-          color: #dc2626;
+          background: rgba(239, 68, 68, 0.1);
+          border: 1px solid rgba(239, 68, 68, 0.25);
+          color: #f87171;
           font-size: 12px;
-          font-weight: 700;
+          font-weight: 600;
         }
 
         .pulse-dot {
           width: 8px;
           height: 8px;
           border-radius: 999px;
-          background: #dc2626;
+          background: #ef4444;
           animation: pulse 1.5s infinite;
         }
 
@@ -297,42 +298,42 @@ export default function AIProgramFinder() {
           align-items: center;
           gap: 7px;
           font-size: 13px;
-          font-weight: 700;
-          color: #334155;
+          font-weight: 600;
+          color: #cbd5e1;
         }
 
         .form-select {
           width: 100%;
           height: 52px;
-          border: 1px solid #e2e8f0;
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 16px;
           padding: 0 16px;
           font-size: 14px;
           font-weight: 500;
-          color: #111827;
-          background: rgba(255,255,255,0.95);
+          color: #f8fafc;
+          background: #1e293b;
           outline: none;
           transition: all 0.25s ease;
         }
 
         .form-select:hover {
-          border-color: #cbd5e1;
+          border-color: rgba(255, 255, 255, 0.2);
         }
 
         .form-select:focus {
           border-color: #ef4444;
-          box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+          box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
         }
 
         .form-select.error {
-          border-color: #dc2626;
-          box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.08);
+          border-color: #ef4444;
+          box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
         }
 
         .error-msg {
           font-size: 11px;
           font-weight: 600;
-          color: #dc2626;
+          color: #f87171;
         }
 
         .button-wrap {
@@ -348,18 +349,16 @@ export default function AIProgramFinder() {
           gap: 8px;
           min-width: 170px;
           height: 48px;
-          padding: 0 20px;
+          padding: 0 24px;
           border: none;
           border-radius: 999px;
           background: linear-gradient(to right, #ef4444, #dc2626);
           color: #ffffff;
           font-size: 14px;
-          font-weight: 700;
+          font-weight: 600;
           cursor: pointer;
           transition: all 0.25s ease;
-          box-shadow:
-            0 14px 30px rgba(239, 68, 68, 0.24),
-            inset 0 1px 0 rgba(255,255,255,0.25);
+          box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
         }
 
         .ask-ai-btn svg {
@@ -369,10 +368,11 @@ export default function AIProgramFinder() {
 
         .ask-ai-btn:hover {
           transform: translateY(-2px);
+          box-shadow: 0 12px 30px rgba(239, 68, 68, 0.4);
         }
 
         .ask-ai-btn:disabled {
-          opacity: 0.7;
+          opacity: 0.6;
           cursor: not-allowed;
           transform: none;
         }
@@ -381,11 +381,9 @@ export default function AIProgramFinder() {
           margin-top: 30px;
           border-radius: 22px;
           overflow: hidden;
-          border: 1px solid #e5e7eb;
-          background: white;
-          box-shadow:
-            0 16px 40px rgba(15, 23, 42, 0.06),
-            0 6px 14px rgba(0,0,0,0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: #1e293b;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
 
         .ai-header {
@@ -393,8 +391,8 @@ export default function AIProgramFinder() {
           align-items: center;
           justify-content: space-between;
           padding: 16px 20px;
-          background: linear-gradient(to right, #fff5f5, #ffffff);
-          border-bottom: 1px solid #f1f5f9;
+          background: linear-gradient(to right, rgba(239, 68, 68, 0.08), transparent);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .ai-title-wrap {
@@ -416,46 +414,49 @@ export default function AIProgramFinder() {
 
         .ai-title {
           font-size: 15px;
-          font-weight: 800;
-          color: #111827;
+          font-weight: 700;
+          color: #f8fafc;
         }
 
         .ai-subtitle {
           font-size: 12px;
-          color: #64748b;
+          color: #94a3b8;
         }
 
         .close-btn {
           width: 34px;
           height: 34px;
           border-radius: 999px;
-          border: 1px solid #e5e7eb;
-          background: white;
-          color: #64748b;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: transparent;
+          color: #94a3b8;
           font-size: 18px;
           cursor: pointer;
           transition: all 0.2s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .close-btn:hover {
-          background: #fef2f2;
-          color: #dc2626;
-          border-color: #fecaca;
+          background: rgba(239, 68, 68, 0.1);
+          color: #f87171;
+          border-color: rgba(239, 68, 68, 0.3);
         }
 
         .ai-content {
           padding: 24px;
           line-height: 1.8;
-          color: #475569;
+          color: #cbd5e1;
           font-size: 14px;
         }
 
         .ai-content h1,
         .ai-content h2,
         .ai-content h3 {
-          color: #0f172a;
+          color: #f8fafc;
           margin-bottom: 12px;
-          font-weight: 800;
+          font-weight: 700;
         }
 
         .ai-content p {
@@ -500,11 +501,11 @@ export default function AIProgramFinder() {
           }
 
           .section-title {
-            font-size: 36px;
+            font-size: 30px;
           }
 
           .section-description {
-            font-size: 15px;
+            font-size: 14px;
           }
 
           .ask-ai-btn {
@@ -519,8 +520,8 @@ export default function AIProgramFinder() {
       `}</style>
 
       <div className="section-header">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-500 uppercase tracking-wider">
-          <Bot className="h-3.5 w-3.5 text-red-500" />
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-800 border border-slate-700 px-3 py-1 text-xs font-bold text-slate-400 uppercase tracking-wider">
+          <Bot className="h-3.5 w-3.5 text-red-400" />
           AI Powered Guidance
         </span>
 
@@ -557,7 +558,7 @@ export default function AIProgramFinder() {
         <div className="form-row">
           <div className="form-group">
             <label className="form-label">
-              <GraduationCap className="h-4 w-4 text-red-500" />
+              <GraduationCap className="h-4 w-4 text-red-400" />
               Qualification
             </label>
 
@@ -580,7 +581,7 @@ export default function AIProgramFinder() {
 
           <div className="form-group">
             <label className="form-label">
-              <BookOpen className="h-4 w-4 text-red-500" />
+              <BookOpen className="h-4 w-4 text-red-400" />
               Course
             </label>
 
@@ -605,7 +606,7 @@ export default function AIProgramFinder() {
 
           <div className="form-group">
             <label className="form-label">
-              <Wallet className="h-4 w-4 text-red-500" />
+              <Wallet className="h-4 w-4 text-red-400" />
               Budget
             </label>
 
@@ -628,7 +629,7 @@ export default function AIProgramFinder() {
 
           <div className="form-group">
             <label className="form-label">
-              <Laptop className="h-4 w-4 text-red-500" />
+              <Laptop className="h-4 w-4 text-red-400" />
               Study Mode
             </label>
 
@@ -651,7 +652,7 @@ export default function AIProgramFinder() {
 
           <div className="form-group">
             <label className="form-label">
-              <Target className="h-4 w-4 text-red-500" />
+              <Target className="h-4 w-4 text-red-400" />
               Career Goal
             </label>
 
