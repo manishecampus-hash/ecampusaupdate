@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import HeroStatsSection from "./ui/hero-cta-section";
-// new added
+// newadded
 const slides = [
   {
     id: 1,
@@ -24,7 +24,7 @@ const slides = [
   {
     id: 4,
     desktop: "/fourthimg.svg",
-    mobile: "/mobile3.png",
+    mobile: "/mobile1111.svg",
   },
 ];
 
