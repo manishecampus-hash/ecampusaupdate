@@ -4,27 +4,26 @@ import React, { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import HeroStatsSection from "./ui/hero-cta-section";
-// import { HeroStatsSection } from "./ui/hero-cta-section";
 
 const slides = [
   {
     id: 1,
-    desktop: "/us.jpeg",
+    desktop: "/newbnr1.svg",
     mobile: "/mobile11.jpeg",
   },
   {
     id: 2,
-    desktop: "/mba.jpeg",
+    desktop: "/second.svg",
     mobile: "/mobile1.png",
   },
   {
     id: 3,
-    desktop: "/dba.jpeg",
+    desktop: "/third.svg",
     mobile: "/mobile2.png",
   },
   {
     id: 4,
-    desktop: "/ecampusapp.jpeg",
+    desktop: "/fourthimg.svg",
     mobile: "/mobile3.png",
   },
 ];
@@ -50,32 +49,43 @@ export function CarouselBanner() {
 
   useEffect(() => {
     if (!isAutoPlay) return;
+
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
+
     return () => clearInterval(timer);
-  }, [isAutoPlay, currentSlide]);
+  }, [isAutoPlay]);
 
   return (
     <>
       <style>{`
+        /* =========================
+           FULL WIDTH HERO BANNER
+        ========================== */
+
         .cb-wrap {
           position: relative;
           width: 100%;
-          /* MOBILE SIZE (Like College Vidhya) */
-          aspect-ratio: 2 / 1;
           overflow: hidden;
-         background: #ffffff;
-          border-radius: 12px; /* Added slight rounding like the screenshot */
+          background: #ffffff;
+          aspect-ratio: 16 / 9;
+          border-radius: 0;
         }
 
-        /* DESKTOP SIZE */
+        /* TABLET & DESKTOP */
         @media (min-width: 768px) {
           .cb-wrap {
             aspect-ratio: 16 / 4;
-            border-radius: 0px;
-            border-radius: 5px;
-          border-bottom: 2px solid #e5e7eb;
+            border-radius: 0;
+            border-bottom: 2px solid #e5e7eb;
+          }
+        }
+
+        /* ULTRA WIDE SCREEN */
+        @media (min-width: 1600px) {
+          .cb-wrap {
+            aspect-ratio: 21 / 5;
           }
         }
 
@@ -83,70 +93,103 @@ export function CarouselBanner() {
           position: absolute;
           inset: 0;
           opacity: 0;
-          transition: opacity 0.7s ease;
+          transition: opacity 0.7s ease-in-out;
         }
+
         .cb-slide.active {
           opacity: 1;
+          z-index: 1;
         }
 
-        /* Responsive Image Toggle Classes */
-        .img-mobile { display: block; }
-        .img-desktop { display: none; }
+        /* MOBILE / DESKTOP IMAGE TOGGLE */
+        .img-mobile {
+          display: block;
+        }
+
+        .img-desktop {
+          display: none;
+        }
 
         @media (min-width: 768px) {
-          .img-mobile { display: none; }
-          .img-desktop { display: block; }
+          .img-mobile {
+            display: none;
+          }
+
+          .img-desktop {
+            display: block;
+          }
         }
 
+        /* IMAGE STYLE */
+        .banner-img {
+          object-fit: cover;
+        }
+
+        /* ARROWS */
         .cb-arrow {
-  display: none; /* Hide on mobile */
-}
+          display: none;
+        }
 
-@media (min-width: 768px) {
-  .cb-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 20;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(0, 0, 0, 0.4);
-    color: white;
-    display: flex; /* Show on desktop */
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-}
-        .cb-arrow.left  { left: 10px; }
-        .cb-arrow.right { right: 10px; }
+        @media (min-width: 768px) {
+          .cb-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            width: 42px;
+            height: 42px;
+            border-radius: 9999px;
+            border: none;
+            background: rgba(0, 0, 0, 0.45);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+          }
 
+          .cb-arrow:hover {
+            background: rgba(0, 0, 0, 0.65);
+          }
+        }
+
+        .cb-arrow.left {
+          left: 20px;
+        }
+
+        .cb-arrow.right {
+          right: 20px;
+        }
+
+        /* DOTS */
         .cb-dots {
           display: flex;
           justify-content: center;
+          align-items: center;
           gap: 8px;
-          padding: 15px 0;
+          padding: 14px 0;
         }
+
         .cb-dot {
           width: 8px;
           height: 8px;
-          border-radius: 50%;
+          border-radius: 9999px;
           border: none;
           cursor: pointer;
           background: #d1d5db;
           transition: all 0.3s ease;
           padding: 0;
         }
+
         .cb-dot.active {
-          background: #2563eb; /* Blue color like College Vidhya dots */
-          width: 20px; /* Optional: elongated active dot like modern UIs */
-          border-radius: 4px;
+          width: 24px;
+          background: #2563eb;
         }
       `}</style>
 
-      <div className="max-w-[1400px] mx-auto px-4">
+      {/* FULL WIDTH CONTAINER */}
+      <div className="w-full overflow-hidden">
         <div
           className="cb-wrap"
           onMouseEnter={() => setIsAutoPlay(false)}
@@ -157,37 +200,42 @@ export function CarouselBanner() {
               key={s.id}
               className={`cb-slide ${i === currentSlide ? "active" : ""}`}
             >
-              {/* Mobile Image - Shown only on small screens */}
+              {/* MOBILE IMAGE */}
               <div className="img-mobile relative w-full h-full">
                 <Image
                   src={s.mobile}
                   alt={`Mobile Banner ${s.id}`}
                   fill
-                  className="object-cover"
                   priority={i === 0}
+                  className="banner-img"
                 />
               </div>
 
-              {/* Desktop Image - Shown only on large screens */}
+              {/* DESKTOP IMAGE */}
               <div className="img-desktop relative w-full h-full">
                 <Image
                   src={s.desktop}
                   alt={`Desktop Banner ${s.id}`}
                   fill
-                  className="object-cover"
                   priority={i === 0}
+                  className="banner-img"
                 />
               </div>
             </div>
           ))}
 
+          {/* LEFT ARROW */}
           <button className="cb-arrow left" onClick={prevSlide}>
-            <ChevronLeft size={18} />
+            <ChevronLeft size={20} />
           </button>
+
+          {/* RIGHT ARROW */}
           <button className="cb-arrow right" onClick={nextSlide}>
-            <ChevronRight size={18} />
+            <ChevronRight size={20} />
           </button>
         </div>
+
+        {/* DOTS */}
         <div className="cb-dots">
           {slides.map((_, i) => (
             <button
@@ -198,6 +246,7 @@ export function CarouselBanner() {
           ))}
         </div>
       </div>
+
       <HeroStatsSection />
     </>
   );
