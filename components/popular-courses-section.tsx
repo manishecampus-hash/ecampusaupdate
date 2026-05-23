@@ -1,5 +1,6 @@
 import { OfferCarousel } from "@/components/ui/offer-carousel";
 import { popularCourses } from "@/data/popular-courses";
+import { TrendingUp } from "lucide-react";
 
 export function PopularCoursesSection() {
   return (
@@ -9,7 +10,8 @@ export function PopularCoursesSection() {
     >
       <div className="mx-auto max-w-7xl">
         <div className="mb-8 text-center sm:mb-12">
-          <span className="mb-3 inline-block rounded-full bg-red-50 px-4 py-1 text-sm font-semibold text-red-600 sm:mb-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-500 uppercase tracking-wider">
+            <TrendingUp className="h-3.5 w-3.5 text-red-500" />
             Trending Now
           </span>
 

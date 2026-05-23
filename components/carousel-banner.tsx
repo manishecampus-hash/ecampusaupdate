@@ -3,27 +3,28 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { HeroStatsSection } from "./ui/hero-cta-section";
+import HeroStatsSection from "./ui/hero-cta-section";
+// import { HeroStatsSection } from "./ui/hero-cta-section";
 
 const slides = [
   {
     id: 1,
-    desktop: "/banner11.png",
+    desktop: "/us.jpeg",
     mobile: "/mobile11.jpeg",
   },
   {
     id: 2,
-    desktop: "/banner1.png",
+    desktop: "/mba.jpeg",
     mobile: "/mobile1.png",
   },
   {
     id: 3,
-    desktop: "/banner2.png",
+    desktop: "/dba.jpeg",
     mobile: "/mobile2.png",
   },
   {
     id: 4,
-    desktop: "/banner3.png",
+    desktop: "/ecampusapp.jpeg",
     mobile: "/mobile3.png",
   },
 ];

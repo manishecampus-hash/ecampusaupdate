@@ -97,7 +97,7 @@ export function Footer() {
   return (
     <footer className="border-t border-dotted border-slate-800 mx-auto w-full bg-[#191e27]">
       {/* Brand & Intro */}
-      <div className="relative mx-auto grid max-w-7xl items-start gap-4 px-4 py-10 pb-0 md:flex md:items-start">
+      <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 py-10 pb-0 md:items-start">
         <Link href="/" className="flex items-center justify-center">
           <Image
             src="/logo.png"
@@ -108,7 +108,7 @@ export function Footer() {
           />
         </Link>
 
-        <p className="max-w-3xl text-center text-sm leading-6 text-slate-300 md:text-left">
+        <p className="max-w-3xl text-center text-sm leading-6 text-slate-300 md:text-left ">
           eCampus is a next-generation AI-enabled higher education platform
           designed to empower learners through UGC-recognized online and global
           hybrid degree programs offered by top universities across the world.
