@@ -1,6 +1,7 @@
 "use client";
 
 import { pressArticles } from "@/data/press-section";
+import { Newspaper } from "lucide-react";
 
 const articles = [...pressArticles, ...pressArticles];
 
@@ -10,7 +11,8 @@ export function PressSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 sm:mb-14">
-          <span className="inline-block bg-red-50 text-red-600 px-4 py-1 rounded-full text-sm font-semibold mb-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-500 uppercase tracking-wider">
+            <Newspaper className="h-3.5 w-3.5 text-red-500" />
             Featured in
           </span>
 

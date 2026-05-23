@@ -1,5 +1,14 @@
 "use client";
 
+import {
+  Bot,
+  Sparkles,
+  GraduationCap,
+  Target,
+  Wallet,
+  Laptop,
+  BookOpen,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -21,6 +30,7 @@ const budgetOptions = [
 ];
 
 const studyModeOptions = ["Select", "Online", "Offline", "Hybrid"];
+
 const careerGoalOptions = ["Select", "Job Switch", "Promotion", "Career Start"];
 
 export default function AIProgramFinder() {
@@ -40,6 +50,7 @@ export default function AIProgramFinder() {
   useEffect(() => {
     if (result) {
       setDisplayedText("");
+
       let index = 0;
 
       const interval = setInterval(() => {
@@ -49,7 +60,7 @@ export default function AIProgramFinder() {
         } else {
           clearInterval(interval);
         }
-      }, 10);
+      }, 8);
 
       return () => clearInterval(interval);
     }
@@ -58,18 +69,31 @@ export default function AIProgramFinder() {
   const validate = () => {
     const newErrors: any = {};
 
-    if (form.qualification === "Select") newErrors.qualification = "Required";
+    if (form.qualification === "Select") {
+      newErrors.qualification = "Required";
+    }
+
     if (
       form.course === "Select" ||
       form.course === "Select Qualification First"
     ) {
       newErrors.course = "Required";
     }
-    if (form.budget === "Select") newErrors.budget = "Required";
-    if (form.studyMode === "Select") newErrors.studyMode = "Required";
-    if (form.careerGoal === "Select") newErrors.careerGoal = "Required";
+
+    if (form.budget === "Select") {
+      newErrors.budget = "Required";
+    }
+
+    if (form.studyMode === "Select") {
+      newErrors.studyMode = "Required";
+    }
+
+    if (form.careerGoal === "Select") {
+      newErrors.careerGoal = "Required";
+    }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
@@ -80,7 +104,10 @@ export default function AIProgramFinder() {
       ...(field === "qualification" ? { course: "Select" } : {}),
     }));
 
-    setErrors((prev: any) => ({ ...prev, [field]: undefined }));
+    setErrors((prev: any) => ({
+      ...prev,
+      [field]: undefined,
+    }));
   };
 
   const handleAskAI = async () => {
@@ -94,7 +121,9 @@ export default function AIProgramFinder() {
         "http://localhost:5009/api/ai-program-finder",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             ...form,
             name: "User",
@@ -119,222 +148,419 @@ export default function AIProgramFinder() {
   return (
     <section className="ai-program-section">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap');
-
         .ai-program-section {
-          font-family: 'DM Sans', sans-serif;
-          padding: 72px 20px;
-          text-align: center;
+          position: relative;
+          overflow: hidden;
+          padding: 70px 20px 90px;
           background:
-            radial-gradient(circle at top left, rgba(232, 25, 44, 0.18), transparent 34%),
-            radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 36%),
-            #05070d;
-          color: #f8fafc;
+            radial-gradient(circle at top left, rgba(239, 68, 68, 0.08), transparent 28%),
+            radial-gradient(circle at bottom right, rgba(248, 113, 113, 0.08), transparent 30%),
+            linear-gradient(to bottom, #ffffff, #f8fafc);
+        }
+
+        .section-header {
+          position: relative;
+          z-index: 2;
+          text-align: center;
+          margin-bottom: 38px;
+        }
+
+        .section-title {
+          font-size: clamp(34px, 5vw, 56px);
+          line-height: 1.1;
+          font-weight: 900;
+          color: #0f172a;
+          margin-top: 14px;
+          letter-spacing: -0.04em;
+        }
+
+        .section-title span {
+          background: linear-gradient(to right, #ef4444, #dc2626);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .section-description {
+          max-width: 700px;
+          margin: 16px auto 0;
+          font-size: 16px;
+          line-height: 1.7;
+          color: #64748b;
         }
 
         .finder-card {
-          max-width: 960px;
+          position: relative;
+          z-index: 2;
+          max-width: 1280px;
           margin: 0 auto;
-          padding: 40px;
+          padding: 30px;
           border-radius: 28px;
-          background: rgba(12, 16, 27, 0.88);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          box-shadow:
-            0 24px 80px rgba(0, 0, 0, 0.45),
-            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+          background: rgba(255,255,255,0.82);
           backdrop-filter: blur(18px);
+          border: 1px solid rgba(255,255,255,0.7);
+          box-shadow:
+            0 20px 60px rgba(15, 23, 42, 0.08),
+            0 6px 20px rgba(239, 68, 68, 0.06);
+        }
+
+        .top-highlight {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+          margin-bottom: 28px;
+          padding-bottom: 22px;
+          border-bottom: 1px solid #e5e7eb;
+        }
+
+        .highlight-left {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+
+        .highlight-icon {
+          width: 52px;
+          height: 52px;
+          border-radius: 16px;
+          background: linear-gradient(to bottom right, #ef4444, #dc2626);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          box-shadow: 0 10px 30px rgba(239, 68, 68, 0.25);
+        }
+
+        .highlight-title {
+          font-size: 18px;
+          font-weight: 800;
+          color: #111827;
+        }
+
+        .highlight-subtitle {
+          margin-top: 3px;
+          font-size: 13px;
+          color: #6b7280;
+        }
+
+        .live-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 14px;
+          border-radius: 999px;
+          background: #fef2f2;
+          border: 1px solid #fecaca;
+          color: #dc2626;
+          font-size: 12px;
+          font-weight: 700;
+        }
+
+        .pulse-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 999px;
+          background: #dc2626;
+          animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.4);
+            opacity: 0.5;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
         }
 
         .form-row {
           display: grid;
           grid-template-columns: repeat(5, 1fr);
           gap: 16px;
-          margin-bottom: 28px;
-        }
-
-        @media (max-width: 900px) {
-          .form-row {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (max-width: 540px) {
-          .ai-program-section {
-            padding: 56px 14px;
-          }
-
-          .finder-card {
-            padding: 24px;
-            border-radius: 24px;
-          }
-
-          .form-row {
-            grid-template-columns: 1fr;
-          }
+          margin-bottom: 24px;
         }
 
         .form-group {
           display: flex;
           flex-direction: column;
-          text-align: left;
-          gap: 7px;
+          gap: 8px;
         }
 
         .form-label {
-          font-size: 0.82rem;
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          font-size: 13px;
           font-weight: 700;
-          color: #cbd5e1;
+          color: #334155;
         }
 
         .form-select {
           width: 100%;
-          border: 1px solid rgba(148, 163, 184, 0.28);
-          border-radius: 14px;
-          padding: 12px 13px;
-          font-size: 0.92rem;
-          color: #f8fafc;
-          background: #101522;
+          height: 52px;
+          border: 1px solid #e2e8f0;
+          border-radius: 16px;
+          padding: 0 16px;
+          font-size: 14px;
+          font-weight: 500;
+          color: #111827;
+          background: rgba(255,255,255,0.95);
           outline: none;
-          transition:
-            border-color 160ms ease,
-            box-shadow 160ms ease,
-            background 160ms ease;
+          transition: all 0.25s ease;
         }
 
         .form-select:hover {
-          border-color: rgba(248, 113, 113, 0.52);
-          background: #121827;
+          border-color: #cbd5e1;
         }
 
         .form-select:focus {
-          border-color: #E8192C;
-          box-shadow: 0 0 0 4px rgba(232, 25, 44, 0.16);
+          border-color: #ef4444;
+          box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
         }
 
         .form-select.error {
-          border-color: #E8192C;
-          box-shadow: 0 0 0 4px rgba(232, 25, 44, 0.12);
-        }
-
-        .form-select option {
-          color: #0f172a;
-          background: #ffffff;
+          border-color: #dc2626;
+          box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.08);
         }
 
         .error-msg {
-          font-size: 0.72rem;
-          color: #fb7185;
+          font-size: 11px;
+          font-weight: 600;
+          color: #dc2626;
+        }
+
+        .button-wrap {
+          display: flex;
+          justify-content: center;
+          margin-top: 4px;
         }
 
         .ask-ai-btn {
-          min-width: 160px;
-          background: linear-gradient(135deg, #E8192C, #ff4d5f);
-          color: #fff;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          min-width: 170px;
+          height: 48px;
+          padding: 0 20px;
           border: none;
           border-radius: 999px;
-          padding: 14px 40px;
-          font-weight: 800;
+          background: linear-gradient(to right, #ef4444, #dc2626);
+          color: #ffffff;
+          font-size: 14px;
+          font-weight: 700;
           cursor: pointer;
-          box-shadow: 0 14px 36px rgba(232, 25, 44, 0.32);
-          transition:
-            transform 160ms ease,
-            box-shadow 160ms ease,
-            opacity 160ms ease;
+          transition: all 0.25s ease;
+          box-shadow:
+            0 14px 30px rgba(239, 68, 68, 0.24),
+            inset 0 1px 0 rgba(255,255,255,0.25);
+        }
+
+        .ask-ai-btn svg {
+          width: 16px;
+          height: 16px;
         }
 
         .ask-ai-btn:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 18px 44px rgba(232, 25, 44, 0.42);
+          transform: translateY(-2px);
         }
 
         .ask-ai-btn:disabled {
+          opacity: 0.7;
           cursor: not-allowed;
-          opacity: 0.72;
           transform: none;
         }
 
         .ai-response-card {
-          margin-top: 40px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 24px;
-          text-align: left;
+          margin-top: 30px;
+          border-radius: 22px;
           overflow: hidden;
-          position: relative;
-          background: #0b1020;
-          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.36);
+          border: 1px solid #e5e7eb;
+          background: white;
+          box-shadow:
+            0 16px 40px rgba(15, 23, 42, 0.06),
+            0 6px 14px rgba(0,0,0,0.04);
         }
 
         .ai-header {
-          background: linear-gradient(135deg, #111827, #1f2937);
-          color: white;
-          padding: 14px 20px;
           display: flex;
-          justify-content: space-between;
           align-items: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          justify-content: space-between;
+          padding: 16px 20px;
+          background: linear-gradient(to right, #fff5f5, #ffffff);
+          border-bottom: 1px solid #f1f5f9;
+        }
+
+        .ai-title-wrap {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .ai-avatar {
+          width: 38px;
+          height: 38px;
+          border-radius: 12px;
+          background: linear-gradient(to bottom right, #ef4444, #dc2626);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+
+        .ai-title {
+          font-size: 15px;
           font-weight: 800;
-          letter-spacing: 0.03em;
-          font-size: 0.78rem;
+          color: #111827;
+        }
+
+        .ai-subtitle {
+          font-size: 12px;
+          color: #64748b;
         }
 
         .close-btn {
-          width: 32px;
-          height: 32px;
+          width: 34px;
+          height: 34px;
           border-radius: 999px;
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: white;
-          cursor: pointer;
+          border: 1px solid #e5e7eb;
+          background: white;
+          color: #64748b;
           font-size: 18px;
-          line-height: 1;
+          cursor: pointer;
+          transition: all 0.2s ease;
         }
 
         .close-btn:hover {
-          background: rgba(232, 25, 44, 0.22);
-          border-color: rgba(232, 25, 44, 0.5);
+          background: #fef2f2;
+          color: #dc2626;
+          border-color: #fecaca;
         }
 
         .ai-content {
-          padding: 30px;
+          padding: 24px;
           line-height: 1.8;
-          background: #0b1020;
-          color: #dbeafe;
+          color: #475569;
+          font-size: 14px;
         }
 
         .ai-content h1,
         .ai-content h2,
         .ai-content h3 {
-          color: #ffffff;
-          margin: 0 0 12px;
+          color: #0f172a;
+          margin-bottom: 12px;
+          font-weight: 800;
         }
 
         .ai-content p {
-          margin: 0 0 14px;
-        }
-
-        .ai-content strong {
-          color: #ffffff;
+          margin-bottom: 14px;
         }
 
         .ai-content ul,
         .ai-content ol {
-          padding-left: 22px;
-          margin: 0 0 16px;
+          padding-left: 20px;
+          margin-bottom: 16px;
         }
 
-        .ai-content a {
-          color: #fb7185;
+        .ai-content li {
+          margin-bottom: 6px;
+        }
+
+        @media (max-width: 1100px) {
+          .form-row {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .top-highlight {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .ai-program-section {
+            padding: 56px 16px 70px;
+          }
+
+          .finder-card {
+            padding: 20px;
+            border-radius: 22px;
+          }
+
+          .form-row {
+            grid-template-columns: 1fr;
+          }
+
+          .section-title {
+            font-size: 36px;
+          }
+
+          .section-description {
+            font-size: 15px;
+          }
+
+          .ask-ai-btn {
+            width: 100%;
+            height: 46px;
+          }
+
+          .ai-content {
+            padding: 20px;
+          }
         }
       `}</style>
 
-      <h2 className="mb-3 text-3xl font-bold text-white-990 text-balance sm:mb-4 sm:text-4xl lg:text-5xl">
-        Not Sure? <span style={{ color: "#ff3b4f" }}>Ask AI</span>
-      </h2>
+      <div className="section-header">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-500 uppercase tracking-wider">
+          <Bot className="h-3.5 w-3.5 text-red-500" />
+          AI Powered Guidance
+        </span>
+
+        <h2 className="section-title">Not Sure? Ask AI</h2>
+
+        <p className="section-description">
+          Get personalized course and career recommendations based on your
+          qualification, budget, and goals.
+        </p>
+      </div>
 
       <div className="finder-card">
+        <div className="top-highlight">
+          <div className="highlight-left">
+            <div className="highlight-icon">
+              <Sparkles className="h-6 w-6" />
+            </div>
+
+            <div>
+              <h3 className="highlight-title">Smart AI Career Match</h3>
+
+              <p className="highlight-subtitle">
+                Personalized degree & career recommendations
+              </p>
+            </div>
+          </div>
+
+          <div className="live-badge">
+            <span className="pulse-dot"></span>
+            AI Recommendations Live
+          </div>
+        </div>
+
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Qualification</label>
+            <label className="form-label">
+              <GraduationCap className="h-4 w-4 text-red-500" />
+              Qualification
+            </label>
+
             <select
               className={`form-select ${errors.qualification ? "error" : ""}`}
               value={form.qualification}
@@ -346,32 +572,43 @@ export default function AIProgramFinder() {
                 </option>
               ))}
             </select>
+
             {errors.qualification && (
               <span className="error-msg">{errors.qualification}</span>
             )}
           </div>
 
           <div className="form-group">
-            <label className="form-label">Course</label>
+            <label className="form-label">
+              <BookOpen className="h-4 w-4 text-red-500" />
+              Course
+            </label>
+
             <select
               className={`form-select ${errors.course ? "error" : ""}`}
               value={form.course}
               onChange={(e) => handleChange("course", e.target.value)}
             >
               <option value="Select">Select Course</option>
+
               {programMapping[form.qualification]?.map((c) => (
                 <option key={c} value={c}>
                   {c}
                 </option>
               ))}
             </select>
+
             {errors.course && (
               <span className="error-msg">{errors.course}</span>
             )}
           </div>
 
           <div className="form-group">
-            <label className="form-label">Budget</label>
+            <label className="form-label">
+              <Wallet className="h-4 w-4 text-red-500" />
+              Budget
+            </label>
+
             <select
               className={`form-select ${errors.budget ? "error" : ""}`}
               value={form.budget}
@@ -383,13 +620,18 @@ export default function AIProgramFinder() {
                 </option>
               ))}
             </select>
+
             {errors.budget && (
               <span className="error-msg">{errors.budget}</span>
             )}
           </div>
 
           <div className="form-group">
-            <label className="form-label">Study Mode</label>
+            <label className="form-label">
+              <Laptop className="h-4 w-4 text-red-500" />
+              Study Mode
+            </label>
+
             <select
               className={`form-select ${errors.studyMode ? "error" : ""}`}
               value={form.studyMode}
@@ -401,13 +643,18 @@ export default function AIProgramFinder() {
                 </option>
               ))}
             </select>
+
             {errors.studyMode && (
               <span className="error-msg">{errors.studyMode}</span>
             )}
           </div>
 
           <div className="form-group">
-            <label className="form-label">Career Goal</label>
+            <label className="form-label">
+              <Target className="h-4 w-4 text-red-500" />
+              Career Goal
+            </label>
+
             <select
               className={`form-select ${errors.careerGoal ? "error" : ""}`}
               value={form.careerGoal}
@@ -419,27 +666,48 @@ export default function AIProgramFinder() {
                 </option>
               ))}
             </select>
+
             {errors.careerGoal && (
               <span className="error-msg">{errors.careerGoal}</span>
             )}
           </div>
         </div>
 
-        <button className="ask-ai-btn" onClick={handleAskAI} disabled={loading}>
-          {loading ? "Analyzing..." : "Ask AI"}
-        </button>
+        <div className="button-wrap">
+          <button
+            className="ask-ai-btn"
+            onClick={handleAskAI}
+            disabled={loading}
+          >
+            <Sparkles className="h-4 w-4" />
+
+            {loading ? "Analyzing..." : "Ask AI Advisor"}
+          </button>
+        </div>
 
         {displayedText && (
           <div className="ai-response-card">
             <div className="ai-header">
-              <span>AI Career Advisor</span>
+              <div className="ai-title-wrap">
+                <div className="ai-avatar">
+                  <Bot className="h-5 w-5" />
+                </div>
+
+                <div>
+                  <div className="ai-title">AI Career Advisor</div>
+
+                  <div className="ai-subtitle">
+                    Personalized recommendations generated instantly
+                  </div>
+                </div>
+              </div>
+
               <button
                 className="close-btn"
                 onClick={() => {
                   setResult(null);
                   setDisplayedText("");
                 }}
-                aria-label="Close AI response"
               >
                 ×
               </button>
