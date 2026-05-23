@@ -24,7 +24,7 @@ const slides = [
   {
     id: 4,
     desktop: "/fourthimg.svg",
-    mobile: "/mobile1111.svg",
+    mobile: "/mobile66.png",
   },
 ];
 

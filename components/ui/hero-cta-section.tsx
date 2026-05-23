@@ -6,27 +6,27 @@ import { Handshake } from "lucide-react";
 export default function HeroStatsSection() {
   // Brand items extracted from image_161a52.png with exact brand coloring accents
   const partners = [
-    { name: "Hero", color: "text-red-600 font-black tracking-tighter" },
+    { name: "Hero", color: "text-black font-black tracking-tighter" },
     {
       name: "Hitachi Vantara",
-      color: "text-neutral-900 font-extrabold tracking-tight",
+      color: "text-black font-extrabold tracking-tight",
     },
     {
       name: "FEDERAL BANK",
-      color: "text-blue-700 font-black italic tracking-tight",
+      color: "text-black font-black italic tracking-tight",
     },
     { name: "Apple", color: "text-black font-semibold tracking-tight" },
     {
       name: "Reliance Industries Limited",
-      color: "text-amber-700 font-bold tracking-normal",
+      color: "text-black font-bold tracking-normal",
     },
     {
       name: "SAMSUNG",
-      color: "text-blue-800 font-black tracking-widest italic",
+      color: "text-black font-black tracking-widest italic",
     },
-    { name: "TECH mahindra", color: "text-red-500 font-medium tracking-tight" },
-    { name: "HDFC BANK", color: "text-blue-900 font-black tracking-tight" },
-    { name: "Granite", color: "text-purple-700 font-bold tracking-tight" },
+    { name: "TECH mahindra", color: "text-black font-medium tracking-tight" },
+    { name: "HDFC BANK", color: "text-black font-black tracking-tight" },
+    { name: "Granite", color: "text-black font-bold tracking-tight" },
   ];
 
   // Double the list array to ensure a flawless, gapless loop animation transitions
