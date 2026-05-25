@@ -2,128 +2,67 @@
 
 import * as React from "react";
 import Link from "next/link";
-import {
-  ArrowRight,
-  BookOpen,
-  Bot,
-  BriefcaseBusiness,
-  ChevronLeft,
-  ChevronRight,
-  Clock,
-  GraduationCap,
-  IndianRupee,
-  Monitor,
-  Sparkles,
-  Tag as TagIcon,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface Offer {
   id: string | number;
   imageSrc: string;
   imageAlt: string;
-  tag: string;
-  title: string;
-  description?: string;
+  tag?: string;
   href: string;
-  duration?: string;
-  fee?: string;
-  mode?: "Online" | "Offline" | "Hybrid" | string;
-  icon?: "popular" | "trending" | "advanced" | "new" | string;
 }
 
 interface OfferCardProps {
   offer: Offer;
+  index: number;
 }
 
-const getTagIcon = (icon?: string, tag?: string) => {
-  const value = (icon || tag || "").toLowerCase();
-
-  if (value.includes("trending")) return Sparkles;
-  if (value.includes("advanced")) return BriefcaseBusiness;
-  if (value.includes("new")) return BookOpen;
-  if (value.includes("popular")) return GraduationCap;
-  if (value.includes("ai") || value.includes("bot")) return Bot;
-
-  return TagIcon;
-};
-
-const OfferCard = ({ offer }: OfferCardProps) => {
-  const TagDisplayIcon = getTagIcon(offer.icon, offer.tag);
+const OfferCard = ({ offer, index }: OfferCardProps) => {
+  const rank = index + 1;
 
   return (
-    <div className="relative flex h-auto w-[85vw] flex-shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:w-[300px]">
-      <div className="relative h-[180px] w-full overflow-hidden">
-        <img
-          src={offer.imageSrc}
-          alt={offer.imageAlt}
-          className="absolute inset-0 h-full w-full object-cover transition duration-500 hover:scale-105"
-        />
+    <Link
+      href={offer.href || "#"}
+      className="relative flex h-[180px] w-[140px] flex-shrink-0 snap-start flex-col select-none sm:h-[250px] sm:w-[165px] lg:h-[260px] lg:w-[195px] isolate"
+    >
+      <span
+        className="absolute bottom-[-2px] sm:bottom-[4px] left-[8px] sm:left-[6px] lg:left-[10px] z-10 font-sans font-black leading-none select-none text-[65px] sm:text-[85px] lg:text-[100px] text-black"
+        style={{
+          WebkitTextStroke: "2px #ffffff",
+          WebkitTextFillColor: "#111111",
+          letterSpacing: "-0.06em",
+        }}
+      >
+        {rank}
+      </span>
 
-        <div className="absolute left-3 top-3">
-          <div className="relative overflow-hidden rounded-full p-px shadow-sm">
-            <div className="tag-border-spin absolute inset-[-100%] bg-[conic-gradient(#ef4444,#f97316,#eab308,#22c55e,#ef4444)]" />
+      <div className="relative ml-[20px] sm:ml-[26px] h-full w-full shadow-2xl">
+        <div className="absolute inset-0 overflow-hidden rounded-md bg-[#181818]">
+          {offer.imageSrc ? (
+            <img
+              src={offer.imageSrc}
+              alt={offer.imageAlt || "Offer Poster"}
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <div className="h-full w-full bg-neutral-800" />
+          )}
+        </div>
 
-            <div className="relative flex items-center rounded-full bg-white px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-red-500">
-              <TagDisplayIcon className="mr-1 h-3 w-3 text-red-500" />
-              {offer.tag}
-            </div>
+        {offer.tag && (
+          <div className="absolute left-2 top-2 z-20 rounded bg-[#e50914] px-1.5 py-0.5 text-[8px] font-black uppercase tracking-wider text-white shadow-md">
+            {offer.tag}
           </div>
-        </div>
+        )}
       </div>
-
-      <div className="flex flex-1 flex-col p-5">
-        <div className="space-y-1">
-          <h3 className="line-clamp-2 text-lg font-extrabold leading-tight text-slate-900">
-            {offer.title}
-          </h3>
-
-          {offer.description && (
-            <p className="line-clamp-2 text-sm text-slate-500">
-              {offer.description}
-            </p>
-          )}
-        </div>
-
-        <div className="mt-4 grid grid-cols-3 gap-2 rounded-xl bg-slate-50 p-3 text-[11px] font-semibold text-slate-600">
-          {offer.duration && (
-            <div className="flex min-w-0 flex-col items-center justify-center gap-1 text-center">
-              <Clock className="h-4 w-4 flex-shrink-0 text-red-500" />
-              <span className="w-full truncate">{offer.duration}</span>
-            </div>
-          )}
-
-          {offer.fee && (
-            <div className="flex min-w-0 flex-col items-center justify-center gap-1 text-center">
-              <IndianRupee className="h-4 w-4 flex-shrink-0 text-red-500" />
-              <span className="w-full truncate">{offer.fee}</span>
-            </div>
-          )}
-
-          {offer.mode && (
-            <div className="flex min-w-0 flex-col items-center justify-center gap-1 text-center">
-              <Monitor className="h-4 w-4 flex-shrink-0 text-red-500" />
-              <span className="w-full truncate">{offer.mode}</span>
-            </div>
-          )}
-        </div>
-
-        <div className="mt-4 border-t border-slate-100 pt-4">
-          <Link
-            href={offer.href}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 py-3 text-sm font-bold text-slate-700 transition-colors hover:bg-red-500 hover:text-white"
-          >
-            View Details
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
-    </div>
+    </Link>
   );
 };
 
 export const OfferCarousel = ({
-  offers,
+  offers = [],
   className,
 }: {
   offers: Offer[];
@@ -135,7 +74,13 @@ export const OfferCarousel = ({
     if (!scrollContainerRef.current) return;
 
     const current = scrollContainerRef.current;
-    const scrollAmount = current.clientWidth * 0.8;
+    const firstCard = current.querySelector("a");
+    if (!firstCard) return;
+
+    const cardWidth = firstCard.clientWidth;
+    const gap = 16;
+
+    const scrollAmount = (cardWidth + gap) * 2;
 
     current.scrollBy({
       left: direction === "left" ? -scrollAmount : scrollAmount,
@@ -143,32 +88,45 @@ export const OfferCarousel = ({
     });
   };
 
+  if (!offers || offers.length === 0) {
+    return null;
+  }
+
   return (
-    <div className={cn("group/carousel relative w-full", className)}>
+    // ✅ overflow-hidden added — arrow bahar nahi jayega
+    <div
+      className={cn(
+        "group/carousel relative w-full overflow-hidden",
+        className,
+      )}
+    >
+      {/* Left Arrow */}
       <button
         type="button"
         onClick={() => scroll("left")}
-        className="absolute left-[-20px] top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white shadow-md md:flex"
+        className="absolute left-0 top-0 bottom-0 z-40 hidden w-10 items-center justify-center text-white opacity-0 transition-opacity duration-300 group-hover/carousel:opacity-100 md:flex"
       >
-        <ChevronLeft className="h-6 w-6" />
+        <ChevronLeft className="h-8 w-8 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] transition-transform hover:scale-125" />
       </button>
 
+      {/* Scroller — pl-10 pr-10 so arrows overlap cards edge */}
       <div
         ref={scrollContainerRef}
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 scrollbar-hide"
+        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pt-4 pb-6 pl-10 pr-10 scrollbar-hide"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {offers.map((offer) => (
-          <OfferCard key={offer.id} offer={offer} />
+        {offers.map((offer, index) => (
+          <OfferCard key={offer.id || index} offer={offer} index={index} />
         ))}
       </div>
 
+      {/* ✅ Right Arrow — right-0, same as left arrow style */}
       <button
         type="button"
         onClick={() => scroll("right")}
-        className="absolute right-[-20px] top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white shadow-md md:flex"
+        className="absolute right-0 top-0 bottom-0 z-40 hidden w-10 items-center justify-center text-white opacity-0 transition-opacity duration-300 group-hover/carousel:opacity-100 md:flex"
       >
-        <ChevronRight className="h-6 w-6" />
+        <ChevronRight className="h-8 w-8 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] transition-transform hover:scale-125" />
       </button>
     </div>
   );

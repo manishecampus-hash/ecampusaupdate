@@ -1,18 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BarChart3, Users, Award, Globe } from "lucide-react";
+import { Handshake, TrendingUp } from "lucide-react";
 
 function Counter({
   end,
   duration = 2000,
   suffix = "",
-  prefix = "",
+  isDecimal = false,
 }: {
   end: number;
   duration?: number;
   suffix?: string;
-  prefix?: string;
+  isDecimal?: boolean;
 }) {
   const [count, setCount] = useState(0);
 
@@ -27,7 +27,7 @@ function Counter({
         setCount(end);
         clearInterval(timer);
       } else {
-        setCount(Math.floor(start));
+        setCount(start);
       }
     }, 16);
 
@@ -36,8 +36,7 @@ function Counter({
 
   return (
     <span>
-      {prefix}
-      {count}
+      {isDecimal ? count.toFixed(1) : Math.floor(count).toLocaleString()}
       {suffix}
     </span>
   );
@@ -45,69 +44,52 @@ function Counter({
 
 export function StatsSection() {
   const stats = [
-    {
-      icon: Users,
-      value: 150,
-      suffix: "K+",
-      label: "Active Students",
-      description: "Learning and growing worldwide",
-    },
-    {
-      icon: Globe,
-      value: 180,
-      suffix: "+",
-      label: "Countries Reached",
-      description: "Global community of learners",
-    },
-    {
-      icon: Award,
-      value: 95,
-      suffix: "%",
-      label: "Satisfaction Rate",
-      description: "Student-rated quality education",
-    },
-    {
-      icon: BarChart3,
-      value: 89,
-      prefix: "$",
-      suffix: "K",
-      label: "Avg Salary Increase",
-      description: "Post-graduation outcomes",
-    },
+    { value: 100, suffix: "+", label: "Listed Universities" },
+    { value: 4.6, isDecimal: true, suffix: "/5", label: "Program Rating" },
+    { value: 50, suffix: "%", label: "Avg. Hike Post Program*" },
+    { value: 10000, suffix: "+", label: "Learners Associated" },
   ];
 
   return (
-    <section className="bg-[#05070d] px-4 py-12 text-white sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+    <section
+      style={{
+        background:
+          "radial-gradient(circle at top right, rgba(255, 59, 79, 0.12), transparent 35%), #05070d",
+      }}
+      className="relative w-full px-4 py-10 text-slate-100 sm:px-6"
+    >
       <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
+        <div className="mb-6 text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
+            <Handshake className="h-3.5 w-3.5 text-red-500" />
+            Your goals are our goals
+          </span>
+          <h2 className="mt-2 text-2xl font-extrabold text-white-900 tracking-tight sm:text-3xl md:text-4xl">
+            Invest In Yourself <span className="text-red-500">Today</span>
+          </h2>
+        </div>
 
-            return (
+        <div className="rounded-2xl border border-white/10 bg-[#111827] p-4 sm:p-5 shadow-[0_12px_30px_rgba(0,0,0,0.28)]">
+          <div className="grid grid-cols-2 divide-y divide-white/5 sm:grid-cols-4 sm:divide-x sm:divide-y-0 sm:divide-white/10">
+            {stats.map((stat, index) => (
               <div
                 key={index}
-                className="group rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-[0_18px_50px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-[0_22px_60px_rgba(232,25,44,0.18)]"
+                className="flex flex-col items-center justify-center px-3 py-4 text-center"
               >
-                <div className="mb-4 inline-flex rounded-xl bg-red-50 p-3 ring-1 ring-red-100">
-                  <Icon className="h-8 w-8 text-red-600" />
-                </div>
-
-                <div className="mb-1 text-4xl font-bold text-gray-900">
+                <div className="mb-1 text-2xl font-black text-[#ff3b4f] sm:text-3xl">
                   <Counter
                     end={stat.value}
                     suffix={stat.suffix}
-                    prefix={stat.prefix}
+                    isDecimal={stat.isDecimal}
                   />
                 </div>
 
-                <div className="mb-1 text-lg font-semibold text-gray-900">
+                <div className="text-[10px] font-bold uppercase tracking-wide text-slate-300 sm:text-xs">
                   {stat.label}
                 </div>
-
-                <p className="text-sm text-gray-600">{stat.description}</p>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>
