@@ -13,6 +13,8 @@ import { PressSection } from "@/components/press-section";
 import AIProgramFinder from "@/components/AIProgramFinder";
 import UniversitySection from "@/components/university-section";
 import EcampusCta from "@/components/ui/cta";
+import FAQ from "@/components/faq";
+import OnlineCourseSection from "@/components/online-courses";
 
 export default function Home() {
   return (
@@ -34,7 +36,9 @@ export default function Home() {
       <GraduatesMarquee />
       {/* <CtaSection /> */}
       <EcampusCta />
+      <OnlineCourseSection />
       <PressSection />
+      <FAQ />
       <Footer />
     </main>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { pressArticles } from "@/data/press-section";
-import { Newspaper } from "lucide-react";
+import { Handshake, Newspaper } from "lucide-react";
 
 const articles = [...pressArticles, ...pressArticles];
 
@@ -10,20 +10,15 @@ export function PressSection() {
     <section className="py-14 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-10 sm:mb-14">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-500 uppercase tracking-wider">
-            <Newspaper className="h-3.5 w-3.5 text-red-500" />
+
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center mb-6">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-60 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
+            <Handshake className="h-3.5 w-3.5 text-red-500" />
             Featured in
           </span>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Top Media Houses
+          <h2 className="mt-2 text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl md:text-4xl">
+            Top Media Houses <span className="text-red-500">Houses</span>
           </h2>
-
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Our journey and impact, as shared by the nation&apos;s most
-            respected voices.
-          </p>
         </div>
 
         {/* Marquee */}

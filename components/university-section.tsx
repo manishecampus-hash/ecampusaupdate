@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { universities } from "@/data/universities";
+import { Handshake } from "lucide-react";
 
 export default function UniversitySection() {
   const [visibleCount, setVisibleCount] = useState(15);
@@ -22,8 +23,12 @@ export default function UniversitySection() {
   return (
     <section className="w-full py-12 px-4 bg-white">
       <div className="text-center mb-8">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
-          Our Partner Universities
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-60 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
+          <Handshake className="h-3.5 w-3.5 text-red-500" />
+          University
+        </span>
+        <h2 className="mt-2 text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl md:text-4xl">
+          Our Partner <span className="text-red-500">Universities</span>
         </h2>
 
         <div className="h-1 w-12 bg-red-600 mx-auto mt-3 rounded-full" />
