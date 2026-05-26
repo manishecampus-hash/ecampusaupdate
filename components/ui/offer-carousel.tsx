@@ -13,121 +13,113 @@ export interface Offer {
   href: string;
 }
 
-interface OfferCardProps {
-  offer: Offer;
-  index: number;
-}
-
-const OfferCard = ({ offer, index }: OfferCardProps) => {
+const OfferCard = ({ offer, index }: { offer: Offer; index: number }) => {
   const rank = index + 1;
-
   return (
     <Link
       href={offer.href || "#"}
-      className="relative flex h-[180px] w-[140px] flex-shrink-0 snap-start flex-col select-none sm:h-[250px] sm:w-[165px] lg:h-[260px] lg:w-[195px] isolate"
+      className="relative flex h-[180px] w-[140px] flex-shrink-0 sm:h-[250px] sm:w-[165px] lg:h-[260px] lg:w-[195px]"
     >
       <span
-        className="absolute bottom-[-2px] sm:bottom-[4px] left-[8px] sm:left-[6px] lg:left-[10px] z-10 font-sans font-black leading-none select-none text-[65px] sm:text-[85px] lg:text-[100px] text-black"
-        style={{
-          WebkitTextStroke: "2px #ffffff",
-          WebkitTextFillColor: "#111111",
-          letterSpacing: "-0.06em",
-        }}
+        className="absolute bottom-0 left-2 z-10 text-[65px] sm:text-[85px] lg:text-[100px] font-black"
+        style={{ WebkitTextStroke: "2px white", WebkitTextFillColor: "#111" }}
       >
         {rank}
       </span>
-
-      <div className="relative ml-[20px] sm:ml-[26px] h-full w-full shadow-2xl">
-        <div className="absolute inset-0 overflow-hidden rounded-md bg-[#181818]">
-          {offer.imageSrc ? (
-            <img
-              src={offer.imageSrc}
-              alt={offer.imageAlt || "Offer Poster"}
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
-            />
-          ) : (
-            <div className="h-full w-full bg-neutral-800" />
-          )}
+      <div className="ml-6 h-full w-full overflow-hidden rounded-md shadow-md">
+        <img
+          src={offer.imageSrc}
+          alt={offer.imageAlt}
+          className="h-full w-full object-cover"
+          onError={(e) => {
+            const target = e.currentTarget;
+            target.style.display = "none";
+            const placeholder = target.nextElementSibling as HTMLElement | null;
+            if (placeholder) placeholder.style.display = "flex";
+          }}
+        />
+        <div
+          className="hidden h-full w-full items-center justify-center bg-gray-100 text-gray-400 text-xs text-center p-2"
+          aria-hidden="true"
+        >
+          <span>No Image</span>
         </div>
-
-        {offer.tag && (
-          <div className="absolute left-2 top-2 z-20 rounded bg-[#e50914] px-1.5 py-0.5 text-[8px] font-black uppercase tracking-wider text-white shadow-md">
-            {offer.tag}
-          </div>
-        )}
       </div>
     </Link>
   );
 };
 
 export const OfferCarousel = ({
-  offers = [],
+  offers,
   className,
 }: {
   offers: Offer[];
   className?: string;
 }) => {
-  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const [showLeft, setShowLeft] = React.useState(false);
+  const [showRight, setShowRight] = React.useState(true);
 
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollContainerRef.current) return;
-
-    const current = scrollContainerRef.current;
-    const firstCard = current.querySelector("a");
-    if (!firstCard) return;
-
-    const cardWidth = firstCard.clientWidth;
-    const gap = 16;
-
-    const scrollAmount = (cardWidth + gap) * 2;
-
-    current.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
+  const checkScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setShowLeft(el.scrollLeft > 10);
+    setShowRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
   };
 
-  if (!offers || offers.length === 0) {
-    return null;
-  }
+  const scroll = (dir: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const scrollAmount = scrollRef.current?.clientWidth ?? 400;
+    el.scrollBy({
+      left: dir === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+    setTimeout(checkScroll, 500);
+  };
+
+  React.useEffect(() => {
+    checkScroll();
+    window.addEventListener("resize", checkScroll);
+    return () => window.removeEventListener("resize", checkScroll);
+  }, [offers]);
+
+  // Updated to gray (bg-[#4a4a4a])
+  const buttonClasses =
+    "absolute top-1/2 z-40 -translate-y-1/2 hidden md:flex h-24 w-8 items-center justify-center bg-[#4a4a4a] text-white hover:bg-[#666] transition-colors";
 
   return (
-    // ✅ overflow-hidden added — arrow bahar nahi jayega
-    <div
-      className={cn(
-        "group/carousel relative w-full overflow-hidden",
-        className,
+    <div className={cn("relative w-full", className)}>
+      {showLeft && (
+        <button
+          onClick={() => scroll("left")}
+          className={cn(buttonClasses, "left-0 rounded-r-lg")}
+          placeholder="Scroll left"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
       )}
-    >
-      {/* Left Arrow */}
-      <button
-        type="button"
-        onClick={() => scroll("left")}
-        className="absolute left-0 top-0 bottom-0 z-40 hidden w-10 items-center justify-center text-white opacity-0 transition-opacity duration-300 group-hover/carousel:opacity-100 md:flex"
-      >
-        <ChevronLeft className="h-8 w-8 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] transition-transform hover:scale-125" />
-      </button>
 
-      {/* Scroller — pl-10 pr-10 so arrows overlap cards edge */}
       <div
-        ref={scrollContainerRef}
-        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pt-4 pb-6 pl-10 pr-10 scrollbar-hide"
+        ref={scrollRef}
+        onScroll={checkScroll}
+        className="flex gap-4 overflow-x-auto mx-10 py-6 scroll-smooth"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {offers.map((offer, index) => (
-          <OfferCard key={offer.id || index} offer={offer} index={index} />
+          <OfferCard key={offer.id} offer={offer} index={index} />
         ))}
       </div>
 
-      {/* ✅ Right Arrow — right-0, same as left arrow style */}
-      <button
-        type="button"
-        onClick={() => scroll("right")}
-        className="absolute right-0 top-0 bottom-0 z-40 hidden w-10 items-center justify-center text-white opacity-0 transition-opacity duration-300 group-hover/carousel:opacity-100 md:flex"
-      >
-        <ChevronRight className="h-8 w-8 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] transition-transform hover:scale-125" />
-      </button>
+      {showRight && (
+        <button
+          onClick={() => scroll("right")}
+          className={cn(buttonClasses, "right-0 rounded-l-lg")}
+          placeholder="Scroll right"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      )}
     </div>
   );
 };

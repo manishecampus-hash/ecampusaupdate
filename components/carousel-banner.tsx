@@ -9,17 +9,17 @@ const slides = [
   {
     id: 1,
     desktop: "banner/banner1.svg",
-    mobile: "/mobile11.jpeg",
+    mobile: "banner/mobile1.png",
   },
   {
     id: 2,
     desktop: "banner/banner2.svg",
-    mobile: "/mobile1.png",
+    mobile: "banner/mobile2.webp",
   },
   {
     id: 3,
     desktop: "banner/banner3.svg",
-    mobile: "/mobile2.png",
+    mobile: "banner/mobile3.png",
   },
   {
     id: 4,
@@ -28,31 +28,41 @@ const slides = [
   },
 ];
 
-// Thresholds
-const SWIPE_THRESHOLD = 50; // px horizontal needed to trigger slide change
-const LOCK_AXIS_THRESHOLD = 10; // px to decide which axis we're scrolling
+const SWIPE_THRESHOLD = 50;
+const LOCK_AXIS_THRESHOLD = 10;
 
 export function CarouselBanner() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false); // ← NEW: prevent rapid clicks
 
-  // Touch tracking refs (no re-render needed)
   const touchStartX = useRef<number>(0);
   const touchStartY = useRef<number>(0);
   const touchDeltaX = useRef<number>(0);
-  const touchDeltaY = useRef<number>(0);
-  const isHorizontalSwipe = useRef<boolean | null>(null); // null = undecided
+  const isHorizontalSwipe = useRef<boolean | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  // ─── Navigate with transition lock ───────────────────────────
+  const goTo = useCallback(
+    (index: number) => {
+      if (isTransitioning) return;
+      setIsTransitioning(true);
+      setCurrentSlide(index);
+      setTimeout(() => setIsTransitioning(false), 600); // match transition duration
+    },
+    [isTransitioning],
+  );
 
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  }, []);
+    goTo((currentSlide + 1) % slides.length);
+  }, [currentSlide, goTo]);
 
   const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  }, []);
+    goTo((currentSlide - 1 + slides.length) % slides.length);
+  }, [currentSlide, goTo]);
 
   const goToSlide = (index: number) => {
-    setCurrentSlide(index);
+    goTo(index);
     setIsAutoPlay(false);
   };
 
@@ -66,66 +76,30 @@ export function CarouselBanner() {
   }, [isAutoPlay]);
 
   // ─── Touch Handlers ──────────────────────────────────────────
-
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
     touchDeltaX.current = 0;
-    touchDeltaY.current = 0;
-    isHorizontalSwipe.current = null; // reset axis lock
+    isHorizontalSwipe.current = null;
     setIsAutoPlay(false);
   }, []);
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    const dx = e.touches[0].clientX - touchStartX.current;
-    const dy = e.touches[0].clientY - touchStartY.current;
-    touchDeltaX.current = dx;
-    touchDeltaY.current = dy;
-
-    // Axis lock: decide once per gesture which direction user intends
-    if (isHorizontalSwipe.current === null) {
-      if (
-        Math.abs(dx) > LOCK_AXIS_THRESHOLD ||
-        Math.abs(dy) > LOCK_AXIS_THRESHOLD
-      ) {
-        isHorizontalSwipe.current = Math.abs(dx) > Math.abs(dy);
-      }
-    }
-
-    // Only prevent default (block page scroll) when clearly swiping horizontally
-    if (isHorizontalSwipe.current === true) {
-      e.preventDefault(); // stops the page from scrolling while swiping banner
-    }
-  }, []);
-
   const handleTouchEnd = useCallback(() => {
-    // Only act if gesture was horizontal
     if (isHorizontalSwipe.current === true) {
-      if (touchDeltaX.current < -SWIPE_THRESHOLD) {
-        nextSlide();
-      } else if (touchDeltaX.current > SWIPE_THRESHOLD) {
-        prevSlide();
-      }
+      if (touchDeltaX.current < -SWIPE_THRESHOLD) nextSlide();
+      else if (touchDeltaX.current > SWIPE_THRESHOLD) prevSlide();
     }
-    // Reset
     isHorizontalSwipe.current = null;
   }, [nextSlide, prevSlide]);
 
-  // ─── Attach passive:false listener for touchmove (React synthetic won't work) ─
-  // React's onTouchMove is passive by default in newer React versions on some browsers,
-  // so we use a ref + addEventListener to get the non-passive version.
-  const wrapRef = useRef<HTMLDivElement>(null);
-
+  // ─── Non-passive touchmove ────────────────────────────────────
   useEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
-
     const onTouchMove = (e: TouchEvent) => {
       const dx = e.touches[0].clientX - touchStartX.current;
       const dy = e.touches[0].clientY - touchStartY.current;
       touchDeltaX.current = dx;
-      touchDeltaY.current = dy;
-
       if (isHorizontalSwipe.current === null) {
         if (
           Math.abs(dx) > LOCK_AXIS_THRESHOLD ||
@@ -134,13 +108,8 @@ export function CarouselBanner() {
           isHorizontalSwipe.current = Math.abs(dx) > Math.abs(dy);
         }
       }
-
-      if (isHorizontalSwipe.current === true) {
-        e.preventDefault(); // this works because listener is non-passive
-      }
+      if (isHorizontalSwipe.current === true) e.preventDefault();
     };
-
-    // { passive: false } is critical — allows preventDefault()
     el.addEventListener("touchmove", onTouchMove, { passive: false });
     return () => el.removeEventListener("touchmove", onTouchMove);
   }, []);
@@ -148,84 +117,67 @@ export function CarouselBanner() {
   return (
     <>
       <style>{`
-        /* =========================
-           FULL WIDTH HERO BANNER
-        ========================== */
-
+        /* ── OUTER CLIP ── */
         .cb-wrap {
           position: relative;
           width: 100%;
-          overflow: hidden;
+          overflow: hidden;          /* clips the sliding strip */
           background: #ffffff;
           aspect-ratio: 16 / 9;
-          border-radius: 0;
-          /* Prevent text selection during swipe */
           user-select: none;
           -webkit-user-select: none;
-          touch-action: pan-y; /* allow vertical scroll by default; overridden via JS for horizontal */
-          
+          touch-action: pan-y;
         }
 
-        /* TABLET & DESKTOP */
         @media (min-width: 768px) {
           .cb-wrap {
             aspect-ratio: 16 / 4;
-            border-radius: 0;
             border-bottom: 2px solid #e5e7eb;
-            touch-action: auto; /* desktop doesn't need special handling */
+            touch-action: auto;
           }
         }
 
-        /* ULTRA WIDE SCREEN */
         @media (min-width: 1600px) {
           .cb-wrap {
             aspect-ratio: 21 / 5;
           }
         }
 
-        .cb-slide {
-          position: absolute;
-          inset: 0;
-          opacity: 0;
-          transition: opacity 0.7s ease-in-out;
+        /* ── SLIDING STRIP ── */
+        /* All slides sit side-by-side in one wide row; we translate the strip */
+        .cb-track {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          transition: transform 0.55s cubic-bezier(0.77, 0, 0.18, 1); /* ← the magic */
+          will-change: transform;
         }
 
-        .cb-slide.active {
-          opacity: 1;
-          z-index: 1;
+        /* ── EACH SLIDE ── */
+        .cb-slide {
+          flex: 0 0 100%;          /* every slide takes exactly 100% width */
+          width: 100%;
+          height: 100%;
+          position: relative;
         }
 
         /* MOBILE / DESKTOP IMAGE TOGGLE */
-        .img-mobile {
-          display: block;
-        }
-
-        .img-desktop {
-          display: none;
-        }
+        .img-mobile { display: block; }
+        .img-desktop { display: none; }
 
         @media (min-width: 768px) {
-          .img-mobile {
-            display: none;
-          }
-
-          .img-desktop {
-            display: block;
-          }
+          .img-mobile { display: none; }
+          .img-desktop { display: block; }
         }
 
-        /* IMAGE STYLE */
         .banner-img {
           object-fit: cover;
-          /* Disable iOS long-press image save popup during swipe */
           -webkit-touch-callout: none;
           pointer-events: none;
         }
 
         /* ARROWS */
-        .cb-arrow {
-          display: none;
-        }
+        .cb-arrow { display: none; }
 
         @media (min-width: 768px) {
           .cb-arrow {
@@ -237,27 +189,19 @@ export function CarouselBanner() {
             height: 42px;
             border-radius: 9999px;
             border: none;
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0,0,0,0.45);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: background 0.25s ease;
           }
-
-          .cb-arrow:hover {
-            background: rgba(0, 0, 0, 0.65);
-          }
+          .cb-arrow:hover { background: rgba(0,0,0,0.65); }
         }
 
-        .cb-arrow.left {
-          left: 20px;
-        }
-
-        .cb-arrow.right {
-          right: 20px;
-        }
+        .cb-arrow.left  { left: 20px; }
+        .cb-arrow.right { right: 20px; }
 
         /* DOTS */
         .cb-dots {
@@ -285,7 +229,6 @@ export function CarouselBanner() {
         }
       `}</style>
 
-      {/* FULL WIDTH CONTAINER */}
       <div className="w-full overflow-hidden">
         <div
           ref={wrapRef}
@@ -294,40 +237,42 @@ export function CarouselBanner() {
           onMouseLeave={() => setIsAutoPlay(true)}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          /* onTouchMove handled via addEventListener (passive:false) in useEffect */
         >
-          {slides.map((s, i) => (
-            <div
-              key={s.id}
-              className={`cb-slide ${i === currentSlide ? "active" : ""}`}
-            >
-              {/* MOBILE IMAGE */}
-              <div className="img-mobile relative w-full h-full">
-                <Image
-                  src={s.mobile}
-                  alt={`Mobile Banner ${s.id}`}
-                  fill
-                  priority={i === 0}
-                  className="banner-img"
-                  draggable={false}
-                />
+          {/*
+            KEY CHANGE: instead of stacking slides with position:absolute + opacity,
+            we use a flex row and translateX the whole strip.
+            translateX(-N * 100%) moves to the Nth slide.
+          */}
+          <div
+            className="cb-track"
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          >
+            {slides.map((s, i) => (
+              <div key={s.id} className="cb-slide">
+                <div className="img-mobile relative w-full h-full">
+                  <Image
+                    src={s.mobile}
+                    alt={`Mobile Banner ${s.id}`}
+                    fill
+                    priority={i === 0}
+                    className="banner-img"
+                    draggable={false}
+                  />
+                </div>
+                <div className="img-desktop relative w-full h-full">
+                  <Image
+                    src={s.desktop}
+                    alt={`Desktop Banner ${s.id}`}
+                    fill
+                    priority={i === 0}
+                    className="banner-img"
+                    draggable={false}
+                  />
+                </div>
               </div>
+            ))}
+          </div>
 
-              {/* DESKTOP IMAGE */}
-              <div className="img-desktop relative w-full h-full">
-                <Image
-                  src={s.desktop}
-                  alt={`Desktop Banner ${s.id}`}
-                  fill
-                  priority={i === 0}
-                  className="banner-img"
-                  draggable={false}
-                />
-              </div>
-            </div>
-          ))}
-
-          {/* LEFT ARROW */}
           <button
             className="cb-arrow left"
             onClick={() => {
@@ -337,8 +282,6 @@ export function CarouselBanner() {
           >
             <ChevronLeft size={20} />
           </button>
-
-          {/* RIGHT ARROW */}
           <button
             className="cb-arrow right"
             onClick={() => {
@@ -350,7 +293,6 @@ export function CarouselBanner() {
           </button>
         </div>
 
-        {/* DOTS */}
         <div className="cb-dots">
           {slides.map((_, i) => (
             <button
