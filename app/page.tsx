@@ -15,6 +15,7 @@ import UniversitySection from "@/components/university-section";
 import EcampusCta from "@/components/ui/cta";
 import FAQ from "@/components/faq";
 import OnlineCourseSection from "@/components/online-courses";
+import FloatingCta from "@/components/floating-cta";
 
 export default function Home() {
   return (
@@ -39,6 +40,10 @@ export default function Home() {
       <OnlineCourseSection />
       <PressSection />
       <FAQ />
+      <div className="sticky bottom-0 z-40">
+        <FloatingCta />
+      </div>
+
       <Footer />
     </main>
   );
