@@ -155,14 +155,6 @@ export function Footer() {
       <div className="flex flex-wrap justify-center gap-y-6 py-8">
         <div className="flex flex-wrap items-center justify-center gap-6 gap-y-4 px-6">
           <Link
-            aria-label="Email"
-            href="mailto:contact@elevate.com"
-            className={Underline}
-          >
-            <DIcons.Mail strokeWidth={1.5} className="h-5 w-5" />
-          </Link>
-
-          <Link
             aria-label="Twitter"
             href="https://twitter.com"
             target="_blank"

@@ -40,7 +40,7 @@ export default function Home() {
       <OnlineCourseSection />
       <PressSection />
       <FAQ />
-      <div className="sticky bottom-0 z-40">
+      <div className="fixed bottom-0 left-0 w-full z-50">
         <FloatingCta />
       </div>
 

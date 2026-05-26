@@ -71,7 +71,7 @@ export default function FAQ() {
               key={faq.question}
               className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_6px_18px_rgba(15,23,42,0.08)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
             >
-              <h3 className="text-[18px] font-black leading-[1.3] tracking-[-0.3px] text-slate-950">
+              <h3 className="text-[18px] font-semibold leading-[1.3] tracking-[-0.3px] text-slate-950">
                 {faq.question}
               </h3>
 
