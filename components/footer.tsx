@@ -104,7 +104,7 @@ export function Footer() {
             alt="eCampus"
             width={120}
             height={40}
-            className="h-12 w-auto object-contain brightness-0 invert"
+            className="h-8 w-auto object-contain brightness-0 invert"
           />
         </Link>
 

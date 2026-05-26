@@ -15,7 +15,7 @@ export type Offer = {
 export const popularCourses: Offer[] = [
   {
     id: 1,
-    imageSrc: "/courses/iim-kozhikode-.jpg",
+    imageSrc: "/courses/iimkhr.png",
     imageAlt: "Business analysis and data visualization",
     tag: "Popular",
     title: "IIM K HR Analytics",
@@ -28,7 +28,7 @@ export const popularCourses: Offer[] = [
   },
   {
     id: 2,
-    imageSrc: "/courses/op.webp",
+    imageSrc: "/courses/opjindal.png",
     imageAlt: "1 Year MBA - O.P Jindal",
     tag: "Trending",
     title: "1 Year MBA - O.P Jindal",
@@ -42,8 +42,7 @@ export const popularCourses: Offer[] = [
   },
   {
     id: 3,
-    imageSrc:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1970&q=80",
+    imageSrc: "/courses/dba.png",
     imageAlt: "Online DBA - Rushford",
     tag: "Advanced",
     title: "Online DBA - Rushford",
@@ -57,8 +56,7 @@ export const popularCourses: Offer[] = [
   },
   {
     id: 4,
-    imageSrc:
-      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+    imageSrc: "/courses/esg.png",
     imageAlt: "AI and machine learning",
     tag: "New",
     title: "GGU Gen Ai",
@@ -72,8 +70,7 @@ export const popularCourses: Offer[] = [
   },
   {
     id: 5,
-    imageSrc:
-      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+    imageSrc: "/courses/ggu.png",
     imageAlt: "AI and machine learning",
     tag: "New",
     title: "IIM K AI Professional",
