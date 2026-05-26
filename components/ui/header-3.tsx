@@ -643,11 +643,9 @@ function GrayIcon({
 }) {
   return (
     <span
-      className={`${boxClass} bg-[#f3f4f6] border border-gray-200 flex items-center justify-center flex-shrink-0 transition-all ${
-        active ? "shadow-sm ring-1 ring-gray-300" : ""
-      }`}
+      className={`${boxClass} bg-[#f3f4f6] border border-gray-200 flex items-center justify-center flex-shrink-0`}
     >
-      <Icon size={size} className="text-gray-500" strokeWidth={1.8} />
+      <Icon size={size} className="text-black" strokeWidth={1.8} />
     </span>
   );
 }
@@ -711,7 +709,7 @@ function ProgramDropdown({ open, onClose }) {
                 className={`w-full flex items-center gap-3.5 px-4 py-3 text-left transition-all duration-100 border-r-2 ${
                   isActive
                     ? "bg-red-50 border-red-500 text-red-600 font-semibold"
-                    : "border-transparent text-gray-600 hover:bg-white hover:text-gray-900"
+                    : "border-transparent text-black hover:bg-white hover:text-gray-900"
                 }`}
               >
                 <GrayIcon
@@ -727,7 +725,7 @@ function ProgramDropdown({ open, onClose }) {
 
                 <ChevronRight
                   size={15}
-                  className={isActive ? "text-red-500" : "text-gray-300"}
+                  className={isActive ? "text-red-500" : "text-black"}
                   strokeWidth={1.8}
                 />
               </button>
@@ -765,7 +763,7 @@ function CompanyDropdown({ open, onClose }) {
                 <div className="w-12 h-12 bg-[#f3f4f6] border border-gray-200 shadow-sm rounded-full flex items-center justify-center flex-shrink-0">
                   <item.Icon
                     size={20}
-                    className="text-gray-500"
+                    className="text-black"
                     strokeWidth={1.8}
                   />
                 </div>
@@ -792,7 +790,7 @@ function CompanyDropdown({ open, onClose }) {
               >
                 <item.Icon
                   size={17}
-                  className="text-gray-500 flex-shrink-0"
+                  className="text-black flex-shrink-0"
                   strokeWidth={1.8}
                 />
                 <span className="text-[15px] font-medium text-gray-700">
@@ -853,7 +851,7 @@ function MobileMenu({ open, onClose, floating }) {
                 <ChevronDown
                   size={17}
                   className={`flex-shrink-0 transition-transform duration-200 ${
-                    isOpen ? "rotate-180 text-red-400" : "text-gray-300"
+                    isOpen ? "rotate-180 text-red-400" : "text-black"
                   }`}
                   strokeWidth={1.8}
                 />
@@ -915,7 +913,7 @@ function MobileMenu({ open, onClose, floating }) {
 
           <ChevronDown
             size={17}
-            className={`text-gray-300 transition-transform duration-200 ${
+            className={`text-black transition-transform duration-200 ${
               companyExpanded ? "rotate-180" : ""
             }`}
             strokeWidth={1.8}
@@ -933,7 +931,7 @@ function MobileMenu({ open, onClose, floating }) {
               >
                 <item.Icon
                   size={16}
-                  className="text-gray-500 flex-shrink-0"
+                  className="text-black flex-shrink-0"
                   strokeWidth={1.8}
                 />
                 <span className="text-[15px] text-gray-700">{item.title}</span>
@@ -962,7 +960,7 @@ function MobileMenu({ open, onClose, floating }) {
           </a>
 
           <button className="w-full bg-red-500 hover:bg-red-600 text-white text-[15px] font-semibold py-3.5 rounded-full transition-colors">
-            Enroll Now
+            Login
           </button>
         </div>
       </div>
@@ -1025,7 +1023,7 @@ function NavContent({
         onClick={closeAll}
         className="flex items-center gap-2 hover:opacity-80 select-none flex-shrink-0"
       >
-        <img src="/logo.png" alt="eCampus" className="h-10 w-auto" />
+        <img src="/logo.png" alt="eCampus" className="h-8 w-auto" />
       </Link>
 
       <div className="hidden md:flex items-center gap-1">
@@ -1035,8 +1033,8 @@ function NavContent({
             activeMenu === "program"
               ? "bg-red-50 text-red-600"
               : floating
-                ? "text-gray-700 hover:bg-gray-100"
-                : "text-gray-700 hover:bg-white/70"
+                ? "text-black hover:bg-gray-100"
+                : "text-black hover:bg-white/70"
           }`}
         >
           Programs
@@ -1055,8 +1053,8 @@ function NavContent({
             activeMenu === "company"
               ? "bg-red-50 text-red-600"
               : floating
-                ? "text-gray-700 hover:bg-gray-100"
-                : "text-gray-700 hover:bg-white/70"
+                ? "text-black hover:bg-gray-100"
+                : "text-black hover:bg-white/70"
           }`}
         >
           Company
@@ -1074,8 +1072,8 @@ function NavContent({
           onClick={closeAll}
           className={`px-5 py-2.5 rounded-full text-[15px] transition-colors font-medium ${
             floating
-              ? "text-gray-700 hover:bg-gray-100"
-              : "text-gray-700 hover:bg-white/70"
+              ? "text-black hover:bg-gray-100"
+              : "text-black hover:bg-white/70"
           }`}
         >
           Blog
@@ -1085,14 +1083,14 @@ function NavContent({
       <div className="hidden md:flex items-center gap-3">
         <a
           href="tel:18001216201"
-          className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-red-300 text-red-500 text-[15px] font-medium hover:bg-red-50 transition-colors"
+          className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-red-300 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
         >
-          <Phone size={16} strokeWidth={1.8} />
+          <Phone size={14} strokeWidth={1.8} />
           1800-121-6201
         </a>
 
         <button className="px-6 py-2.5 bg-red-500 hover:bg-red-600 text-white text-[15px] font-semibold rounded-full transition-colors shadow-sm shadow-red-200">
-          Enroll Now
+          Login
         </button>
       </div>
 
@@ -1102,7 +1100,7 @@ function NavContent({
           setMobileOpen((m) => !m);
           setActiveMenu(null);
         }}
-        className={`md:hidden w-11 h-11 flex items-center justify-center rounded-full border text-gray-700 transition-colors ${
+        className={`md:hidden w-11 h-11 flex items-center justify-center rounded-full border text-black transition-colors ${
           floating
             ? "border-gray-200 hover:bg-gray-100"
             : "border-transparent hover:bg-white/70"

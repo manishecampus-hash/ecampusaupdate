@@ -108,11 +108,11 @@ export function Footer() {
           />
         </Link>
 
-        <p className="max-w-3xl text-center text-sm leading-6 text-slate-300 md:text-left ">
+        {/* <p className="max-w-3xl text-center text-sm leading-6 text-slate-300 md:text-left ">
           eCampus is a next-generation AI-enabled higher education platform
           designed to empower learners through UGC-recognized online and global
           hybrid degree programs offered by top universities across the world.
-        </p>
+        </p> */}
       </div>
 
       <div className="mx-auto max-w-7xl px-6 py-10">

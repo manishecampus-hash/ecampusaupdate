@@ -85,4 +85,79 @@ export const popularCourses: Offer[] = [
     icon: "cpu",
     href: "/programs/iimk-ai",
   },
+  {
+    id: 6,
+    imageSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+    imageAlt: "AI and machine learning",
+    tag: "New",
+    title: "IIM K AI Professional",
+    brandLogoSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1470&auto=format&fit=crop",
+    duration: "10 Months",
+    fee: "₹1,50,000",
+    mode: "Online",
+    icon: "cpu",
+    href: "/programs/iimk-ai",
+  },
+  {
+    id: 7,
+    imageSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+    imageAlt: "AI and machine learning",
+    tag: "New",
+    title: "IIM K AI Professional",
+    brandLogoSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1470&auto=format&fit=crop",
+    duration: "10 Months",
+    fee: "₹1,50,000",
+    mode: "Online",
+    icon: "cpu",
+    href: "/programs/iimk-ai",
+  },
+  {
+    id: 8,
+    imageSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+    imageAlt: "AI and machine learning",
+    tag: "New",
+    title: "IIM K AI Professional",
+    brandLogoSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1470&auto=format&fit=crop",
+    duration: "10 Months",
+    fee: "₹1,50,000",
+    mode: "Online",
+    icon: "cpu",
+    href: "/programs/iimk-ai",
+  },
+  {
+    id: 9,
+    imageSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+    imageAlt: "AI and machine learning",
+    tag: "New",
+    title: "IIM K AI Professional",
+    brandLogoSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1470&auto=format&fit=crop",
+    duration: "10 Months",
+    fee: "₹1,50,000",
+    mode: "Online",
+    icon: "cpu",
+    href: "/programs/iimk-ai",
+  },
+  {
+    id: 10,
+    imageSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop",
+    imageAlt: "AI and machine learning",
+    tag: "New",
+    title: "IIM K AI Professional",
+    brandLogoSrc:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1470&auto=format&fit=crop",
+    duration: "10 Months",
+    fee: "₹1,50,000",
+    mode: "Online",
+    icon: "cpu",
+    href: "/programs/iimk-ai",
+  },
 ];
