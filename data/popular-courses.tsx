@@ -15,7 +15,7 @@ export type Offer = {
 export const popularCourses: Offer[] = [
   {
     id: 1,
-    imageSrc: "/courses/iimkhr.png",
+    imageSrc: "/courses/iimkhr (1).png",
     imageAlt: "Business analysis and data visualization",
     tag: "Popular",
     title: "IIM K HR Analytics",

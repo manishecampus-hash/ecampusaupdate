@@ -3,43 +3,37 @@ export const pressArticles = [
     name: "Lokmat Times",
     image: "/press/lokmat.webp",
     href: "https://www.lokmattimes.com/business/ecampus-edu-launches-ai-to-help-students-find-the-right-online-degree-program-in-under-60-seconds",
-    headline:
-      "Lokmat Times covers the latest in Indian entrepreneurship and startup ecosystems across the country...",
+    headline: "",
   },
   {
     name: "Hindustan Times",
     image: "/press/unnamed (9).webp",
     href: "#",
-    headline:
-      "Leverage Edu launches Leverage Online to expand into courses and certifications across India...",
+    headline: "",
   },
   {
     name: "ThePrint",
     image: "/press/theprintt.png",
     href: "https://theprint.in/ani-press-releases/ecampus-edu-launches-ai-to-help-students-find-the-right-online-degree-program-in-under-60-seconds/2910429/",
-    headline:
-      "How one startup is reshaping the future of higher education abroad for Indian students...",
+    headline: "",
   },
   {
     name: "ANI",
     image: "/press/ani.webp",
     href: "https://www.aninews.in/news/business/ecampus-edu-launches-ai-to-help-students-find-the-right-online-degree-program-in-under-60-seconds20260421160827/",
-    headline:
-      "Secures Series D funding to accelerate overseas admissions platform across 50+ countries...",
+    headline: "",
   },
   {
     name: "Digpu",
     image: "/press/dpu.webp",
     href: "https://digpu.com/press-releases/ecampus-edu-launches-ai-to-help-students-find-the-right-online-degree-program-in-under-60-seconds",
-    headline:
-      "Digpu spotlights rising edtech platforms transforming study-abroad access for Indian youth...",
+    headline: "",
   },
   {
     name: "LatestLY",
     image: "/press/ly.webp",
     href: "https://www.latestly.com/agency-news/business-news-ecampus-edu-launches-ai-to-help-students-find-the-right-online-degree-program-in-under-60-seconds-7401650.html",
-    headline:
-      "Named among India's top 10 edtech companies for three consecutive years running...",
+    headline: "",
   },
   {
     name: "Daily Hunt",
