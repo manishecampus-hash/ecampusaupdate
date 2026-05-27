@@ -18,7 +18,7 @@ const OfferCard = ({ offer, index }: { offer: Offer; index: number }) => {
   return (
     <Link
       href={offer.href || "#"}
-      className="relative flex h-[180px] w-[140px] flex-shrink-0 sm:h-[250px] sm:w-[165px] lg:h-[260px] lg:w-[195px]"
+      className="relative flex h-[150px] w-[150px] flex-shrink-0 sm:h-[250px] sm:w-[180px] lg:h-[260px] lg:w-[210px]"
     >
       <span
         className="absolute bottom-0 left-2 z-10 text-[65px] sm:text-[85px] lg:text-[100px] font-black"
@@ -90,7 +90,7 @@ export const OfferCarousel = ({
       {showLeft && (
         <button
           onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 z-40 -translate-y-1/2 flex h-16 w-6 items-center justify-center rounded-r-lg bg-[#4a4a4a] text-white hover:bg-[#666] transition-colors md:h-24 md:w-8"
+          className="absolute left-0 top-1/2 z-40 -translate-y-1/2 flex h-16 w-6 items-center justify-center rounded-r-lg bg-[#666666] text-white hover:bg-[#333] transition-colors md:h-24 md:w-4"
           aria-label="Scroll left"
         >
           <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
@@ -121,7 +121,7 @@ export const OfferCarousel = ({
       {showRight && (
         <button
           onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 z-40 -translate-y-1/2 flex h-16 w-6 items-center justify-center rounded-l-lg bg-[#4a4a4a] text-white hover:bg-[#666] transition-colors md:h-24 md:w-8"
+          className="absolute right-0 top-1/2 z-40 -translate-y-1/2 flex h-16 w-4 items-center justify-center rounded-l-lg bg-[#666666] text-white hover:bg-[#333] transition-colors md:h-24 md:w-4"
           aria-label="Scroll right"
         >
           <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />

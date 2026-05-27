@@ -9,7 +9,7 @@ import { StatsSection } from "@/components/stats-section";
 import { GraduatesMarquee } from "@/components/graduates-marquee";
 // import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
-import { PressSection } from "@/components/press-section";
+// import { PressSection } from "@/components/press-section";
 import AIProgramFinder from "@/components/AIProgramFinder";
 import UniversitySection from "@/components/university-section";
 import EcampusCta from "@/components/ui/cta";
@@ -35,11 +35,12 @@ export default function Home() {
       <PopularCoursesSection />
       <StatsSection />
       <UniversitySection />
-      <GraduatesMarquee />
+
+      <OnlineCourseSection />
       {/* <CtaSection /> */}
       <EcampusCta />
-      <OnlineCourseSection />
-      <PressSection />
+      <GraduatesMarquee />
+      {/* <PressSection /> */}
       <MediaSection />
       <FAQ />
 

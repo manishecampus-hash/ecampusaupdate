@@ -382,7 +382,7 @@ export default function ProgramsSection() {
                         fontWeight: 700,
                         color: "#fff",
                         borderRadius: "0 4px 4px 0",
-                        letterSpacing: "0.04em",
+                        letterSpacing: "0.0em",
                         boxShadow: "0 2px 6px rgba(255,59,79,0.3)",
                       }}
                     >

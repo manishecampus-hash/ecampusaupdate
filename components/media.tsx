@@ -2,80 +2,74 @@
 
 import { pressArticles } from "@/data/press-section";
 import { Handshake } from "lucide-react";
-import { Section } from "./ui/section";
 
 const articles = [...pressArticles, ...pressArticles];
 
 export function MediaSection() {
   return (
-    <Section className="overflow-hidden bg-black">
+    <section className="py-10 sm:py-12 lg:py-14 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-6 pt-4 sm:pt-6">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-zinc-800 bg-black px-3 py-1 text-xs font-bold text-white uppercase tracking-wider">
+        {/* Header Section */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center mb-10">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
             <Handshake className="h-3.5 w-3.5 text-red-500" />
             Featured in
           </span>
-
-          <h2 className="mt-2 text-2xl font-extrabold text-white tracking-tight sm:text-3xl md:text-4xl">
+          <h2 className="mt-2 text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl md:text-4xl">
             Top Media <span className="text-red-500">Houses</span>
           </h2>
         </div>
 
-        <div className="relative w-full flex items-start overflow-hidden py-4 select-none mb-2">
-          <div className="flex shrink-0 items-start justify-start gap-12 pr-12 animate-marquee">
+        {/* Logo Marquee */}
+        <div className="relative overflow-hidden py-5">
+          {/* Fading gradients at the edges */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-24 z-10 bg-gradient-to-r from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-24 z-10 bg-gradient-to-l from-white to-transparent" />
+
+          <div
+            className="flex w-max items-center gap-10 sm:gap-14" // Tightened gap for balanced spacing
+            style={{ animation: "marquee 38s linear infinite" }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.animationPlayState = "paused")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.animationPlayState = "running")
+            }
+          >
             {articles.map((article, i) => (
               <a
-                key={`${article.name}-${i}`}
+                key={i}
                 href={article.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex w-[280px] sm:w-[310px] lg:w-[330px] shrink-0 flex-col rounded-xl bg-black border border-zinc-900 p-3 transition-all duration-300 hover:border-red-500"
+                className="flex-shrink-0 transition-transform duration-300 hover:scale-105"
               >
-                <div className="mb-3 h-48 w-full overflow-hidden rounded-xl bg-black sm:h-52 lg:h-56">
-                  <img
-                    src={article.image}
-                    alt={article.name}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "https://placehold.co/600x400/000000/ffffff?text=News";
-                    }}
-                  />
-                </div>
-
-                <p className="text-sm sm:text-[15px] leading-6 text-gray-300 font-medium">
-                  {article.headline}
-                </p>
-
-                <div className="flex items-center gap-2 pt-3">
-                  <span className="text-sm font-semibold text-red-500 group-hover:text-red-400">
-                    Read More →
-                  </span>
-                </div>
+                {/* Increased height to make logos larger and more visible */}
+                <img
+                  src={article.image}
+                  alt={article.name}
+                  className="h-20 sm:h-24 w-auto object-contain"
+                  onError={(e) => {
+                    e.currentTarget.src =
+                      "https://placehold.co/400x200/f8fafc/e2e8f0?text=Logo";
+                  }}
+                />
               </a>
             ))}
           </div>
         </div>
       </div>
 
-      <style jsx global>{`
+      <style jsx>{`
         @keyframes marquee {
           0% {
-            transform: translateX(0%);
+            transform: translateX(0);
           }
           100% {
             transform: translateX(-50%);
           }
         }
-
-        .animate-marquee {
-          animation: marquee 38s linear infinite;
-        }
-
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
       `}</style>
-    </Section>
+    </section>
   );
 }
