@@ -16,6 +16,7 @@ import EcampusCta from "@/components/ui/cta";
 import FAQ from "@/components/faq";
 import OnlineCourseSection from "@/components/online-courses";
 import FloatingCta from "@/components/floating-cta";
+import { MediaSection } from "@/components/media";
 
 export default function Home() {
   return (
@@ -39,12 +40,13 @@ export default function Home() {
       <EcampusCta />
       <OnlineCourseSection />
       <PressSection />
+      <MediaSection />
       <FAQ />
+
+      <Footer />
       <div className="fixed bottom-0 left-0 w-full z-50">
         <FloatingCta />
       </div>
-
-      <Footer />
     </main>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Sparkles, CheckCircle2, Handshake } from "lucide-react";
 import { Section } from "./section";
 
 export default function EcampusCta() {
@@ -40,13 +40,13 @@ export default function EcampusCta() {
 
           <div className="relative grid gap-8 rounded-[24px] border border-white/70 bg-white/75 p-6 backdrop-blur-xl sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center lg:p-10">
             <div className="max-w-3xl">
-              <span className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 [animation:softLift_4s_ease-in-out_infinite]">
-                <Sparkles className="h-4 w-4" />
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-60 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
+                <Handshake className="h-3.5 w-3.5 text-red-500" />
                 Admissions Open 2026
               </span>
-
-              <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
-                Ready to Upgrade Your Career?
+              <h2 className="mt-2 text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl md:text-4xl">
+                Ready to Upgrade Your{" "}
+                <span className="text-red-500">Career?</span>
               </h2>
 
               <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
