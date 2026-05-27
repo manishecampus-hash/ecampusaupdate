@@ -8,7 +8,6 @@ export default function SlideUpCta() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Iska matlab hai jab user page ke bilkul end ke paas pahunche
       const bottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
       setIsVisible(bottom);
@@ -19,7 +18,6 @@ export default function SlideUpCta() {
   }, []);
 
   return (
-    // 'fixed' hata kar niche adjust karne ke liye bottom-0 use kiya hai
     <div
       className={`fixed bottom-0 left-0 w-full z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isVisible ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0"

@@ -17,7 +17,7 @@ export function PressSection() {
             Featured in
           </span>
           <h2 className="mt-2 text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl md:text-4xl">
-            Top Media Houses <span className="text-red-500">Houses</span>
+            Top Media <span className="text-red-500">Houses</span>
           </h2>
         </div>
 

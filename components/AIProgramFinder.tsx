@@ -168,26 +168,6 @@ export default function AIProgramFinder() {
       {/* Main Finder Card */}
       <div className="relative z-10 mx-auto max-w-7xl rounded-3xl border border-white/10 bg-[#111827] p-6 sm:p-8 shadow-[0_18px_50px_rgba(0,0,0,0.32)]">
         {/* Top Highlight Badge Row */}
-        <div className="mb-7 flex flex-col gap-5 border-b border-white/5 pb-5 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3.5">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff3b4f] to-[#cc1f31] text-white shadow-lg shadow-red-500/20">
-              <Sparkles className="h-5 w-5" />
-            </div>
-            <div>
-              <h3 className="text-lg font-extrabold text-white tracking-tight">
-                Smart AI Career Match
-              </h3>
-              <p className="text-sm text-slate-400">
-                Personalized degree & career recommendations
-              </p>
-            </div>
-          </div>
-
-          <div className="inline-flex self-start sm:self-center items-center gap-2 rounded-full border border-red-500/25 bg-red-500/10 px-3 py-1.5 text-xs font-bold text-red-400">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-[#ff3b4f]" />
-            AI Recommendations Live
-          </div>
-        </div>
 
         {/* Form Selection Grid */}
         <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">

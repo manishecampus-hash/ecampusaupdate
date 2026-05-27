@@ -84,26 +84,32 @@ export const OfferCarousel = ({
     return () => window.removeEventListener("resize", checkScroll);
   }, [offers]);
 
-  // Updated to gray (bg-[#4a4a4a])
-  const buttonClasses =
-    "absolute top-1/2 z-40 -translate-y-1/2 hidden md:flex h-24 w-8 items-center justify-center bg-[#4a4a4a] text-white hover:bg-[#666] transition-colors";
-
   return (
     <div className={cn("relative w-full", className)}>
+      {/* Left Arrow — visible on all screen sizes when needed */}
       {showLeft && (
         <button
           onClick={() => scroll("left")}
-          className={cn(buttonClasses, "left-0 rounded-r-lg")}
-          placeholder="Scroll left"
+          className="absolute left-0 top-1/2 z-40 -translate-y-1/2 flex h-16 w-6 items-center justify-center rounded-r-lg bg-[#4a4a4a] text-white hover:bg-[#666] transition-colors md:h-24 md:w-8"
+          aria-label="Scroll left"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
         </button>
       )}
 
       <div
         ref={scrollRef}
         onScroll={checkScroll}
-        className="flex gap-4 overflow-x-auto mx-10 py-6 scroll-smooth"
+        className={cn(
+          "flex gap-4 overflow-x-auto py-6 scroll-smooth",
+          // On mobile: add padding so the 3rd card is half-visible (no mx, use px)
+          // On md+: keep the original mx-10 for arrow button spacing
+          showLeft && showRight
+            ? "px-7 md:mx-10 md:px-0"
+            : showLeft
+              ? "pl-7 pr-4 md:mx-10 md:px-0"
+              : "pl-4 pr-7 md:mx-10 md:px-0",
+        )}
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {offers.map((offer, index) => (
@@ -111,13 +117,14 @@ export const OfferCarousel = ({
         ))}
       </div>
 
+      {/* Right Arrow — visible on all screen sizes when needed */}
       {showRight && (
         <button
           onClick={() => scroll("right")}
-          className={cn(buttonClasses, "right-0 rounded-l-lg")}
-          placeholder="Scroll right"
+          className="absolute right-0 top-1/2 z-40 -translate-y-1/2 flex h-16 w-6 items-center justify-center rounded-l-lg bg-[#4a4a4a] text-white hover:bg-[#666] transition-colors md:h-24 md:w-8"
+          aria-label="Scroll right"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
         </button>
       )}
     </div>
