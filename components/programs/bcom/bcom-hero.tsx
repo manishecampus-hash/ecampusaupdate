@@ -58,14 +58,6 @@ export default function BComHero() {
       <div className="relative mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <div className="mb-4 flex w-fit items-center gap-2 rounded-full bg-amber-50 px-4 py-1.5 text-xs font-bold text-amber-700 ring-1 ring-amber-200">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
-              </span>
-              ONLY {seatsLeft} SEATS LEFT FOR JUNE 2026 BATCH
-            </div>
-
             <Link
               href="/"
               className="inline-flex items-center text-sm font-semibold text-slate-500 transition hover:text-red-500"
@@ -79,6 +71,13 @@ export default function BComHero() {
               Undergraduate Program
             </div>
 
+            <div className="mt-3 mb-4 flex w-fit items-center gap-2 rounded-full bg-amber-50 px-4 py-1.5 text-xs font-bold text-amber-700 ring-1 ring-amber-200">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
+              </span>
+              ONLY {seatsLeft} SEATS LEFT FOR JUNE 2026 BATCH
+            </div>
             <h1 className="mt-4 text-2xl font-black leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-4xl">
               Online B.Com in{" "}
               <span className="text-red-500">Accounting & Finance</span>

@@ -11,6 +11,7 @@ import UniversitySection from "@/components/programs/bcom/university-section";
 import { Header } from "@/components/ui/header-3";
 import BComSubHeader from "@/components/programs/bcom/bcom-sub-header";
 import { KeyHighlights } from "@/components/programs/bcom/key-highlight";
+import BComSpecializations from "@/components/programs/bcom/bcom-specializations";
 
 export default function BComPage() {
   return (
@@ -25,6 +26,7 @@ export default function BComPage() {
         <BComHero />
         <div id="program-overview">
           <BComOverview />
+          <BComSpecializations />
         </div>
 
         {/* 2. Key Highlights */}
