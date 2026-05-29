@@ -155,10 +155,10 @@ export function GraduatesMarquee({
   return (
     <section
       style={{
-        padding: "80px 16px",
-        background: "#05070d",
-        overflow: "hidden",
+        background:
+          "radial-gradient(circle at top right, rgba(255, 59, 79, 0.12), transparent 35%), #05070d",
       }}
+      className="relative w-full px-4 py-10 text-slate-100 sm:px-6"
     >
       <style>{`
         @keyframes graduateLoopUp {
@@ -182,7 +182,7 @@ export function GraduatesMarquee({
 
       {/* Heading */}
       <div className="mx-auto mb-14 max-w-7xl text-center">
-        <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold uppercase">
+        <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold uppercase text-black">
           <Handshake className="h-4 w-4 text-red-500" />
           Success Stories
         </span>

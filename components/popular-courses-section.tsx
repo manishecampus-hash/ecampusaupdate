@@ -8,8 +8,8 @@ import { Handshake } from "lucide-react";
 export function PopularCoursesSection() {
   return (
     <section
-      id="popular-courses"
-      className="bg-white px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
+      style={{}}
+      className=" bg-white relative w-full px-4 py-10 text-slate-100 sm:px-6"
     >
       <div className="mx-auto max-w-7xl">
         {/* Unified Center Header with Standard Preview Typography */}

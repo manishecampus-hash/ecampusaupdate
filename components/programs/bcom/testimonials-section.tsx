@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { Quote, Star, GraduationCap, ChevronRight } from "lucide-react";
 
 interface TestimonialCard {
   id: string;
@@ -9,9 +10,10 @@ interface TestimonialCard {
   university: string;
   image: string;
   quote: string;
+  rating?: number;
 }
 
-const testimonials: TestimonialCard[] = [
+const fallbackTestimonials: TestimonialCard[] = [
   {
     id: "1",
     name: "Priya Mehta",
@@ -19,6 +21,7 @@ const testimonials: TestimonialCard[] = [
     university: "Amity University Online",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=700&auto=format&fit=crop&q=80",
+    rating: 5,
     quote:
       "The Online B.Com program helped me build a strong foundation in accounting, taxation, and business management. Recorded lectures and flexible classes made it easy to study while preparing for internships.",
   },
@@ -29,6 +32,7 @@ const testimonials: TestimonialCard[] = [
     university: "Manipal University Online",
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&auto=format&fit=crop&q=80",
+    rating: 5,
     quote:
       "I wanted a commerce degree that would let me continue working part-time. The online format gave me flexibility, and the curriculum was practical for finance, banking, and accounting career paths.",
   },
@@ -39,73 +43,118 @@ const testimonials: TestimonialCard[] = [
     university: "GLA University Online",
     image:
       "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=700&auto=format&fit=crop&q=80",
+    rating: 4,
     quote:
       "The best part was how simple the learning platform was. I could attend live sessions, revise recorded classes, and submit assignments without disrupting my daily schedule.",
   },
-  {
-    id: "4",
-    name: "Karan Malhotra",
-    program: "Online B.Com",
-    university: "NMIMS Online",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=700&auto=format&fit=crop&q=80",
-    quote:
-      "The program helped me understand business law, auditing, and finance in a structured way. Faculty support and study material made the online learning experience smooth and useful.",
-  },
 ];
 
-export default function TestimonialsSection() {
-  return (
-    <section className="w-full bg-white px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-5">
-          <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
-            B.Com Student <span className="text-red-500">Testimonials</span>
-          </h2>
+export default function TestimonialsSection({
+  testimonials = fallbackTestimonials,
+}: {
+  testimonials?: TestimonialCard[];
+}) {
+  const [activeId, setActiveId] = useState<string | null>(null);
 
-          <p className="mt-4 text-base leading-relaxed text-slate-600">
-            Hear from learners who completed flexible online commerce programs
-            from top universities.
+  return (
+    <section
+      style={{
+        background:
+          "radial-gradient(circle at top right, rgba(255, 59, 79, 0.12), transparent 35%), #05070d",
+      }}
+      className="relative w-full px-4 py-10 text-slate-100 sm:px-6"
+    >
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto mb-10 max-w-3xl text-center">
+          {/* Section Header */}
+          <div className="mx-auto mb-10 max-w-7xl text-center px-4 sm:px-6 lg:px-8">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
+              <GraduationCap className="h-3.5 w-3.5 text-red-500" />
+              Student Stories
+            </span>
+            <h2 className="mt-2 text-2xl font-extrabold text-white-900 tracking-tight sm:text-3xl md:text-4xl">
+              B.Com Student <span className="text-red-500">Testimonials</span>
+            </h2>
+          </div>
+
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
+            Hear from learners who chose flexible online commerce programs and
+            built practical skills for accounting, finance, taxation, and
+            business careers.
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {testimonials.map((testimonial) => (
-            <article
-              key={testimonial.id}
-              className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_6px_18px_rgba(15,23,42,0.14)] transition-all duration-200 hover:-translate-y-1 hover:border-red-200 hover:shadow-[0_12px_28px_rgba(15,23,42,0.18)]"
-            >
-              <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                className="h-44 w-full rounded-xl object-cover"
-                loading="lazy"
-              />
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((testimonial) => {
+            const isOpen = activeId === testimonial.id;
+            const rating = testimonial.rating ?? 5;
 
-              <p className="mt-4 line-clamp-4 text-[13px] font-medium leading-6 text-slate-700">
-                {testimonial.quote}
-              </p>
-
-              <button
-                type="button"
-                className="mt-3 text-[13px] font-extrabold text-slate-950 underline decoration-2 underline-offset-2 transition hover:text-red-500"
+            return (
+              <article
+                key={testimonial.id}
+                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#111827] p-5 shadow-[0_18px_45px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-1 hover:border-red-500/50"
               >
-                Read More
-              </button>
+                <div className="absolute right-0 top-0 h-28 w-28 translate-x-10 -translate-y-10 rounded-full bg-red-500/10 transition group-hover:bg-red-500/20" />
 
-              <div className="mt-5 border-t border-slate-100 pt-4">
-                <h3 className="text-sm font-extrabold text-slate-950">
-                  {testimonial.name}
-                </h3>
+                <div className="relative z-10 flex items-center gap-4">
+                  <img
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    className="h-16 w-16 rounded-2xl object-cover ring-2 ring-white/10"
+                    loading="lazy"
+                  />
 
-                <p className="mt-1 text-[12px] font-semibold text-slate-600">
-                  {testimonial.program}{" "}
-                  <span className="text-slate-900">•</span>{" "}
-                  {testimonial.university}
-                </p>
-              </div>
-            </article>
-          ))}
+                  <div>
+                    <h3 className="text-base font-extrabold text-white">
+                      {testimonial.name}
+                    </h3>
+
+                    <p className="mt-1 text-xs font-semibold text-slate-400">
+                      {testimonial.program} • {testimonial.university}
+                    </p>
+
+                    <div className="mt-2 flex gap-0.5">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <Star
+                          key={index}
+                          className={`h-3.5 w-3.5 ${
+                            index < rating
+                              ? "fill-red-500 text-red-500"
+                              : "text-slate-600"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative z-10 mt-6">
+                  <Quote className="mb-3 h-8 w-8 text-red-500/80" />
+
+                  <p
+                    className={`text-sm font-medium leading-6 text-slate-300 ${
+                      isOpen ? "" : "line-clamp-4"
+                    }`}
+                  >
+                    {testimonial.quote}
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveId(isOpen ? null : testimonial.id)}
+                    className="mt-4 inline-flex items-center gap-1 text-sm font-extrabold text-red-500 transition hover:text-red-400"
+                  >
+                    {isOpen ? "Show Less" : "Read More"}
+                    <ChevronRight
+                      className={`h-4 w-4 transition ${
+                        isOpen ? "rotate-90" : ""
+                      }`}
+                    />
+                  </button>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

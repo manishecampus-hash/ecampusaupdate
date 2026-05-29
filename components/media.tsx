@@ -7,7 +7,10 @@ const articles = [...pressArticles, ...pressArticles];
 
 export function MediaSection() {
   return (
-    <section className="py-10 sm:py-12 lg:py-14 bg-white overflow-hidden">
+    <section
+      style={{}}
+      className="relative w-full px-4 py-10 text-slate-100 sm:px-6 bg-white"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center mb-10">
@@ -48,7 +51,7 @@ export function MediaSection() {
                 <img
                   src={article.image}
                   alt={article.name}
-                  className="h-20 sm:h-24 w-auto object-contain"
+                  className="h-28 sm:h-32 w-auto object-contain"
                   onError={(e) => {
                     e.currentTarget.src =
                       "https://placehold.co/400x200/f8fafc/e2e8f0?text=Logo";

@@ -150,9 +150,9 @@ export default function AIProgramFinder() {
     <section
       style={{
         background:
-          "radial-gradient(circle at top left, rgba(232, 25, 44, 0.18), transparent 34%), radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 36%), #05070d",
+          "radial-gradient(circle at top right, rgba(255, 59, 79, 0.12), transparent 35%), #05070d",
       }}
-      className="relative overflow-hidden px-4 py-20 text-slate-100"
+      className="relative w-full px-4 py-10 text-slate-100 sm:px-6"
     >
       {/* Section Header */}
       <div className="mx-auto mb-10 max-w-7xl text-center px-4 sm:px-6 lg:px-8">

@@ -1,93 +1,127 @@
 import React from "react";
+import { Handshake } from "lucide-react";
 
-const curriculum = [
-  {
-    title: "Financial Accounting",
-    description:
-      "Learn accounting principles, journal entries, ledgers, trial balance, and financial statements.",
-  },
-  {
-    title: "Business Economics",
-    description:
-      "Understand demand, supply, pricing, market structures, and economic decision-making.",
-  },
-  {
-    title: "Corporate Accounting",
-    description:
-      "Study company accounts, shares, debentures, final accounts, and corporate financial reporting.",
-  },
-  {
-    title: "Income Tax Law",
-    description:
-      "Explore taxation rules, income heads, deductions, exemptions, and return filing basics.",
-  },
-  {
-    title: "Business Law",
-    description:
-      "Learn contracts, company law, commercial regulations, and legal aspects of business.",
-  },
-  {
-    title: "Cost Accounting",
-    description:
-      "Understand cost classification, budgeting, variance analysis, and cost control methods.",
-  },
-  {
-    title: "Auditing",
-    description:
-      "Study audit principles, verification, internal controls, documentation, and reporting.",
-  },
-  {
-    title: "Financial Management",
-    description:
-      "Learn capital budgeting, working capital, financial planning, and investment decisions.",
-  },
+const yearOne = [
+  ["BCOM101", "Financial Accounting", "6 Credits"],
+  ["BCOM102", "Business Organisation", "6 Credits"],
+  ["BCOM103", "Business Economics", "6 Credits"],
+  ["BCOM104", "Business Communication", "6 Credits"],
+  ["BCOM105", "Principles of Management", "6 Credits"],
 ];
+
+const yearTwo = [
+  ["BCOM201", "Corporate Accounting", "6 Credits"],
+  ["BCOM202", "Business Law", "6 Credits"],
+  ["BCOM203", "Cost Accounting", "6 Credits"],
+  ["BCOM204", "Income Tax Law", "6 Credits"],
+  ["BCOM205", "Company Law", "6 Credits"],
+];
+
+const yearThree = [
+  ["BCOM301", "Auditing", "6 Credits"],
+  ["BCOM302", "Financial Management", "6 Credits"],
+  ["BCOM303", "Management Accounting", "6 Credits"],
+  ["BCOM304", "GST & Indirect Tax", "6 Credits"],
+  ["BCOM305", "Project Work / Elective", "6 Credits"],
+];
+
+function CurriculumTable({ title, rows }: { title: string; rows: string[][] }) {
+  return (
+    <div className="mt-8">
+      <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-black">
+        {title}
+      </h3>
+
+      <div className="overflow-hidden border border-slate-300">
+        <table className="w-full border-collapse text-left text-sm text-black">
+          <thead>
+            <tr className="bg-slate-100">
+              <th className="border-b border-r border-slate-300 px-3 py-3 font-bold">
+                Course Code
+              </th>
+              <th className="border-b border-r border-slate-300 px-3 py-3 font-bold">
+                Module Title
+              </th>
+              <th className="border-b border-slate-300 px-3 py-3 font-bold">
+                ECTS
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {rows.map(([code, module, credits]) => (
+              <tr key={code} className="even:bg-slate-50">
+                <td className="border-b border-r border-slate-300 px-3 py-3 font-semibold">
+                  {code}
+                </td>
+                <td className="border-b border-r border-slate-300 px-3 py-3">
+                  {module}
+                </td>
+                <td className="border-b border-slate-300 px-3 py-3 font-semibold">
+                  {credits}
+                </td>
+              </tr>
+            ))}
+
+            <tr>
+              <td className="border-r border-slate-300 px-3 py-3 font-bold">
+                Total Credits
+              </td>
+              <td className="border-r border-slate-300 px-3 py-3" />
+              <td className="px-3 py-3 font-bold">30 Credits</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
 
 export default function BComCurriculum() {
   return (
-    <section className="bg-slate-50 px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+    <section className="w-full bg-white px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto mb-10 max-w-2xl text-center">
-          <span className="mb-3 inline-flex rounded-full bg-red-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-red-500">
+        <div className="mx-auto mb-8 max-w-3xl border-b border-slate-100 pb-6 text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/60 bg-slate-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-900">
+            <Handshake className="h-3.5 w-3.5 text-red-500" />
             B.Com Program
           </span>
 
-          <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
             Program <span className="text-red-500">Curriculum</span>
           </h2>
+        </div>
 
-          <p className="mt-4 text-base leading-relaxed text-slate-600">
-            Explore the core subjects covered throughout the online B.Com
-            journey, designed to build strong commerce and finance foundations.
+        <div className="mt-8 space-y-4 text-sm leading-relaxed text-black">
+          <p>
+            The <strong>Online B.Com program</strong> moves through three
+            academic years, with each year building stronger foundations in
+            commerce, accounting, taxation, finance, and business management.
+          </p>
+
+          <p>
+            <strong>Year 1</strong> builds the foundation. Students explore core
+            subjects such as financial accounting, business organisation,
+            economics, communication, and management principles.
+          </p>
+
+          <p>
+            <strong>Year 2</strong> goes deeper into applied commerce subjects
+            including corporate accounting, business law, cost accounting,
+            income tax, and company law.
+          </p>
+
+          <p>
+            <strong>Year 3</strong> focuses on advanced commerce and
+            professional skills through auditing, financial management,
+            management accounting, GST, indirect taxation, and project-based
+            learning.
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {curriculum.map((item, index) => (
-            <div
-              key={item.title}
-              className="group relative flex min-h-[230px] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-xl"
-            >
-              <div className="absolute right-0 top-0 h-24 w-24 translate-x-10 -translate-y-10 rounded-full bg-red-50 transition group-hover:bg-red-100" />
-
-              <div className="relative z-10 flex flex-1 flex-col">
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-red-50 text-sm font-black text-red-500 transition group-hover:bg-red-500 group-hover:text-white">
-                  {String(index + 1).padStart(2, "0")}
-                </div>
-
-                <h3 className="text-lg font-black leading-snug text-gray-900">
-                  {item.title}
-                </h3>
-
-                <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">
-                  {item.description}
-                </p>
-
-                <div className="mt-5 h-1 w-10 rounded-full bg-red-500 transition-all duration-300 group-hover:w-16" />
-              </div>
-            </div>
-          ))}
-        </div>
+        <CurriculumTable title="Year 1" rows={yearOne} />
+        <CurriculumTable title="Year 2" rows={yearTwo} />
+        <CurriculumTable title="Year 3" rows={yearThree} />
       </div>
     </section>
   );
