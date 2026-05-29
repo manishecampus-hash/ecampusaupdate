@@ -14,6 +14,7 @@ import {
   Users,
   Handshake,
 } from "lucide-react";
+import { programsData } from "./../data/online-course";
 
 const courseTabs = [
   { id: "free", label: "Free Courses" },
@@ -24,82 +25,7 @@ const courseTabs = [
   { id: "certifications", label: "Certifications" },
 ];
 
-const programsData = [
-  {
-    id: "free-ai-basics",
-    tab: "free",
-    ribbon: "100% FREE",
-    title: "Introduction to AI & Prompt Engineering Masterclass",
-    image:
-      "https://images.unsplash.com/photo-1677442136019-21780efad99a?w=900&auto=format&fit=crop&q=80",
-    duration: "4 hrs of learning",
-    learners: "45.1k+ learners",
-    slug: "#",
-    isFree: true,
-  },
-  {
-    id: "free-mgmt-foundations",
-    tab: "free",
-    ribbon: "FREE Course",
-    title: "Foundations of Digital Marketing & Business Analytics",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&auto=format&fit=crop&q=80",
-    duration: "6 hrs of learning",
-    learners: "99.2k+ learners",
-    slug: "#",
-    isFree: true,
-  },
-  {
-    id: "mba-healthcare",
-    tab: "pg",
-    ribbon: "Trending",
-    title: "MBA in Hospital and Healthcare Management",
-    image:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&auto=format&fit=crop&q=80",
-    duration: "24 months",
-    learners: "12.4k+ learners",
-    slug: "#",
-    isFree: false,
-  },
-  {
-    id: "bca-fintech-ai",
-    tab: "ug",
-    ribbon: "Trending",
-    title: "BCA with specialization in Financial Technology and AI",
-    image:
-      "https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=900&auto=format&fit=crop&q=80",
-    duration: "36 months",
-    learners: "8.7k+ learners",
-    slug: "#",
-    isFree: false,
-  },
-  {
-    id: "mca-fintech-ai",
-    tab: "pg",
-    ribbon: "Trending",
-    title: "MCA with specialization in Financial Technology and AI",
-    image:
-      "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=900&auto=format&fit=crop&q=80",
-    duration: "24 months",
-    learners: "6.3k+ learners",
-    slug: "#",
-    isFree: false,
-  },
-  {
-    id: "mba-dual",
-    tab: "pg",
-    ribbon: "QS Ranked",
-    title: "MBA with Dual Specialization",
-    image:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&auto=format&fit=crop&q=80",
-    duration: "24 months",
-    learners: "21.5k+ learners",
-    slug: "#",
-    isFree: false,
-  },
-];
-
-function useScrollState(ref) {
+function useScrollState(ref: React.RefObject<HTMLDivElement | null>) {
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(false);
 
@@ -129,7 +55,8 @@ function useScrollState(ref) {
   return { canLeft, canRight };
 }
 
-const arrowStyle = (visible) => ({
+// Tab arrows — small, transparent (mobile only)
+const tabArrowStyle = (visible: boolean): React.CSSProperties => ({
   background: "transparent",
   border: "none",
   padding: 0,
@@ -146,10 +73,58 @@ const arrowStyle = (visible) => ({
   height: 36,
 });
 
+// Carousel left arrow — rounded right side (matches OfferCarousel style)
+const leftArrowStyle = (visible: boolean): React.CSSProperties => ({
+  position: "absolute",
+  left: 0,
+  top: "50%",
+  transform: "translateY(-50%)",
+  zIndex: 40,
+  background: "#666666",
+  border: "none",
+  borderRadius: "0 8px 8px 0",
+  padding: 0,
+  cursor: visible ? "pointer" : "default",
+  color: "#ffffff",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  opacity: visible ? 1 : 0,
+  pointerEvents: visible ? "auto" : "none",
+  transition: "opacity 0.2s, background 0.2s",
+  flexShrink: 0,
+  width: 24,
+  height: 64,
+});
+
+// Carousel right arrow — rounded left side (matches OfferCarousel style)
+const rightArrowStyle = (visible: boolean): React.CSSProperties => ({
+  position: "absolute",
+  right: 0,
+  top: "50%",
+  transform: "translateY(-50%)",
+  zIndex: 40,
+  background: "#666666",
+  border: "none",
+  borderRadius: "8px 0 0 8px",
+  padding: 0,
+  cursor: visible ? "pointer" : "default",
+  color: "#ffffff",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  opacity: visible ? 1 : 0,
+  pointerEvents: visible ? "auto" : "none",
+  transition: "opacity 0.2s, background 0.2s",
+  flexShrink: 0,
+  width: 24,
+  height: 64,
+});
+
 export default function ProgramsSection() {
   const [activeTab, setActiveTab] = useState("free");
-  const carouselRef = useRef(null);
-  const tabsRef = useRef(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
 
   const filteredPrograms = useMemo(
     () =>
@@ -160,24 +135,23 @@ export default function ProgramsSection() {
   const { canLeft: carLeft, canRight: carRight } = useScrollState(carouselRef);
   const { canLeft: tabLeft, canRight: tabRight } = useScrollState(tabsRef);
 
-  const scrollCarousel = (dir) =>
+  const scrollCarousel = (dir: number) =>
     carouselRef.current?.scrollBy({ left: dir * 290, behavior: "smooth" });
-  const scrollTabs = (dir) =>
+  const scrollTabs = (dir: number) =>
     tabsRef.current?.scrollBy({ left: dir * 200, behavior: "smooth" });
 
   return (
     <section
       style={{
-        padding: "80px 0",
         background:
-          "radial-gradient(circle at top left, rgba(232,25,44,0.18), transparent 34%), radial-gradient(circle at bottom right, rgba(59,130,246,0.12), transparent 36%), #05070d",
-        color: "#f8fafc",
-        overflow: "hidden",
+          "radial-gradient(circle at top right, rgba(255, 59, 79, 0.12), transparent 35%), #05070d",
       }}
+      className="relative w-full px-4 py-10 text-slate-100 sm:px-6"
     >
       <style>{`
         .__ps::-webkit-scrollbar { display: none; }
         @media (min-width: 768px) { .__tabArrow { display: none !important; } }
+        .__carArrow:hover { background: #333333 !important; }
       `}</style>
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 24px" }}>
@@ -230,7 +204,7 @@ export default function ProgramsSection() {
           <button
             className="__tabArrow"
             onClick={() => scrollTabs(-1)}
-            style={arrowStyle(tabLeft)}
+            style={tabArrowStyle(tabLeft)}
           >
             <ChevronLeft size={16} />
           </button>
@@ -278,34 +252,36 @@ export default function ProgramsSection() {
           <button
             className="__tabArrow"
             onClick={() => scrollTabs(1)}
-            style={arrowStyle(tabRight)}
+            style={tabArrowStyle(tabRight)}
           >
             <ChevronRight size={16} />
           </button>
         </div>
 
         {/* ── Carousel Row ── */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          {/* Left arrow */}
+        <div style={{ position: "relative" }}>
+          {/* Left arrow — OfferCarousel style */}
           <button
+            className="__carArrow"
             onClick={() => scrollCarousel(-1)}
-            style={arrowStyle(carLeft)}
+            style={leftArrowStyle(carLeft)}
+            aria-label="Scroll left"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={16} />
           </button>
 
-          {/* Card track */}
+          {/* Card track — px-8 gives breathing room so arrows don't overlap cards */}
           <div
             ref={carouselRef}
             className="__ps"
             style={{
-              flex: 1,
               display: "flex",
               gap: "16px",
               overflowX: "auto",
               scrollbarWidth: "none",
               scrollSnapType: "x mandatory",
-              padding: "4px 2px 12px",
+              padding: "4px 32px 12px", // 32px left/right keeps cards away from arrows
+              alignItems: "stretch", // all cards in a row stretch to the tallest card's height
             }}
           >
             {filteredPrograms.length === 0 ? (
@@ -355,9 +331,10 @@ export default function ProgramsSection() {
                   <div
                     style={{
                       position: "relative",
-                      height: "170px",
+                      height: "160px",
                       overflow: "hidden",
                       background: "#f1f5f9",
+                      flexShrink: 0,
                     }}
                   >
                     <img
@@ -390,20 +367,20 @@ export default function ProgramsSection() {
                     </div>
                   </div>
 
-                  {/* Body */}
+                  {/* Body — flex:1 so it fills remaining height, pushing CTA to bottom */}
                   <div
                     style={{
-                      padding: "16px 16px 0",
-                      flex: 1,
+                      padding: "14px 14px 0",
                       display: "flex",
                       flexDirection: "column",
+                      flex: 1,
                     }}
                   >
                     {/* Title */}
                     <p
                       style={{
-                        margin: "0 0 14px",
-                        fontSize: "15px",
+                        margin: "0 0 12px",
+                        fontSize: "14px",
                         fontWeight: 700,
                         color: "#0f172a",
                         lineHeight: "1.45",
@@ -411,7 +388,6 @@ export default function ProgramsSection() {
                         WebkitLineClamp: 3,
                         WebkitBoxOrient: "vertical",
                         overflow: "hidden",
-                        minHeight: "65px",
                       }}
                     >
                       {program.title}
@@ -422,8 +398,8 @@ export default function ProgramsSection() {
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: "6px",
-                        marginBottom: "16px",
+                        gap: "5px",
+                        marginBottom: "14px",
                       }}
                     >
                       <div
@@ -431,11 +407,11 @@ export default function ProgramsSection() {
                           display: "flex",
                           alignItems: "center",
                           gap: "6px",
-                          fontSize: "13px",
+                          fontSize: "12px",
                           color: "#475569",
                         }}
                       >
-                        <Users size={14} color="#64748b" strokeWidth={1.8} />
+                        <Users size={13} color="#64748b" strokeWidth={1.8} />
                         <span>{program.learners}</span>
                       </div>
                       <div
@@ -443,11 +419,11 @@ export default function ProgramsSection() {
                           display: "flex",
                           alignItems: "center",
                           gap: "6px",
-                          fontSize: "13px",
+                          fontSize: "12px",
                           color: "#475569",
                         }}
                       >
-                        <Clock size={14} color="#64748b" strokeWidth={1.8} />
+                        <Clock size={13} color="#64748b" strokeWidth={1.8} />
                         <span>{program.duration}</span>
                       </div>
                     </div>
@@ -456,11 +432,10 @@ export default function ProgramsSection() {
                   {/* CTA Buttons */}
                   <div
                     style={{
-                      padding: "0 16px 16px",
+                      padding: "12px 14px 14px",
                       display: "flex",
                       gap: "10px",
                       borderTop: "1px solid #f1f5f9",
-                      paddingTop: "14px",
                     }}
                   >
                     <a
@@ -473,17 +448,16 @@ export default function ProgramsSection() {
                         borderRadius: "6px",
                         border: "1.5px solid #cbd5e1",
                         background: "#fff",
-                        padding: "9px 10px",
+                        padding: "8px 10px",
                         fontSize: "12px",
                         fontWeight: 700,
                         color: "#0f172a",
                         textDecoration: "none",
-                        transition: "border-color 0.2s, color 0.2s",
+                        transition: "border-color 0.2s",
                         whiteSpace: "nowrap",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = "#94a3b8";
-                        e.currentTarget.style.color = "#0f172a";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.borderColor = "#cbd5e1";
@@ -501,7 +475,7 @@ export default function ProgramsSection() {
                         borderRadius: "6px",
                         background: "#ff3b4f",
                         border: "1.5px solid #ff3b4f",
-                        padding: "9px 10px",
+                        padding: "8px 10px",
                         fontSize: "12px",
                         fontWeight: 700,
                         color: "#fff",
@@ -524,12 +498,14 @@ export default function ProgramsSection() {
             )}
           </div>
 
-          {/* Right arrow */}
+          {/* Right arrow — OfferCarousel style */}
           <button
+            className="__carArrow"
             onClick={() => scrollCarousel(1)}
-            style={arrowStyle(carRight)}
+            style={rightArrowStyle(carRight)}
+            aria-label="Scroll right"
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={16} />
           </button>
         </div>
       </div>

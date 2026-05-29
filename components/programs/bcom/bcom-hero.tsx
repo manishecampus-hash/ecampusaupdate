@@ -34,7 +34,7 @@ export default function BComHero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden border-b border-slate-100 bg-slate-50 pt-12 pb-14 lg:pt-14 lg:pb-16">
+    <section className="relative overflow-hidden border-b border-slate-100 bg-slate-50 pt-8 pb-4 lg:pt-10 lg:pb-6">
       <div className="absolute inset-0 opacity-[0.03] [mask-image:linear-gradient(to_bottom,white,transparent)]">
         <svg className="h-full w-full" fill="none" viewBox="0 0 400 400">
           <defs>
@@ -55,7 +55,7 @@ export default function BComHero() {
         </svg>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
             <div className="mb-4 flex w-fit items-center gap-2 rounded-full bg-amber-50 px-4 py-1.5 text-xs font-bold text-amber-700 ring-1 ring-amber-200">
@@ -79,7 +79,7 @@ export default function BComHero() {
               Undergraduate Program
             </div>
 
-            <h1 className="mt-4 text-4xl font-black leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+            <h1 className="mt-4 text-2xl font-black leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-4xl">
               Online B.Com in{" "}
               <span className="text-red-500">Accounting & Finance</span>
             </h1>
@@ -118,22 +118,6 @@ export default function BComHero() {
               />
             </div>
 
-            <div className="absolute -bottom-5 -left-4 z-20 rounded-2xl bg-white p-4 shadow-xl ring-1 ring-slate-100">
-              <div className="flex items-center gap-3">
-                <div className="rounded-xl bg-green-100 p-2 text-green-600">
-                  <CheckCircle2 className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                    Admission Status
-                  </p>
-                  <p className="text-sm font-black text-gray-900">
-                    Open for 2026
-                  </p>
-                </div>
-              </div>
-            </div>
-
             <div className="absolute -right-4 top-6 z-20 hidden rounded-2xl bg-white/90 p-4 shadow-xl ring-1 ring-slate-100 backdrop-blur lg:block">
               <div className="flex items-center gap-3">
                 <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
@@ -148,9 +132,10 @@ export default function BComHero() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map((item) => {
             const Icon = item.icon;
+
             return (
               <div
                 key={item.label}

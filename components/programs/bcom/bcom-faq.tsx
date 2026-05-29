@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import React, { useState } from "react";
+import { Handshake, ChevronDown } from "lucide-react";
+import { Section } from "././../../ui/section"; // Ensure this import path is correct for your project
 
 const faqs = [
   {
@@ -46,96 +47,78 @@ const faqs = [
   },
 ];
 
-function TypeAnswer({ text, active }: { text: string; active: boolean }) {
-  const [displayedText, setDisplayedText] = useState("");
-
-  useEffect(() => {
-    if (!active) {
-      setDisplayedText("");
-      return;
-    }
-
-    setDisplayedText("");
-    let index = 0;
-
-    const interval = setInterval(() => {
-      if (index < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(index));
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 12);
-
-    return () => clearInterval(interval);
-  }, [text, active]);
-
-  if (!active) return null;
-
-  return (
-    <p className="mt-3 text-[13px] leading-6 text-slate-600">
-      {displayedText}
-      {displayedText.length < text.length && (
-        <span className="ml-0.5 inline-block h-4 w-1 animate-pulse rounded-full bg-red-500 align-middle" />
-      )}
-    </p>
-  );
-}
-
 export default function BComFAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  // Maintaining the same "all open" logic as the reference, or change to [] if you prefer single toggle
+  const [openIndexes, setOpenIndexes] = useState<number[]>(
+    faqs.map((_, index) => index),
+  );
+
+  const toggleFAQ = (index: number) => {
+    setOpenIndexes((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
+    );
+  };
 
   return (
-    <section className="w-full bg-white px-4 py-8 sm:px-6 lg:px-8">
+    <Section className="w-full bg-white px-4 pt-12 pb-24 sm:px-6 lg:pb-32 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-5 text-center">
-          <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
+        {/* Section Header */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center mb-8">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
+            <Handshake className="h-3.5 w-3.5 text-red-500" />
+            FAQ
+          </span>
+
+          <h2 className="mt-3 text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl md:text-4xl">
             Frequently Asked <span className="text-red-500">Questions</span>
           </h2>
-
-          <p className="mt-4 text-base leading-relaxed text-slate-600">
-            Clear answers about online B.Com validity, eligibility, subjects,
-            exams, duration, and career options.
-          </p>
         </div>
 
+        {/* FAQ Accordion */}
         <div className="mx-auto max-w-4xl space-y-4">
           {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
+            const isOpen = openIndexes.includes(index);
 
             return (
               <div
                 key={faq.question}
-                className={`rounded-2xl border bg-white p-5 shadow-[0_6px_18px_rgba(15,23,42,0.14)] transition-all duration-200 ${
-                  isOpen
-                    ? "border-red-200"
-                    : "border-slate-200 hover:border-red-200"
-                }`}
+                className="rounded-2xl border border-slate-200 bg-white shadow-[0_6px_18px_rgba(15,23,42,0.08)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(15,23,42,0.12)]"
               >
                 <button
-                  type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="flex w-full items-start justify-between gap-4 text-left"
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full flex items-center justify-between p-5 text-left"
                 >
-                  <h3 className="flex-1 text-[18px] font-black leading-[1.3] tracking-[-0.3px] text-slate-950">
+                  <h3 className="text-[18px] font-semibold leading-[1.3] tracking-[-0.3px] text-slate-950 pr-4">
                     {faq.question}
                   </h3>
 
-                  <span
-                    className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-500 transition-transform duration-300 ${
-                      isOpen ? "rotate-180" : ""
+                  <div
+                    className={`flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 transition-all duration-300 ${
+                      isOpen ? "rotate-180 bg-red-50" : ""
                     }`}
                   >
-                    <ChevronDown className="h-5 w-5" strokeWidth={2.4} />
-                  </span>
+                    <ChevronDown className="h-5 w-5 text-red-500" />
+                  </div>
                 </button>
 
-                <TypeAnswer text={faq.answer} active={isOpen} />
+                <div
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-5 text-[14px] leading-6 text-slate-600">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
               </div>
             );
           })}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
