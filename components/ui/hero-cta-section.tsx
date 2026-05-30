@@ -4,28 +4,23 @@ import React from "react";
 import { Handshake } from "lucide-react";
 
 export default function HeroStatsSection() {
-  // Array updated with exact logo image paths from your banner-press directory
   const partners = [
-    { name: "ARM", src: "/banner-press/armLogo.png" },
-    { name: "BMW", src: "/banner-press/bmwLogo.png" },
-    { name: "Dell", src: "/banner-press/dellLogo.png" },
-    { name: "Google", src: "/banner-press/googleLogo.png" },
-    { name: "JP Morgan", src: "/banner-press/JPLogo.png" },
-    { name: "Klinikum", src: "/banner-press/klinikumLogo.png" },
-    { name: "Nvidia", src: "/banner-press/nvidiaLogo.png" },
-    { name: "TikTok", src: "/banner-press/tiktokLogo.png" },
+    { name: "ARM", src: "/banner-press/partner2.webp" },
+    { name: "BMW", src: "/banner-press/partner7.webp" },
+    { name: "Dell", src: "/banner-press/partner1.webp" },
+    { name: "Google", src: "/banner-press/partner8.webp" },
+    { name: "JP Morgan", src: "/banner-press/partner3.webp" },
+    { name: "Klinikum", src: "/banner-press/JPLogo.png" },
+    { name: "Nvidia", src: "/banner-press/partner5.webp" },
+    { name: "TikTok", src: "/banner-press/partner6.webp" },
   ];
 
-  // Doubled the array list to ensure smooth infinite loop seamless layout transition
   const doublePartners = [...partners, ...partners];
 
   return (
-    /* ============================================================
-        PLACEMENT PARTNERS — INFINITE TICKER MARQUEE
-       ============================================================ */
     <section className="bg-white border-y border-slate-100 py-10 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center mb-6">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-60 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
           <Handshake className="h-3.5 w-3.5 text-red-500" />
           Our Elite Hiring Network
         </span>
@@ -35,18 +30,16 @@ export default function HeroStatsSection() {
         </h2>
       </div>
 
-      {/* Infinite loop flex track wrapper container */}
       <div className="relative w-full flex items-center overflow-hidden py-4 select-none">
-        {/* Left & Right gradient masking over component layout borders */}
         <div className="pointer-events-none absolute left-0 z-10 h-full w-24 bg-gradient-to-r from-white to-transparent" />
         <div className="pointer-events-none absolute right-0 z-10 h-full w-24 bg-gradient-to-l from-white to-transparent" />
 
-        {/* Linear running track block */}
-        <div className="flex shrink-0 items-center justify-start gap-12 pr-12 animate-marquee whitespace-nowrap">
+        {/* Increased gap from gap-12 to gap-16 to provide breathing room for larger boxes */}
+        <div className="flex shrink-0 items-center justify-start gap-16 pr-16 animate-marquee whitespace-nowrap">
           {doublePartners.map((partner, index) => (
             <div
               key={`${partner.name}-${index}`}
-              className="flex items-center justify-center w-[130px] h-[45px] shrink-0 transition-all duration-300 transform hover:scale-110"
+              className="flex items-center justify-center w-[160px] h-[60px] shrink-0 transition-all duration-300 transform hover:scale-110 border-2 border-black rounded-lg p-2"
             >
               <img
                 src={partner.src}
@@ -59,7 +52,6 @@ export default function HeroStatsSection() {
         </div>
       </div>
 
-      {/* Inject custom animation keyframes inside native template style */}
       <style jsx global>{`
         @keyframes marquee {
           0% {

@@ -24,6 +24,7 @@ const highlights = [
 
 export default function BComHero() {
   const [seatsLeft, setSeatsLeft] = useState(18);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -78,6 +79,7 @@ export default function BComHero() {
               </span>
               ONLY {seatsLeft} SEATS LEFT FOR JUNE 2026 BATCH
             </div>
+
             <h1 className="mt-4 text-2xl font-black leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-4xl">
               Online B.Com in{" "}
               <span className="text-red-500">Accounting & Finance</span>
@@ -108,15 +110,40 @@ export default function BComHero() {
             </div>
           </div>
 
+          {/* RIGHT: VIDEO CARD */}
           <div className="relative">
             <div className="relative z-10 overflow-hidden rounded-3xl shadow-2xl ring-1 ring-slate-200">
+              {/* Thumbnail */}
               <img
                 src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1000&auto=format&fit=crop&q=80"
-                alt="Online B.Com Accounting and Finance"
+                alt="Online B.Com Program Overview"
                 className="h-[420px] w-full object-cover"
               />
+
+              {/* Play button overlay */}
+              <button
+                type="button"
+                onClick={() => setIsVideoOpen(true)}
+                className="absolute inset-0 flex items-center justify-center bg-black/35 transition hover:bg-black/45"
+              >
+                <div className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-white/95 shadow-2xl transition hover:scale-105">
+                  <span className="ml-1 border-y-[13px] border-l-[22px] border-r-0 border-y-transparent border-l-red-500" />
+                </div>
+              </button>
+
+              {/* Video label */}
+              <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-xl bg-white/90 px-3.5 py-2 shadow-md backdrop-blur-sm">
+                <span className="h-2 w-2 rounded-full bg-red-500" />
+                <span className="text-xs font-bold text-slate-800">
+                  Watch Program Overview
+                </span>
+                <span className="text-[11px] font-semibold text-slate-400">
+                  2:45 min
+                </span>
+              </div>
             </div>
 
+            {/* Rating badge */}
             <div className="absolute -right-4 top-6 z-20 hidden rounded-2xl bg-white/90 p-4 shadow-xl ring-1 ring-slate-100 backdrop-blur lg:block">
               <div className="flex items-center gap-3">
                 <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
@@ -152,6 +179,33 @@ export default function BComHero() {
           })}
         </div>
       </div>
+
+      {/* Video Modal */}
+      {isVideoOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75"
+          onClick={() => setIsVideoOpen(false)}
+        >
+          <div
+            className="relative aspect-video w-[90vw] max-w-3xl overflow-hidden rounded-2xl bg-black"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white transition hover:bg-black/80"
+              onClick={() => setIsVideoOpen(false)}
+            >
+              ✕
+            </button>
+            <iframe
+              src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1"
+              className="h-full w-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

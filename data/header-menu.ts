@@ -28,11 +28,13 @@ export const categories = [
     courses: [
       {
         tag: "Certification",
+        href: "/programs/certification/iim-k-hr",
         name: "IIM K – HR Management & Analytics",
         duration: "8 Months",
       },
       {
         tag: "Certification",
+        href: "/programs/certification/iim-k-ai",
         name: "IIM K – AI Professional Certificate",
         duration: "6 Months",
       },
@@ -48,6 +50,7 @@ export const categories = [
     courses: [
       {
         tag: "Doctorate",
+        href: "/programs/doctorate/birchwood",
         name: "Birchwood University",
         duration: "3 Years",
         image: "/doctorate/birchwood-logo.webp",
@@ -56,48 +59,56 @@ export const categories = [
         tag: "Doctorate",
         name: "EIMT",
         duration: "3 Years",
+        href: "/programs/doctorate/eimt",
         image: "/doctorate/eimt_logo.webp",
       },
       {
         tag: "Doctorate",
         name: "Swiss School of Business and Management",
         duration: "3 Years",
+        href: "/programs/doctorate/ssbm",
         image: "/doctorate/Logo 56x56_SSBM.svg",
       },
       {
         tag: "Doctorate",
         name: "Ecole de Commerce International (ESGCI)",
         duration: "3 Years",
+        href: "/programs/doctorate/esgci",
         image: "/doctorate/ESGCI.svg",
       },
       {
         tag: "Doctorate",
         name: "Rushford Business School",
         duration: "3 Years",
+        href: "/programs/doctorate/rushford",
         image: "/doctorate/Rushford.svg",
       },
       {
         tag: "Doctorate",
         name: "Edgewood",
         duration: "3 Years",
+        href: "/programs/doctorate/edgewood",
         image: "/doctorate/EdgewoodUnisvgFINAL.svg",
       },
       {
         tag: "Doctorate",
         name: "Golden Gate University",
         duration: "3 Years",
+        href: "/programs/doctorate/ggu",
         image: "/doctorate/GGU.svg",
       },
       {
         tag: "Doctorate",
         name: "Woolf University",
         duration: "3 Years",
+        href: "/programs/doctorate/woolf",
         image: "/doctorate/woolf.png",
       },
       {
         tag: "Doctorate",
         name: "LSMT University",
         duration: "3 Years",
+        href: "/programs/doctorate/lsmt",
         image: "/doctorate/lsmt_logo.webp",
       },
     ],
