@@ -234,10 +234,10 @@ export default function ProgramsSection() {
                     padding: "0 0 12px",
                     fontSize: "14px",
                     fontWeight: 500,
-                    color: isActive ? "#ff3b4f" : "#94a3b8",
+                    color: isActive ? "#ffff" : "#94a3b8",
                     whiteSpace: "nowrap",
                     borderBottom: isActive
-                      ? "2px solid #ff3b4f"
+                      ? "2px solid #ffff"
                       : "2px solid transparent",
                     marginBottom: "-1px",
                     transition: "color 0.2s",
