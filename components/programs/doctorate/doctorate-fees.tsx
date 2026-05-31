@@ -1,6 +1,6 @@
 "use client";
 
-import { Section } from "@/components/ui/section";
+import { Handshake } from "lucide-react";
 
 const feeOptions = [
   {
@@ -27,19 +27,26 @@ const feeOptions = [
 
 export default function DoctorateEligibilityFees() {
   return (
-    <Section className="bg-white !py-10 sm:!py-14" id="fee">
+    <section
+      style={{
+        background:
+          "radial-gradient(circle at top right, rgba(255, 59, 79, 0.12), transparent 35%), #05070d",
+      }}
+      className="relative w-full px-4 py-12 text-slate-100 sm:px-6"
+    >
       <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mx-auto mb-10 max-w-3xl text-center">
-          <span className="mb-4 inline-flex rounded-full bg-red-50 px-4 py-1.5 text-sm font-semibold text-red-600">
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/60 bg-slate-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-900">
+            <Handshake className="h-3.5 w-3.5 text-red-500" />
             Doctorate — DBA Program
           </span>
 
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-            Program Fee & <span className="text-red-600">Financing</span>
+          <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl md:text-4xl">
+            Program Fee & <span className="text-red-500">Financing</span>
           </h2>
 
-          <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg">
+          <p className="mt-4 text-base leading-7 text-slate-400 sm:text-lg">
             Flexible funding options designed for senior professionals and
             executives.
           </p>
@@ -48,8 +55,8 @@ export default function DoctorateEligibilityFees() {
         {/* Main Grid */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Left Card */}
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 p-8 text-white shadow-xl sm:p-10">
-            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-red-500/10" />
+          <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/80 p-8 backdrop-blur-xl sm:p-10">
+            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-red-500/10 blur-3xl" />
 
             <div className="relative z-10">
               <div className="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-400">
@@ -64,7 +71,6 @@ export default function DoctorateEligibilityFees() {
                 3-Year Online DBA - Batch June 2026
               </div>
 
-              {/* EMI Box */}
               <div className="mb-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
                 <div className="mb-1 text-sm font-bold text-red-400">
                   💳 No-Cost EMI
@@ -72,12 +78,11 @@ export default function DoctorateEligibilityFees() {
 
                 <div className="text-sm leading-6 text-slate-300 sm:text-base">
                   Starting from{" "}
-                  <span className="font-bold text-white">₹12,000/month</span> -
+                  <span className="font-bold text-white">₹12,000/month</span> —
                   flexible tenure up to 36 months
                 </div>
               </div>
 
-              {/* Button */}
               <button className="w-full rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-red-700 sm:text-base">
                 Apply & Secure Seat
               </button>
@@ -89,18 +94,18 @@ export default function DoctorateEligibilityFees() {
             {feeOptions.map((item) => (
               <div
                 key={item.title}
-                className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                className="flex items-start gap-4 rounded-2xl border border-slate-800 bg-slate-900/70 p-5 backdrop-blur-lg transition-all duration-300 hover:border-red-500/30"
               >
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-red-50 to-orange-100 text-2xl">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-red-500/10 text-2xl">
                   {item.icon}
                 </div>
 
                 <div>
-                  <h3 className="mb-1 text-base font-bold text-slate-900">
+                  <h3 className="mb-1 text-base font-bold text-white">
                     {item.title}
                   </h3>
 
-                  <p className="text-sm leading-6 text-slate-600 sm:text-[15px]">
+                  <p className="text-sm leading-6 text-slate-300 sm:text-[15px]">
                     {item.desc}
                   </p>
                 </div>
@@ -109,6 +114,6 @@ export default function DoctorateEligibilityFees() {
           </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

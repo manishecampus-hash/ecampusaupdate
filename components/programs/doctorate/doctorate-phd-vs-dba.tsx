@@ -1,54 +1,102 @@
-import { Section } from "@/components/ui/section";
-import { XCircle, ShieldCheck } from "lucide-react";
+"use client";
+
+import { GraduationCap, BriefcaseBusiness, Handshake } from "lucide-react";
 
 export default function DoctoratePhDvsDBA() {
+  const tableData = [
+    {
+      aspect: "Focus",
+      phd: "Theoretical and academic research",
+      dba: "Practical, real-world business solutions",
+    },
+    {
+      aspect: "Ideal For",
+      phd: "Academicians and researchers",
+      dba: "Working professionals and business leaders",
+    },
+    {
+      aspect: "Research Type",
+      phd: "Original theoretical research",
+      dba: "Applied business research and case studies",
+    },
+    {
+      aspect: "Career Outcome",
+      phd: "Professors, researchers, scholars",
+      dba: "Executive roles, consultants, entrepreneurs",
+    },
+    {
+      aspect: "Duration",
+      phd: "4–6 years (mostly full-time)",
+      dba: "2–3 years (often online/flexible)",
+    },
+    {
+      aspect: "Work Experience",
+      phd: "Not required",
+      dba: "Typically 5+ years required",
+    },
+  ];
+
   return (
-    <Section>
-      <div className="mb-8 text-center sm:mb-12">
-        <span className="mb-3 inline-block rounded-full bg-red-50 px-4 py-1 text-sm font-semibold text-red-600 sm:mb-4">
+    <section className="bg-white border-y border-slate-100 py-10 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center mb-6">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
+          <Handshake className="h-3.5 w-3.5 text-red-500" />
           Comparison
         </span>
-        <h2 className="mb-3 text-3xl font-bold text-gray-900 sm:text-4xl">
-          PhD vs DBA
+
+        <h2 className="mt-2 text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl md:text-4xl">
+          PhD vs DBA: Understanding the{" "}
+          <span className="text-red-500">Difference</span>
         </h2>
-        <p className="mx-auto max-w-2xl text-base text-gray-600">
-          Understand the difference and choose the right path for your career
-        </p>
       </div>
 
-      <div className="grid overflow-hidden rounded-3xl border border-slate-200 md:grid-cols-2">
-        {/* PhD — left gray */}
-        <div className="bg-slate-50 p-8">
-          <h3 className="mb-5 flex items-center gap-2 text-xl font-bold text-slate-400">
-            <XCircle className="h-5 w-5" />
-            PhD (Doctor of Philosophy)
-          </h3>
-          <ul className="space-y-3 text-base text-gray-600">
-            <li>✕ Academic/research focused</li>
-            <li>✕ Suited for teaching careers</li>
-            <li>✕ Longer duration (4-6 years)</li>
-            <li>✕ Limited industry application</li>
-            <li>✕ Full-time commitment required</li>
-            <li>✕ Theory-heavy curriculum</li>
-          </ul>
-        </div>
+      <div className="mx-2 sm:mx-auto max-w-6xl overflow-hidden rounded-3xl border border-slate-200 bg-white">
+        <table className="w-full text-center text-[10px] sm:text-sm border-collapse">
+          <thead>
+            <tr className="bg-slate-50 text-slate-900 border-b border-slate-200 align-middle">
+              <th className="w-[18%] px-2 sm:px-6 py-4 font-bold uppercase tracking-wider text-[9px] sm:text-sm text-center align-middle">
+                Aspect
+              </th>
 
-        {/* DBA — right red */}
-        <div className="bg-red-500 p-8 text-white">
-          <h3 className="mb-5 flex items-center gap-2 text-xl font-bold">
-            <ShieldCheck className="h-5 w-5" />
-            DBA (Doctor of Business Administration)
-          </h3>
-          <ul className="space-y-3 text-base font-semibold">
-            <li>✓ Industry & business focused</li>
-            <li>✓ Suited for executive careers</li>
-            <li>✓ Shorter duration (3 Years)</li>
-            <li>✓ Direct industry application</li>
-            <li>✓ Flexible online learning</li>
-            <li>✓ Practical case-study curriculum</li>
-          </ul>
-        </div>
+              <th className="w-[32%] px-2 sm:px-6 py-4 font-bold uppercase tracking-wider align-middle">
+                <div className="flex flex-row items-center justify-center gap-1 sm:gap-2 text-center">
+                  <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 shrink-0" />
+                  <span className="text-[8px] sm:text-xs md:text-sm leading-tight break-words">
+                    PhD in Management
+                  </span>
+                </div>
+              </th>
+
+              <th className="w-[50%] px-2 sm:px-6 py-4 font-bold uppercase tracking-wider align-middle">
+                <div className="flex flex-row items-center justify-center gap-1 sm:gap-2 text-center">
+                  <BriefcaseBusiness className="h-4 w-4 sm:h-5 sm:w-5 text-red-600 shrink-0" />
+                  <span className="text-[8px] sm:text-xs md:text-sm leading-tight break-words">
+                    Doctor of Business Administration
+                  </span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody className="divide-y divide-slate-100">
+            {tableData.map((row, idx) => (
+              <tr key={idx} className="transition hover:bg-slate-50">
+                <td className="px-2 sm:px-6 py-4 font-bold text-slate-900 text-center align-middle">
+                  {row.aspect}
+                </td>
+
+                <td className="px-2 sm:px-6 py-4 text-slate-600 leading-tight text-center align-middle">
+                  {row.phd}
+                </td>
+
+                <td className="px-2 sm:px-6 py-4 text-slate-600 leading-tight text-center align-middle">
+                  {row.dba}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </Section>
+    </section>
   );
 }

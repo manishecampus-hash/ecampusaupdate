@@ -203,11 +203,13 @@ export const categories = [
         tag: "Certification",
         name: "Digital Marketing & AI Course",
         duration: "6 Months",
+        href: "/programs/offline-certification/digital-marketing-ai",
       },
       {
         tag: "Certification",
         name: "Ecommerce Business Course",
         duration: "4 Months",
+        href: "/programs/offline-certification/ecommerce-business",
       },
     ],
   },

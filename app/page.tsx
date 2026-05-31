@@ -17,6 +17,7 @@ import FAQ from "@/components/faq";
 import OnlineCourseSection from "@/components/online-courses";
 import FloatingCta from "@/components/floating-cta";
 import { MediaSection } from "@/components/media";
+import NewCta from "@/components/new-cta";
 
 export default function Home() {
   return (
@@ -38,7 +39,7 @@ export default function Home() {
 
       <OnlineCourseSection />
       {/* <CtaSection /> */}
-      <EcampusCta />
+      <NewCta />
       <GraduatesMarquee />
       {/* <PressSection /> */}
       <MediaSection />

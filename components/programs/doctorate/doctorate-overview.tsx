@@ -1,5 +1,6 @@
-import { Section } from "@/components/ui/section";
-import { BookOpen, Globe, Users, TrendingUp } from "lucide-react";
+"use client";
+
+import { BookOpen, Globe, Users, TrendingUp, Handshake } from "lucide-react";
 
 type CourseData = {
   title: string;
@@ -31,35 +32,45 @@ export default function DoctorateOverview({ course }: { course: CourseData }) {
   ];
 
   return (
-    <Section>
-      {/* Heading */}
-      <div className="mb-8 text-center sm:mb-12">
-        <span className="mb-3 inline-block rounded-full bg-red-50 px-4 py-1 text-sm font-semibold text-red-600 sm:mb-4">
+    <section
+      style={{
+        background:
+          "radial-gradient(circle at top right, rgba(255, 59, 79, 0.12), transparent 35%), #05070d",
+      }}
+      className="relative w-full px-4 py-10 text-slate-100 sm:px-6"
+    >
+      {/* Section Header */}
+      <div className="mx-auto mb-10 max-w-7xl text-center px-4 sm:px-6 lg:px-8">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-xs font-bold text-slate-900 uppercase tracking-wider">
+          <Handshake className="h-3.5 w-3.5 text-red-500" />
           Course Overview
         </span>
-        <h2 className="mb-3 text-3xl font-bold text-gray-900 sm:text-4xl lg:text-5xl">
-          About {course.title}
+        <h2 className="mt-2 text-2xl font-extrabold text-white tracking-tight sm:text-3xl md:text-4xl">
+          About {course.title.replace(/University$/, "")}
+          <span className="text-red-500"> University</span>
         </h2>
-        <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-xl">
+        <p className="mx-auto mt-4 max-w-2xl text-base text-slate-400">
           {course.description}
         </p>
       </div>
 
-      {/* Highlights grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Highlights Grid */}
+      <div className="relative z-10 mx-auto max-w-7xl grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {highlights.map((item) => (
           <div
             key={item.label}
-            className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm hover:shadow-md transition"
+            className="rounded-3xl border border-white/10 bg-[#111827] p-6 shadow-[0_18px_50px_rgba(0,0,0,0.32)] transition hover:border-red-500/40"
           >
-            <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-red-50 text-red-500">
+            <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-red-500/10 text-red-500">
               <item.icon className="h-5 w-5" />
             </div>
-            <h3 className="font-bold text-gray-900">{item.label}</h3>
-            <p className="mt-1 text-sm text-gray-600">{item.desc}</p>
+            <h3 className="font-bold text-white text-sm">{item.label}</h3>
+            <p className="mt-1 text-sm text-slate-400 leading-relaxed">
+              {item.desc}
+            </p>
           </div>
         ))}
       </div>
-    </Section>
+    </section>
   );
 }
